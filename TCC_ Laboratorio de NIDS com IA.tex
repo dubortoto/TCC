@@ -1,256 +1,150 @@
-\documentclass[]{article}
+\documentclass[12pt,oneside]{abntex2}
 
-\usepackage{graphicx}
-\usepackage{booktabs, tabularx, wrapfig}
-\usepackage[hidelinks]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled=1]{helvet}
+\usepackage{indentfirst}
+\usepackage{setspace}
 \hypersetup{hidelinks}
-\usepackage{xcolor}
-\usepackage[normalem]{ulem}
-\usepackage{multirow}
-\usepackage{longtable}
-\usepackage{amsmath, amssymb}
-\usepackage{enumitem, array}
+\renewcommand{\familydefault}{\sfdefault}
+
+\OnehalfSpacing
+\setlength{\parskip}{0.5\baselineskip}
+\setsecheadstyle{\fontsize{14pt}{16pt}\selectfont\bfseries}
+\setsubsecheadstyle{\fontsize{14pt}{16pt}\selectfont\bfseries}
+\renewcommand{\chapnamefont}{\fontsize{14pt}{16pt}\selectfont\bfseries}
+\renewcommand{\chapnumfont}{\fontsize{14pt}{16pt}\selectfont\bfseries}
+\renewcommand{\chaptitlefont}{\fontsize{14pt}{16pt}\selectfont\bfseries}
+
+\titulo{Desenvolvimento de um Laboratório de Detecção de Intrusão: Comparando Machine Learning e Deep Learning na Identificação de Ameaças em Redes}
+\autor{EDUARDO DE MATTOS BORTOTO}
+\local{São Paulo}
+\data{2026}
+
+\instituicao{%
+  FACULDADE DE TECNOLOGIA DE SÃO PAULO - FATEC-SP
+}
+
+\tipotrabalho{Trabalho de conclusão de curso}
+\orientador{Profª. Me. Grace Anne Pontes Borges}
+\preambulo{Trabalho de conclusão do curso apresentado à FATEC-SP, como exigência parcial para a obtenção do grau de Tecnólogo em Análise e Desenvolvimento de Sistemas, sob orientação da Professora Mestre Grace Anne Pontes Borges.}
+
+\makepagestyle{tccright}
+\makeoddhead{tccright}{}{}{}
+\makeevenhead{tccright}{}{}{}
+\makeoddfoot{tccright}{}{}{\thepage}
+\makeevenfoot{tccright}{}{}{\thepage}
 
 \begin{document}
 
-\textbf{FACULDADE DE TECNOLOGIA DE SÃO PAULO -- FATEC-SP}
+\pretextual
+\begin{capa}
+\begin{center}
+\bfseries\imprimirinstituicao
 
-\textbf{EDUARDO DE MATTOS BORTOTO}
+\vfill
+\textbf{\imprimirautor}
 
-\textbf{Desenvolvimento de um Laboratório de Detecção de Intrusão:
-Comparando Machine Learning e Deep Learning na Identificação de Ameaças
-em Redes}
+\vfill
+{\fontsize{16pt}{19pt}\selectfont\bfseries\imprimirtitulo\par}
 
-São Paulo
+\vfill
+\imprimirlocal
+\par
+\imprimirdata
+\end{center}
+\end{capa}
 
-2026
+\begin{folhaderosto}
+\begin{center}
+\textbf{\imprimirinstituicao}
 
-\textbf{FACULDADE DE TECNOLOGIA DE SÃO PAULO -- FATEC-SP}
+\vfill
+\textbf{\imprimirautor}
 
-\textbf{EDUARDO DE MATTOS BORTOTO}
+\vfill
+{\fontsize{16pt}{19pt}\selectfont\bfseries\imprimirtitulo\par}
 
-\textbf{Desenvolvimento de um Laboratório de Detecção de Intrusão:
-Comparando Machine Learning e Deep Learning na Identificação de Ameaças
-em Redes}
+\vfill
+\hfill
+\begin{minipage}{0.5\textwidth}
+\SingleSpacing
+\imprimirpreambulo
+\end{minipage}
 
-Trabalho de conclusão do curso apresentado à FATEC-SP, como exigência
-parcial para a obtenção do grau de Tecnólogo em Análise e
-Desenvolvimento de Sistemas, sob orientação da Professora Mestre Grace
-Anne Pontes Borges
+\vfill
+\imprimirlocal
+\par
+\imprimirdata
+\end{center}
+\end{folhaderosto}
 
-São Paulo
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
 
-2026
+\textual
+\OnehalfSpacing
+\linespread{1.5}\selectfont
 
-SUMÁRIO
+\pagestyle{tccright}
+\aliaspagestyle{chapter}{tccright}
 
-Contexto Atual
+\chapter{INTRODUÇÃO}
 
-A segurança da informação atravessa, na atualidade, um momento de
-ruptura paradigmática. Durante décadas, a proteção das redes
-corporativas fundamentou-se em uma lógica reativa, onde a defesa
-dependia quase exclusivamente do conhecimento prévio das ameaças.
-Ferramentas clássicas, como firewalls e sistemas de detecção de intrusão
-(IDS) baseados em assinaturas, operavam de maneira similar a um sistema
-imunológico que só reconhece patógenos já catalogados. Se o tráfego de
-rede contivesse uma sequência de bytes conhecida como maliciosa, o
-bloqueio era imediato; caso contrário, o acesso era permitido. No
-entanto, a transformação digital acelerada, impulsionada pela adoção
-massiva da computação em nuvem e pela expansão da Internet das Coisas
-(IoT), expôs a fragilidade desse modelo. O perímetro de segurança, antes
-bem definido pelas paredes do data center, dissolveu-se, e o volume de
-dados trafegados atingiu escalas que tornam a análise manual humana
-impraticável.
+A elaboração de estratégias de defesa cibernética robustas tornou-se uma exigência crítica e inadiável no cenário tecnológico contemporâneo. A digitalização acelerada dos processos corporativos, governamentais e sociais, catalisada pela adoção massiva de computação em nuvem e dispositivos móveis, trouxe consigo uma complexidade sem precedentes e vulnerabilidades sistêmicas que, quando exploradas, geram impactos econômicos, operacionais e reputacionais severos. Nesse contexto de hiperconectividade, a superfície de ataque expande-se continuamente, tornando a preservação da confidencialidade, integridade e disponibilidade da informação um desafio dinâmico que exige evolução constante frente a adversários cada vez mais organizados.
 
-O cenário agravou-se com a sofisticação das táticas ofensivas.
-Cibercriminosos utilizam hoje ataques de "Dia Zero" (Zero-Day), que
-exploram vulnerabilidades inéditas para as quais não existem assinaturas
-de defesa, tornando invisíveis as invasões aos olhos dos sistemas
-tradicionais. Somado a isso, a onipresença da criptografia em protocolos
-como HTTPS e TLS 1.3, embora essencial para a privacidade, criou um
-"ponto cego" para a defesa, impedindo a inspeção profunda do conteúdo
-dos pacotes. Nesse contexto, a Inteligência Artificial (IA) emerge não
-como um luxo, mas como uma necessidade operacional. A transição para
-sistemas baseados em anomalia comportamental permite que a defesa
-aprenda o padrão "normal" da rede e identifique desvios sutis,
-possibilitando a detecção de ataques nunca antes vistos,
-independentemente de sua assinatura ou da criptografia utilizada.
+A análise dos relatórios recentes revela uma mudança de tendência nos prejuízos financeiros decorrentes de ciberataques. Estes dados indicam que as defesas tradicionais, baseadas puramente em regras estáticas e assinaturas, já não são suficientes para conter a sofisticação das ameaças modernas, resultando em custos globais de violação de dados que atingiram patamares históricos (IBM, 2024, p. 4).
 
-Para profissionais que atuam na linha de frente da segurança ofensiva,
-como é o caso dos pentesters, compreender essa evolução na defesa é
-vital. A dicotomia tradicional entre quem ataca (Red Team) e quem
-defende (Blue Team) está dando lugar a uma abordagem integrada,
-conhecida como Purple Team. Entender a engenharia por trás dos
-algoritmos de detecção modernos não serve apenas para construir defesas
-melhores, mas também para aprimorar as técnicas de auditoria, garantindo
-que os testes de segurança reflitam a realidade de um ambiente
-monitorado por inteligência artificial.
+Segundo o relatório Cost of a Data Breach Report 2025, o custo médio global de uma violação de dados apresentou uma queda para US\$4,44 milhões, representando uma redução de 9\% em relação ao ano anterior (IBM, 2025, p. 3). Essa diminuição é atribuída diretamente à redução do ciclo de vida das violações: o tempo médio para identificar e conter um incidente caiu para 241 dias (o menor patamar em nove anos), impulsionado fundamentalmente pelo uso extensivo de Inteligência Artificial e automação pelas equipes de segurança (IBM, 2025, p. 7).
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  Objetivo
-\end{enumerate}
+No Brasil, o cenário acompanhou a tendência global de redução, com o custo médio de uma violação caindo para US\$1,22 milhão em 2025 (IBM, 2025, p. 6). Contudo, a complexidade dos ataques permanece crítica. O vetor de ataque inicial mais comum passou a ser o phishing, responsável por 16\% das violações, desbancando o uso de credenciais roubadas (IBM, 2025, p. 16). Além disso, ataques envolvendo comprometimento da cadeia de suprimentos (supply chain) tornaram-se o segundo vetor mais frequente e o que demanda maior tempo para identificação e contenção, com o tempo médio de 267 dias (IBM, 2025, p. 18).
 
-\begin{quote}
-O objetivo central deste trabalho é desmistificar a aplicação de
-Inteligência Artificial na segurança defensiva através da construção de
-um protótipo funcional de um Sistema de Detecção de Intrusão (NIDS). Em
-vez de focar apenas na teoria abstrata, o projeto propõe o
-desenvolvimento de um laboratório prático onde será possível treinar,
-testar e comparar a eficácia de diferentes gerações de algoritmos na
-distinção entre tráfego legítimo e malicioso.
+Diante da falibilidade humana e da persistente escassez de profissionais qualificados, que ainda afeta 48\% das organizações (IBM, 2025, p. 44), a implementação de IDSs autônomos baseados em Inteligência Artificial (IA) consolida-se não apenas como uma vantagem, mas como uma necessidade estratégica. A capacidade de tecnologias como Machine Learning e Deep Learning de correlacionar eventos complexos e identificar anomalias sutis provou-se eficaz, gerando uma economia média de US\$1,9 milhão para organizações que utilizam essas tecnologias de forma extensiva em comparação àquelas que não as adotam (IBM, 2025, p. 4).
 
-De maneira mais específica, o estudo busca avaliar se a complexidade
-computacional das modernas redes neurais de Deep Learning (como
-Autoencoders) realmente se traduz em um ganho de segurança significativo
-quando comparada a algoritmos de Machine Learning mais tradicionais e
-leves, como o Random Forest. O trabalho envolverá todo o ciclo de vida
-de um projeto de ciência de dados aplicado à segurança: desde a coleta e
-limpeza de bases de dados reais de tráfego de rede, passando pela
-engenharia de atributos para selecionar as características mais
-relevantes do tráfego, até a implementação e validação dos modelos.
-\end{quote}
+\section{HIPÓTESES}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\item
-  Justificativa
-\end{enumerate}
+A pesquisa parte da premissa de que algoritmos de Deep Learning, em virtude de sua arquitetura baseada em camadas ocultas e capacidade de extração automática de características (feature extraction), apresentarão taxas de detecção de intrusão superiores, com maior acurácia e menor incidência de falsos negativos, especialmente frente a ataques complexos e tráfego criptografado.
 
-\begin{quote}
-A motivação para este trabalho emana da intersecção entre o interesse
-acadêmico e a minha trajetória profissional na Caixa Econômica Federal.
-Atuando como Pentester, minha rotina envolve a emulação de táticas
-adversárias para identificar vulnerabilidades preventivamente. Contudo,
-a consolidação de ecossistemas críticos, como o Pix e o Open Finance,
-ampliou significativamente a superfície de ataque e a velocidade das
-transações financeiras. Nesse cenário, as ferramentas de defesa manuais
-tornam-se obsoletas frente à sofisticação das fraudes automatizadas,
-exigindo uma postura de segurança cibernética mais autônoma, preditiva e
-inteligente.
+Em contrapartida, estima-se que o algoritmo Random Forest, pela sua natureza de conjunto de árvores de decisão, oferecerá um desempenho computacional mais eficiente, caracterizado por menores tempos de treinamento e classificação. Essa característica, aliada a uma maior interpretabilidade dos resultados, tende a torná-lo uma solução mais viável para ambientes com recursos de hardware limitados, ainda que possa apresentar uma ligeira perda de precisão na identificação de ameaças desconhecidas em comparação às redes neurais profundas.
 
-Desenvolver este laboratório é um passo estratégico para minha carreira
-em direção ao perfil de Purple Team. Ao construir meu próprio motor de
-detecção baseado em IA, deixo de tratar as ferramentas de defesa como
-"caixas pretas". Isso me permitirá compreender exatamente quais
-comportamentos em um teste de intrusão disparam os alertas dos
-algoritmos, tornando meus relatórios de pentest muito mais valiosos para
-a equipe de defesa do banco. Além disso, o domínio de Python e
-bibliotecas de Data Science é hoje um requisito fundamental para a elite
-da cibersegurança, permitindo a criação de automações que vão muito além
-dos scripts prontos.
+\section{OBJETIVOS}
 
-Do ponto de vista social e institucional, contribuir para o estudo de
-defesas mais eficientes em bancos públicos transcende a questão técnica.
-Trata-se de colaborar para a integridade do sistema financeiro nacional
-e para a proteção do patrimônio de milhões de cidadãos brasileiros que
-dependem da disponibilidade e confidencialidade dos serviços digitais da
-Caixa.
-\end{quote}
+O objetivo deste trabalho consiste em desenvolver e implementar um laboratório experimental de detecção de intrusão para realizar uma análise comparativa de desempenho entre técnicas de Machine Learning (Random Forest) e Deep Learning (Redes Neurais Profundas), visando identificar qual abordagem oferece a melhor relação entre eficácia na detecção de ameaças e custo computacional em redes de computadores.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\item
-  Hipóteses
-\end{enumerate}
+Para alcançar essa finalidade, o estudo buscará fundamentar teoricamente os conceitos de Sistemas de Detecção de Intrusão (IDS), abordando as diferenças entre detecção por assinatura e por anomalia. Na sequência, será preparado um ambiente de dados através do pré-processamento, limpeza e normalização de um dataset de tráfego de rede padronizado. A etapa prática envolverá a implementação, treinamento e validação dos modelos em cenários controlados, culminando na avaliação quantitativa dos resultados através de métricas como acurácia, precisão, revocação e análise da matriz de confusão.
 
-\begin{quote}
-A condução do experimento prático será norteada por duas hipóteses
-principais, formuladas com base na literatura técnica e na experiência
-empírica de campo.
+\section{METODOLOGIA}
 
-A primeira hipótese sugere que os modelos de Deep Learning não
-supervisionados, especificamente os Autoencoders, apresentarão uma
-capacidade superior de generalização frente a ataques desconhecidos
-(Zero-Day) em comparação aos modelos supervisionados clássicos.
-Acredita-se que, por aprenderem a reconstruir o padrão do tráfego normal
-em vez de memorizarem assinaturas de ataques específicos, essas redes
-neurais conseguirão sinalizar anomalias inéditas com maior precisão,
-superando a limitação do Random Forest, que tende a ter bom desempenho
-apenas contra padrões que já "viu" durante o treinamento.
+Este trabalho caracteriza-se como uma pesquisa aplicada, de natureza quantitativa e experimental. A metodologia proposta divide-se em quatro etapas sequenciais: Levantamento Bibliográfico, Preparação dos Dados, Implementação Experimental e Análise de Resultados.
 
-A segunda hipótese aborda a eficiência operacional, postulando que é
-possível construir um sistema de detecção robusto utilizando apenas os
-metadados do fluxo de rede (como tempo entre pacotes, tamanho do
-cabeçalho e contagem de flags), sem a necessidade de descriptografar o
-conteúdo da comunicação. Se confirmada, essa hipótese valida a
-viabilidade de implementar monitoramento inteligente que respeita a
-privacidade do usuário e a criptografia ponta a ponta, mantendo a
-performance necessária para redes de alta velocidade sem introduzir
-latência excessiva.
-\end{quote}
+\subsection{Levantamento Bibliográfico}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\item
-  Metodologia da Pesquisa
-\end{enumerate}
+A primeira etapa consiste na revisão sistemática da literatura em bases de dados acadêmicas (Google Scholar, IEEE Xplore, Scopus), buscando trabalhos relacionados à aplicação de IA em segurança da informação, com foco em publicações dos últimos cinco anos. Serão consultadas normas técnicas e relatórios de mercado (como IBM Security e Cisco) para contextualizar o cenário de ameaças.
 
-\begin{quote}
-O trabalho adotará uma metodologia de natureza aplicada e experimental,
-estruturada em duas fases distintas mas complementares: uma
-fundamentação teórica focada e um estudo de caso prático em laboratório.
+\subsection{Seleção e Pré-processamento do Dataset}
 
-Na fase inicial, será realizada uma revisão bibliográfica seletiva,
-priorizando artigos técnicos e publicações recentes (2020-2025) que
-abordem a aplicação de Machine Learning em cibersegurança. O objetivo
-não é exaurir a literatura acadêmica, mas sim mapear o estado da arte
-das técnicas de detecção de anomalias e entender como grandes players do
-mercado estão substituindo as regras estáticas por modelos
-probabilísticos.
+Será utilizado um dataset público de referência para intrusão de rede, preferencialmente o CICIDS2017 (disponibilizado pelo Canadian Institute for Cybersecurity), que contém tráfego benigno e os ataques mais comuns (Brute Force, DoS, Web Attack, Infiltration, Botnet, DDoS). Os dados passarão por um processo de tratamento (ETL), que inclui:
 
-A fase principal consistirá na montagem do laboratório experimental em
-um ambiente controlado. Utilizarei a linguagem Python, amplamente
-adotada tanto na comunidade de segurança ofensiva quanto na de ciência
-de dados, juntamente com bibliotecas especializadas como Pandas para
-manipulação de dados, Scikit-learn para os modelos clássicos e
-TensorFlow/Keras para as redes neurais. O "combustível" para os testes
-será o dataset CIC-IDS2017, escolhido por sua fidelidade em representar
-uma rede moderna com tráfego real de ataques como Brute Force, DDoS e
-Infiltration, superando bases obsoletas como o KDD-99.
+\begin{itemize}
+\item Remoção de valores nulos ou infinitos.
+\item Normalização dos dados numéricos (escala Min-Max) para garantir a convergência eficiente dos algoritmos, especialmente da Rede Neural.
+\end{itemize}
 
-O procedimento experimental seguirá um fluxo lógico: primeiramente, os
-dados brutos passarão por um processo de limpeza e normalização. Em
-seguida, os modelos serão treinados e submetidos a testes cegos com
-tráfego misto. A avaliação final não se limitará a uma simples taxa de
-acerto, mas focará na análise da Matriz de Confusão, permitindo mensurar
-o equilíbrio entre a capacidade de detectar intrusões reais e a
-habilidade de evitar os custosos falsos positivos, simulando assim os
-desafios reais de um Centro de Operações de Segurança (SOC).
-\end{quote}
+\subsection{Implementação e Experimentação}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{4}
-\item
-  Referências Bibliográficas
-\end{enumerate}
+O laboratório virtual será desenvolvido utilizando a linguagem de programação Python. Para o modelo de Machine Learning, será utilizada a biblioteca Scikit-learn para implementar o algoritmo Random Forest. Para o modelo de Deep Learning, serão utilizadas as bibliotecas TensorFlow e Keras para a construção de uma Rede Neural Profunda (DNN) com múltiplas camadas densas. O ambiente de execução será configurado em notebooks (Jupyter ou Google Colab), permitindo a reprodutibilidade dos experimentos.
 
-\begin{quote}
-SHARAFALDIN, I. et al. Toward Generating a New Intrusion Detection
-Dataset and Intrusion Traffic Characterization. \emph{ICISSP}, 2018. (O
-artigo oficial do dataset que será usado no laboratório).
+\subsection{Análise de Dados e Métricas}
 
-ALI, M. L. et al. Deep Learning vs. Machine Learning for Intrusion
-Detection in Computer Networks: A Comparative Study. \emph{Applied
-Sciences}, v. 15, 2025. (Base para a comparação entre os algoritmos).
+A comparação entre os modelos não se baseará apenas na acurácia global, visto que datasets de segurança tendem a ser desbalanceados. A análise crítica focará na matriz de confusão, observando especialmente a taxa de falsos negativos (ataques que passaram despercebidos) e falsos positivos (alarmes falsos). Serão calculadas as métricas de precisão, recall e F1-score para cada classe de ataque, permitindo concluir qual modelo é mais robusto para tipos específicos de ameaças.
 
-LIAO, H. et al. A Survey of Deep Learning Technologies for Intrusion
-Detection in Internet of Things. \emph{IEEE Access}, 2024. (Contexto de
-IoT e modernização da defesa).
+\postextual
+\section*{Referências Bibliográficas}
+\addcontentsline{toc}{section}{Referências Bibliográficas}
 
-FEBRABAN. \emph{Pesquisa Febraban de Tecnologia Bancária 2024}. (Dados
-sobre o investimento dos bancos em segurança e IA).
+IBM. Cost of a Data Breach Report 2024. Armonk, NY: IBM Corporation, 2024. Disponível em: \url{https://www.ibm.com/reports/data-breach}. Acesso em: 22 dez. 2025.
 
-DENNING, D. E. An Intrusion-Detection Model. \emph{IEEE Transactions on
-Software Engineering}, 1987. (O clássico que definiu o que é um IDS).
-
-SOPHOS. \emph{The State of Ransomware 2024}. (Estatísticas atuais sobre
-ataques que justificam a necessidade de melhor defesa).
-\end{quote}
+IBM. Cost of a Data Breach Report 2025. Armonk, NY: IBM Corporation, 2025. Disponível em: \url{https://www.ibm.com/reports/data-breach}. Acesso em: 12 jan. 2026.
 
 \end{document}
