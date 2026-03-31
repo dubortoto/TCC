@@ -43,9 +43,11 @@
 
 \begin{document}
 
+\pagenumbering{arabic}
+\pagestyle{tccright}
+
 \pretextual
 \begin{capa}
-\thispagestyle{empty}
 \begin{center}
 \bfseries\imprimirinstituicao
 
@@ -64,6 +66,7 @@
 
 \begin{folhaderosto}
 \thispagestyle{empty}
+\setcounter{page}{2}
 \begin{center}
 \textbf{\imprimirinstituicao}
 
@@ -89,15 +92,11 @@
 
 \pdfbookmark[0]{\contentsname}{toc}
 \tableofcontents*
-\thispagestyle{empty}
 \cleardoublepage
 
 \textual
-\pagenumbering{arabic}
-\setcounter{page}{4}
 \OnehalfSpacing
 \linespread{1.5}\selectfont
-
 \pagestyle{tccright}
 \aliaspagestyle{chapter}{tccright}
 
