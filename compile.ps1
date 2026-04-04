@@ -1,6 +1,6 @@
 # Script para compilar o projeto LaTeX com output na pasta build
 # Compativel com Windows (PowerShell)
-# Inclui suporte a biblatex com Biber
+# Inclui suporte a biblatex com BibTeX
 
 param(
     [ValidateSet("build", "clean")]
@@ -8,6 +8,7 @@ param(
 )
 
 $ProjectName = "TCC_ Laboratorio de NIDS com IA"
+$JobName = "TCC_Laboratorio_de_NIDS_com_IA"
 $BuildDir = "build"
 $TexFile = "$ProjectName.tex"
 $BibFile = "referencias.bib"
@@ -27,19 +28,30 @@ function Build-LaTeX {
     
     # Primeira passagem de pdflatex
     Write-Host "[PDFLATEX] Primeira passagem..." -ForegroundColor Gray
-    & pdflatex -interaction=nonstopmode -output-directory=$BuildDir $TexFile | Out-Null
+    & pdflatex -interaction=nonstopmode -jobname=$JobName -output-directory=$BuildDir $TexFile | Out-Null
     
-    # Biber
-    Write-Host "[BIBER] Processando referências..." -ForegroundColor Gray
-    & biber --input-directory $BuildDir --output-directory $BuildDir $ProjectName | Out-Null
+    # BibTeX
+    Write-Host "[BIBTEX] Processando referências..." -ForegroundColor Gray
+    Push-Location $BuildDir
+    & bibtex $JobName | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        Pop-Location
+        Write-Host "[ERRO] Falha no BibTeX. Verifique o arquivo .aux e as citações." -ForegroundColor Red
+        exit 1
+    }
+    Pop-Location
     
     # Segunda passagem de pdflatex
     Write-Host "[PDFLATEX] Segunda passagem..." -ForegroundColor Gray
-    & pdflatex -interaction=nonstopmode -output-directory=$BuildDir $TexFile | Out-Null
+    & pdflatex -interaction=nonstopmode -jobname=$JobName -output-directory=$BuildDir $TexFile | Out-Null
     
     # Terceira passagem de pdflatex
     Write-Host "[PDFLATEX] Terceira passagem..." -ForegroundColor Gray
-    & pdflatex -interaction=nonstopmode -output-directory=$BuildDir $TexFile | Out-Null
+    & pdflatex -interaction=nonstopmode -jobname=$JobName -output-directory=$BuildDir $TexFile | Out-Null
+
+    if (Test-Path "$BuildDir\$JobName.pdf") {
+        Copy-Item "$BuildDir\$JobName.pdf" -Destination "$BuildDir\$ProjectName.pdf" -Force
+    }
     
     if (Test-Path "$BuildDir\$ProjectName.pdf") {
         Write-Host "[SUCESSO] Compilacao com bibliografia concluida com sucesso!" -ForegroundColor Green

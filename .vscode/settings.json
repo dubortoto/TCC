@@ -1,31 +1,19 @@
 {
   "latex-workshop.latex.outDir": "./build",
-  "latex-workshop.latex.recipe.default": "pdflatex-biber-build",
+  "latex-workshop.latex.recipe.default": "first",
   "latex-workshop.latex.recipes": [
     {
-      "name": "pdflatex-biber-build",
-      "tools": ["pdflatex", "biber", "pdflatex", "pdflatex"]
+      "name": "build-via-script",
+      "tools": ["compile-sh"]
     }
   ],
   "latex-workshop.latex.tools": [
     {
-      "name": "pdflatex",
-      "command": "pdflatex",
+      "name": "compile-sh",
+      "command": "bash",
       "args": [
-        "-interaction=nonstopmode",
-        "-output-directory=build",
-        "%DOCFILE%"
-      ]
-    },
-    {
-      "name": "biber",
-      "command": "biber",
-      "args": [
-        "--input-directory",
-        "build",
-        "--output-directory",
-        "build",
-        "%DOCFILE%"
+        "./compile.sh",
+        "build"
       ]
     }
   ]

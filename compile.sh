@@ -1,9 +1,10 @@
 #!/bin/bash
 # Script para compilar o projeto LaTeX com output na pasta build
 # Compativel com Linux e macOS
-# Inclui suporte a biblatex com Biber
+# Inclui suporte a biblatex com BibTeX
 
 PROJECT_NAME="TCC_ Laboratorio de NIDS com IA"
+JOB_NAME="TCC_Laboratorio_de_NIDS_com_IA"
 BUILD_DIR="build"
 TEX_FILE="$PROJECT_NAME.tex"
 BIB_FILE="referencias.bib"
@@ -24,18 +25,22 @@ build_latex() {
     fi
 
     echo -e "${GRAY}[PDFLATEX] Primeira passagem...${NC}"
-    pdflatex -interaction=nonstopmode -output-directory="$BUILD_DIR" "$TEX_FILE" > /dev/null 2>&1
+    pdflatex -interaction=nonstopmode -jobname="$JOB_NAME" -output-directory="$BUILD_DIR" "$TEX_FILE" > /dev/null 2>&1
 
-    echo -e "${GRAY}[BIBER] Processando referencias...${NC}"
-    biber --input-directory "$BUILD_DIR" --output-directory "$BUILD_DIR" "$PROJECT_NAME" > /dev/null 2>&1
+    echo -e "${GRAY}[BIBTEX] Processando referencias...${NC}"
+    if ! (cd "$BUILD_DIR" && bibtex "$JOB_NAME" > /dev/null 2>&1); then
+        echo -e "${RED}[ERRO] Falha no BibTeX. Verifique o arquivo .aux e as citacoes.${NC}"
+        exit 1
+    fi
 
     echo -e "${GRAY}[PDFLATEX] Segunda passagem...${NC}"
-    pdflatex -interaction=nonstopmode -output-directory="$BUILD_DIR" "$TEX_FILE" > /dev/null 2>&1
+    pdflatex -interaction=nonstopmode -jobname="$JOB_NAME" -output-directory="$BUILD_DIR" "$TEX_FILE" > /dev/null 2>&1
 
     echo -e "${GRAY}[PDFLATEX] Terceira passagem...${NC}"
-    pdflatex -interaction=nonstopmode -output-directory="$BUILD_DIR" "$TEX_FILE" > /dev/null 2>&1
+    pdflatex -interaction=nonstopmode -jobname="$JOB_NAME" -output-directory="$BUILD_DIR" "$TEX_FILE" > /dev/null 2>&1
 
-    if [ -f "$BUILD_DIR/$PROJECT_NAME.pdf" ]; then
+    if [ -f "$BUILD_DIR/$JOB_NAME.pdf" ]; then
+        cp "$BUILD_DIR/$JOB_NAME.pdf" "$BUILD_DIR/$PROJECT_NAME.pdf"
         echo -e "${GREEN}[SUCESSO] Compilacao com bibliografia concluida!${NC}"
         echo -e "${CYAN}[OUTPUT] PDF gerado em: $BUILD_DIR/$PROJECT_NAME.pdf${NC}"
     else
