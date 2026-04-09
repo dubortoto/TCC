@@ -1,0 +1,19 @@
+\begin{table}[H]
+  \centering
+  \small
+  \label{tab:metricas_completo}
+  \begin{tabular}{llccc}
+    \hline
+    \textbf{Modelo} & \textbf{Métrica} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1-score} \\
+    \hline
+    DNN             & Acurácia         & -                 & 0.98               & -                 \\
+    DNN             & Média Macro      & 0.83              & 0.64               & 0.67              \\
+    DNN             & Média Ponderada  & 0.98              & 0.98               & 0.98              \\
+    \hline
+    Random Forest   & Acurácia         & -                 & 1.00               & -                 \\
+    Random Forest   & Média Macro      & 0.94              & 0.83               & 0.86              \\
+    Random Forest   & Média Ponderada  & 1.00              & 1.00               & 1.00              \\
+    \hline
+  \end{tabular}
+  \caption{Métricas agregadas no cenário completo}
+\end{table}

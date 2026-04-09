@@ -1,0 +1,48 @@
+\chapter{INTRODUÇÃO}
+
+A elaboração de estratégias de defesa cibernética robustas tornou-se uma exigência crítica e inadiável no cenário tecnológico contemporâneo. A digitalização acelerada dos processos corporativos, governamentais e sociais, catalisada pela adoção massiva de computação em nuvem e dispositivos móveis, trouxe consigo uma complexidade sem precedentes e vulnerabilidades sistêmicas que, quando exploradas, geram impactos econômicos, operacionais e reputacionais severos. Nesse contexto de hiperconectividade, a superfície de ataque expande-se continuamente, tornando a preservação da confidencialidade, integridade e disponibilidade da informação um desafio dinâmico que exige evolução constante frente a adversários cada vez mais organizados.
+
+A análise dos relatórios recentes revela uma mudança de tendência nos prejuízos financeiros decorrentes de ciberataques. Estes dados indicam que as defesas tradicionais, baseadas puramente em regras estáticas e assinaturas, já não são suficientes para conter a sofisticação das ameaças modernas, resultando em custos globais de violação de dados que atingiram patamares históricos (IBM, 2024, p. 4).
+
+Segundo o relatório Cost of a Data Breach Report 2025, o custo médio global de uma violação de dados apresentou uma queda para US\$4,44 milhões, representando uma redução de 9\% em relação ao ano anterior (IBM, 2025, p. 3). Essa diminuição é atribuída diretamente à redução do ciclo de vida das violações: o tempo médio para identificar e conter um incidente caiu para 241 dias (o menor patamar em nove anos), impulsionado fundamentalmente pelo uso extensivo de Inteligência Artificial e automação pelas equipes de segurança (IBM, 2025, p. 7).
+
+No Brasil, o cenário acompanhou a tendência global de redução, com o custo médio de uma violação caindo para US\$1,22 milhão em 2025 (IBM, 2025, p. 6). Contudo, a complexidade dos ataques permanece crítica. O vetor de ataque inicial mais comum passou a ser o phishing, responsável por 16\% das violações, desbancando o uso de credenciais roubadas (IBM, 2025, p. 16). Além disso, ataques envolvendo comprometimento da cadeia de suprimentos (supply chain) tornaram-se o segundo vetor mais frequente e o que demanda maior tempo para identificação e contenção, com o tempo médio de 267 dias (IBM, 2025, p. 18).
+
+Diante da falibilidade humana e da persistente escassez de profissionais qualificados, que ainda afeta 48\% das organizações (IBM, 2025, p. 44), a implementação de IDSs autônomos baseados em Inteligência Artificial (IA) consolida-se não apenas como uma vantagem, mas como uma necessidade estratégica. A capacidade de tecnologias como Machine Learning e Deep Learning de correlacionar eventos complexos e identificar anomalias sutis provou-se eficaz, gerando uma economia média de US\$1,9 milhão para organizações que utilizam essas tecnologias de forma extensiva em comparação àquelas que não as adotam (IBM, 2025, p. 4).
+
+\section{Hipóteses}
+
+A pesquisa parte da premissa de que algoritmos de Deep Learning, em virtude de sua arquitetura baseada em camadas ocultas e capacidade de extração automática de características (feature extraction), apresentarão taxas de detecção de intrusão superiores, com maior acurácia e menor incidência de falsos negativos, especialmente frente a ataques complexos e tráfego criptografado.
+
+Em contrapartida, estima-se que o algoritmo Random Forest, pela sua natureza de conjunto de árvores de decisão, oferecerá um desempenho computacional mais eficiente, caracterizado por menores tempos de treinamento e classificação. Essa característica, aliada a uma maior interpretabilidade dos resultados, tende a torná-lo uma solução mais viável para ambientes com recursos de hardware limitados, ainda que possa apresentar uma ligeira perda de precisão na identificação de ameaças desconhecidas em comparação às redes neurais profundas.
+
+\section{Objetivos}
+
+O objetivo deste trabalho consiste em desenvolver e implementar um laboratório experimental de detecção de intrusão para realizar uma análise comparativa de desempenho entre técnicas de Machine Learning (Random Forest) e Deep Learning (Redes Neurais Profundas), visando identificar qual abordagem oferece a melhor relação entre eficácia na detecção de ameaças e custo computacional em redes de computadores.
+
+Para alcançar essa finalidade, o estudo buscará fundamentar teoricamente os conceitos de Sistemas de Detecção de Intrusão (IDS), abordando as diferenças entre detecção por assinatura e por anomalia. Na sequência, será preparado um ambiente de dados através do pré-processamento, limpeza e normalização de um dataset de tráfego de rede padronizado. A etapa prática envolverá a implementação, treinamento e validação dos modelos em cenários controlados, culminando na avaliação quantitativa dos resultados através de métricas como acurácia, precisão, revocação e análise da matriz de confusão.
+
+\section{Metodologia}
+
+Este trabalho caracteriza-se como uma pesquisa aplicada, de natureza quantitativa e experimental. A metodologia proposta divide-se em quatro etapas sequenciais: Levantamento Bibliográfico, Preparação dos Dados, Implementação Experimental e Análise de Resultados.
+
+\subsection{Levantamento Bibliográfico}
+
+A primeira etapa consiste na revisão sistemática da literatura em bases de dados acadêmicas (Google Scholar, IEEE Xplore, Scopus), buscando trabalhos relacionados à aplicação de IA em segurança da informação, com foco em publicações dos últimos cinco anos. Serão consultadas normas técnicas e relatórios de mercado (como IBM Security e Cisco) para contextualizar o cenário de ameaças.
+
+\subsection{Seleção e Pré-processamento do Dataset}
+
+Será utilizado um dataset público de referência para intrusão de rede, preferencialmente o CICIDS2017 (disponibilizado pelo Canadian Institute for Cybersecurity), que contém tráfego benigno e os ataques mais comuns (Brute Force, DoS, Web Attack, Infiltration, Botnet, DDoS). Os dados passarão por um processo de tratamento (ETL), que inclui:
+
+\begin{itemize}
+\item Remoção de valores nulos ou infinitos.
+\item Normalização dos dados numéricos (escala Min-Max) para garantir a convergência eficiente dos algoritmos, especialmente da Rede Neural.
+\end{itemize}
+
+\subsection{Implementação e Experimentação}
+
+O laboratório virtual será desenvolvido utilizando a linguagem de programação Python. Para o modelo de Machine Learning, será utilizada a biblioteca Scikit-learn para implementar o algoritmo Random Forest. Para o modelo de Deep Learning, serão utilizadas as bibliotecas TensorFlow e Keras para a construção de uma Rede Neural Profunda (DNN) com múltiplas camadas densas. O ambiente de execução será configurado em notebooks (Jupyter ou Google Colab), permitindo a reprodutibilidade dos experimentos.
+
+\subsection{Análise de Dados e Métricas}
+
+A comparação entre os modelos não se baseará apenas na acurácia global, visto que datasets de segurança tendem a ser desbalanceados. A análise crítica focará na matriz de confusão, observando especialmente a taxa de falsos negativos (ataques que passaram despercebidos) e falsos positivos (alarmes falsos). Serão calculadas as métricas de precisão, recall e F1-score para cada classe de ataque, permitindo concluir qual modelo é mais robusto para tipos específicos de ameaças.
