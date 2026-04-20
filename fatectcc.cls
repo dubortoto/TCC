@@ -41,6 +41,7 @@
 % Comandos em português para bibliografia
 \newcommand{\adicbibliografia}[1]{\addbibresource{#1}}
 \newcommand{\bibliografia}{\printbibliography}
+
 % Fonte principal
 \renewcommand{\familydefault}{\sfdefault}
 
