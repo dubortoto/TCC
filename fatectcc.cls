@@ -18,7 +18,8 @@
 \RequirePackage[table]{xcolor}      % Configurações de cores para tabelas
 \RequirePackage{graphicx}           % Configurações para diminuir o tamanho das tabelas
 \RequirePackage{float}              % Configurações para posicionamento de tabelas
-
+\RequirePackage{csquotes}           % Configurações para citações
+\RequirePackage[backend=biber,style=abnt]{biblatex} % Configurações de citações ABNT
 
 \RequirePackage{hyperref}           % Configurações de hyperlinks - Deve ser carregado por último para evitar conflitos
 
@@ -37,6 +38,9 @@
 \newcommand{\ano}[1]{\renewcommand{\@ano}{#1}}
 \newcommand{\preambulo}[1]{\renewcommand{\@preambulo}{#1}}
 
+% Comandos em português para bibliografia
+\newcommand{\adicbibliografia}[1]{\addbibresource{#1}}
+\newcommand{\bibliografia}{\printbibliography}
 % Fonte principal
 \renewcommand{\familydefault}{\sfdefault}
 

@@ -1,34 +1,34 @@
 \chapter{RESULTADOS DO LABORATÓRIO}
 
-Este capítulo apresenta os resultados obtidos na etapa prática do laboratório de detecção de intrusão, com foco na comparação entre os modelos DNN e Random Forest em três cenários experimentais. 
+Este capítulo apresenta os resultados obtidos na etapa prática do laboratório de detecção de intrusão, com foco na comparação entre os modelos \textit{DNN} e \textit{Random Forest} em três cenários experimentais. 
 
 \section{Execução do Laboratório Experimental}
 
-O laboratório foi estruturado em duas fases principais: tratamento dos dados e treinamento/avaliação dos modelos. Na primeira fase, os arquivos do CICIDS2017 foram consolidados em apenas 1 CSV, tratados e normalizados. Na segunda fase, os modelos foram treinados e avaliados em três cenários:
+O laboratório foi estruturado em duas fases principais: tratamento dos dados e treinamento/avaliação dos modelos. Na primeira fase, os arquivos do \textit{CICIDS2017} foram consolidados em apenas 1 \textit{CSV}, tratados e normalizados. Na segunda fase, os modelos foram treinados e avaliados em três cenários:
 
 \begin{itemize}
-\item Cenário completo: todas as classes presentes no dataset de teste, estavam presentes também no dataset de treinamento.
-\item Cenário sem PortScan no treino: classe PortScan foi removida do dataset de treinamento e mantida apenas no dataset de teste para simular um ataque não visto durante o treinamento.
-\item Cenário sem XSS no treino: classe XSS removida do dataset de treinamento e mantida no apenas dataset de teste para novamente simular um ataque não visto durante o treinamento.
+\item Cenário completo: todas as classes presentes no \textit{dataset} de teste, estavam presentes também no \textit{dataset} de treinamento.
+\item Cenário sem \textit{PortScan} no treino: classe \textit{PortScan} foi removida do \textit{dataset} de treinamento e mantida apenas no \textit{dataset} de teste para simular um ataque não visto durante o treinamento.
+\item Cenário sem \textit{XSS} no treino: classe \textit{XSS} removida do \textit{dataset} de treinamento e mantida no apenas \textit{dataset} de teste para novamente simular um ataque não visto durante o treinamento.
 \end{itemize}
 
 No pré-processamento, o dataset unificado atingiu dimensão de 2.830.743 registros e 79 colunas. Após a divisão principal, foram gerados conjuntos com 1.979.513 amostras para treino e 848.363 para teste no cenário completo. No cenário sem PortScan, 110.968 registros dessa classe foram movidos do treino para o teste, resultando em 1.868.545 amostras para treino e 959.331 para teste. Já no cenário sem XSS, a divisão manteve-se similar ao cenário completo, com 1.979.513 amostras para treino e 848.822 para teste.
 
 \section{Resultados dos Modelos no Cenário Completo}
 
-No cenário completo, os dois modelos apresentaram desempenho elevado. A DNN alcançou acurácia global de 0,98, enquanto o Random Forest atingiu acurácia global de 1,00. Esses resultados indicam que, quando todas as classes estão representadas no treinamento, ambos os modelos são capazes de aprender padrões discriminativos de forma consistente.
+No cenário completo, os dois modelos apresentaram desempenho elevado. A \textit{DNN} alcançou acurácia global de 0,98, enquanto o \textit{Random Forest} atingiu acurácia global de 1,00. Esses resultados indicam que, quando todas as classes estão representadas no treinamento, ambos os modelos são capazes de aprender padrões discriminativos de forma consistente.
 
 Apesar da vantagem numérica do Random Forest em acurácia global, essa métrica isolada não resume todo o comportamento por classe. Por esse motivo, a análise foi orientada também por matriz de confusão e métricas por classe (precisão, recall e F1-score), permitindo observar possíveis confusões entre tipos de ataque específicos.
 
-Além das métricas de classificação, foi realizada a comparação do tempo de inferência no dataset de teste como proxy de custo computacional em produção. No cenário completo (848.363 amostras), a DNN levou 17,3258 segundos para classificar o conjunto de teste, enquanto o Random Forest levou 3,3474 segundos. Em termos práticos, o Random Forest foi aproximadamente 5,18 vezes mais rápido nesse cenário.
+Além das métricas de classificação, foi realizada a comparação do tempo de inferência no \textit{dataset} de teste como proxy de custo computacional em produção. No cenário completo (848.363 amostras), a \textit{DNN} levou 17,3258 segundos para classificar o conjunto de teste, enquanto o \textit{Random Forest} levou 3,3474 segundos. Em termos práticos, o \textit{Random Forest} foi aproximadamente 5,18 vezes mais rápido nesse cenário.
 
 \input{chapters/tables/Comparação-Desempenho-Cenario-Completo.tex}
 
-Para ampliar a comparação do cenário completo, também foram consolidadas as métricas de precisão, recall e F1-score com base no relatório de classificação de cada modelo. A Tabela \ref{tab:metricas_completo} apresenta os resultados para as médias macro e ponderada (weighted), permitindo comparar o equilíbrio de desempenho entre classes e o desempenho global ponderado pelo suporte.
+Para ampliar a comparação do cenário completo, também foram consolidadas as métricas de precisão, \textit{recall} e \textit{F1-score} com base no relatório de classificação de cada modelo. A Tabela \ref{tab:metricas_completo} apresenta os resultados para as médias macro e ponderada (\textit{weighted}), permitindo comparar o equilíbrio de desempenho entre classes e o desempenho global ponderado pelo suporte.
 
 \input{chapters/tables/Metricas-Agregadas-Cenario-Completo.tex}
 
-Em relação à matriz de confusão do cenário completo, os dois modelos apresentaram concentração de acertos na diagonal principal. Para tornar a análise objetiva no corpo do texto, a Tabela \ref{table:mc_dnn_completa} apresenta a matriz de confusão completa da DNN (15x15), e a Tabela \ref{table:mc_rf_completa} do Random Forest.
+Em relação à matriz de confusão do cenário completo, os dois modelos apresentaram concentração de acertos na diagonal principal. Para tornar a análise objetiva no corpo do texto, a Tabela \ref{table:mc_dnn_completa} apresenta a matriz de confusão completa da \textit{DNN} (15x15), e a Tabela \ref{table:mc_rf_completa} do \textit{Random Forest}.
 
 \input{chapters/tables/Matriz-de-Confusão-DNN-Completa.tex}
 
@@ -128,7 +128,7 @@ Em relação à matriz de confusão do cenário completo, os dois modelos aprese
 % \label{table:rel_metr_rf}
 % \end{table}
 
-As tabelas evidenciam que o Random Forest apresentou diagonal principal mais forte nas classes críticas do cenário completo. Em \textit{PortScan}, o Random Forest acertou 47.818 de 47.836 registros na diagonal (aprox. 99,96\%), enquanto a DNN acertou 44.850 de 47.836 (aprox. 93,75\%). Em \textit{Web Attack - Brute Force}, o Random Forest registrou 352 acertos de 435 (aprox. 80,92\%), ao passo que a DNN registrou 13 de 435 (aprox. 2,99\%). O mesmo padrão aparece em \textit{Web Attack - XSS}, com 72 acertos de 193 para Random Forest (aprox. 37,31\%) contra 4 de 193 para DNN (aprox. 2,07\%).
+As tabelas evidenciam que o \textit{Random Forest} apresentou diagonal principal mais forte nas classes críticas do cenário completo. Em \textit{PortScan}, o \textit{Random Forest} acertou 47.818 de 47.836 registros na diagonal (aprox. 99,96\%), enquanto a \textit{DNN} acertou 44.850 de 47.836 (aprox. 93,75\%). Em \textit{Web Attack - Brute Force}, o \textit{Random Forest} registrou 352 acertos de 435 (aprox. 80,92\%), ao passo que a \textit{DNN} registrou 13 de 435 (aprox. 2,99\%). O mesmo padrão aparece em \textit{Web Attack - XSS}, com 72 acertos de 193 para \textit{Random Forest} (aprox. 37,31\%) contra 4 de 193 para \textit{DNN} (aprox. 2,07\%).
 
 \section{Resultados em Cenários com Classe Ausente no Treinamento}
 
@@ -136,11 +136,11 @@ Nos cenários de generalização, os resultados foram mais heterogêneos e revel
 
 \subsection{Análise do cenário sem PortScan no treinamento}
 
-No experimento sem PortScan no treinamento, os modelos apresentaram queda de desempenho em relação ao cenário completo, indicando dificuldade de generalização quando esta classe é totalmente ausente no treino. A DNN obteve acurácia global de 0,79, enquanto o Random Forest alcançou 0,83, mantendo vantagem também neste cenário.
+No experimento sem \textit{PortScan} no treinamento, os modelos apresentaram queda de desempenho em relação ao cenário completo, indicando dificuldade de generalização quando esta classe é totalmente ausente no treino. A \textit{DNN} obteve acurácia global de 0,79, enquanto o \textit{Random Forest} alcançou 0,83, mantendo vantagem também neste cenário.
 
-Os dados dos relatórios de classificação confirmam que o impacto não ficou restrito ao PortScan. Na DNN, a média macro caiu de 0,83/0,64/0,67 (precisão/recall/F1) no cenário completo para 0,52/0,42/0,45 sem PortScan, e a média ponderada caiu de 0,98/0,98/0,98 para 0,70/0,79/0,74. Em classes não omitidas, houve queda importante de recall, como em DoS Slowhttptest (0,98 para 0,25) e SSH-Patator (0,89 para 0,49), mostrando piora de generalização além da classe removida.
+Os dados dos relatórios de classificação confirmam que o impacto não ficou restrito ao \textit{PortScan}. Na \textit{DNN}, a média macro caiu de 0,83/0,64/0,67 (precisão/\textit{recall}/\textit{F1}) no cenário completo para 0,52/0,42/0,45 sem \textit{PortScan}, e a média ponderada caiu de 0,98/0,98/0,98 para 0,70/0,79/0,74. Em classes não omitidas, houve queda importante de \textit{recall}, como em \textit{DoS Slowhttptest} (0,98 para 0,25) e \textit{SSH-Patator} (0,89 para 0,49), mostrando piora de generalização além da classe removida.
 
-No Random Forest, a acurácia também caiu (1,00 para 0,83), com redução das médias de 0,94/0,83/0,86 para 0,86/0,77/0,79 (macro) e de 1,00/1,00/1,00 para 0,70/0,83/0,76 (ponderada). Mesmo mantendo bom desempenho em algumas classes, houve perda relevante em BENIGN (precisão de 1,00 para 0,81), indicando aumento de confusão após a retirada de PortScan do treino. Esses valores sustentam que a remoção de PortScan piora o resultado geral e também afeta classes correlatas.
+No \textit{Random Forest}, a acurácia também caiu (1,00 para 0,83), com redução das médias de 0,94/0,83/0,86 para 0,86/0,77/0,79 (macro) e de 1,00/1,00/1,00 para 0,70/0,83/0,76 (ponderada). Mesmo mantendo bom desempenho em algumas classes, houve perda relevante em \textit{BENIGN} (precisão de 1,00 para 0,81), indicando aumento de confusão após a retirada de \textit{PortScan} do treino. Esses valores sustentam que a remoção de \textit{PortScan} piora o resultado geral e também afeta classes correlatas.
 
 \begin{center}
 \textit{[Inserir tabela de resultados do cenário sem PortScan]} 
@@ -148,27 +148,27 @@ No Random Forest, a acurácia também caiu (1,00 para 0,83), com redução das m
 
 \subsection{Análise do cenário sem XSS no treinamento}
 
-No experimento sem XSS no treinamento, o impacto global foi menor. A DNN manteve acurácia de 0,98 e o Random Forest permaneceu com acurácia de 1,00, indicando maior estabilidade quando a classe ausente possui menor representatividade e menor influência sobre o desempenho agregado.
+No experimento sem \textit{XSS} no treinamento, o impacto global foi menor. A \textit{DNN} manteve acurácia de 0,98 e o \textit{Random Forest} permaneceu com acurácia de 1,00, indicando maior estabilidade quando a classe ausente possui menor representatividade e menor influência sobre o desempenho agregado.
 
-Para verificar se houve o mesmo efeito do cenário sem PortScan (piora generalizada), a comparação foi feita em classes não relacionadas diretamente ao XSS. Na DNN, a média macro variou de 0,83/0,64/0,67 para 0,78/0,64/0,67, enquanto a média ponderada permaneceu em torno de 0,99/0,98/0,98. Em classes relevantes não omitidas, as variações foram pequenas: PortScan teve recall de 0,94 para 0,93 e DoS Slowhttptest manteve recall de 0,98 para 0,98, sugerindo ausência de degradação ampla entre classes.
+Para verificar se houve o mesmo efeito do cenário sem \textit{PortScan} (piora generalizada), a comparação foi feita em classes não relacionadas diretamente ao \textit{XSS}. Na \textit{DNN}, a média macro variou de 0,83/0,64/0,67 para 0,78/0,64/0,67, enquanto a média ponderada permaneceu em torno de 0,99/0,98/0,98. Em classes relevantes não omitidas, as variações foram pequenas: \textit{PortScan} teve \textit{recall} de 0,94 para 0,93 e \textit{DoS Slowhttptest} manteve \textit{recall} de 0,98 para 0,98, sugerindo ausência de degradação ampla entre classes.
 
-No Random Forest, apesar da acurácia permanecer em 1,00 e da média ponderada ficar em 1,00/1,00/1,00, a média macro caiu de 0,94/0,83/0,86 para 0,88/0,82/0,82. Ainda assim, o comportamento das classes majoritárias permaneceu estável (por exemplo, PortScan com recall de 1,00 para 1,00 e BENIGN com 1,00 para 1,00), enquanto a deterioração concentrou-se em classes web: Web Attack - Brute Force teve precisão reduzida de 0,76 para 0,42 (F1 de 0,78 para 0,58), e Web Attack - XSS passou para 0,00/0,00/0,00 no cenário sem treino da própria classe.
+No \textit{Random Forest}, apesar da acurácia permanecer em 1,00 e da média ponderada ficar em 1,00/1,00/1,00, a média macro caiu de 0,94/0,83/0,86 para 0,88/0,82/0,82. Ainda assim, o comportamento das classes majoritárias permaneceu estável (por exemplo, \textit{PortScan} com \textit{recall} de 1,00 para 1,00 e \textit{BENIGN} com 1,00 para 1,00), enquanto a deterioração concentrou-se em classes web: \textit{Web Attack - Brute Force} teve precisão reduzida de 0,76 para 0,42 (\textit{F1} de 0,78 para 0,58), e \textit{Web Attack - XSS} passou para 0,00/0,00/0,00 no cenário sem treino da própria classe.
 
-Esse comportamento é compatível com o desbalanceamento do dataset. No cenário sem XSS, a classe Web Attack - XSS representa apenas 652 amostras em 848.822 no teste (aprox. 0,08\%), enquanto BENIGN sozinho concentra 681.014 amostras. Com essa distribuição, a acurácia global e a média ponderada ficam dominadas pelas classes majoritárias; por isso, mesmo com desempenho nulo em XSS (recall 0,00 no Random Forest), o valor global pode permanecer em 1,00.
+Esse comportamento é compatível com o desbalanceamento do \textit{dataset}. No cenário sem \textit{XSS}, a classe \textit{Web Attack - XSS} representa apenas 652 amostras em 848.822 no teste (aprox. 0,08\%), enquanto \textit{BENIGN} sozinho concentra 681.014 amostras. Com essa distribuição, a acurácia global e a média ponderada ficam dominadas pelas classes majoritárias; por isso, mesmo com desempenho nulo em \textit{XSS} (\textit{recall} 0,00 no \textit{Random Forest}), o valor global pode permanecer em 1,00.
 
-Assim, a resposta para este cenário é: não houve o mesmo padrão de piora generalizada observado na retirada de PortScan. A remoção de XSS provocou piora localizada, principalmente no próprio XSS e em classes web correlatas, sem colapso amplo da detecção nas demais classes.
+Assim, a resposta para este cenário é: não houve o mesmo padrão de piora generalizada observado na retirada de \textit{PortScan}. A remoção de \textit{XSS} provocou piora localizada, principalmente no próprio \textit{XSS} e em classes web correlatas, sem colapso amplo da detecção nas demais classes.
 
 \begin{center}
 \textit{[Inserir tabela de resultados do cenário sem XSS]}
 \end{center}
 
-Comparando os dois casos, conclui-se que a retirada de classes do treinamento pode sim piorar o resultado no geral, porém com intensidade diferente conforme a classe omitida. A remoção de PortScan gerou impacto mais amplo e mais forte no desempenho global e entre classes, enquanto a remoção de XSS produziu efeito predominantemente pontual.
+Comparando os dois casos, conclui-se que a retirada de classes do treinamento pode sim piorar o resultado no geral, porém com intensidade diferente conforme a classe omitida. A remoção de \textit{PortScan} gerou impacto mais amplo e mais forte no desempenho global e entre classes, enquanto a remoção de \textit{XSS} produziu efeito predominantemente pontual.
 
 \section{Comparação Geral de Tempo de Classificação}
 
 De forma complementar aos resultados de acurácia, foi consolidada a comparação de tempo de classificação entre os três cenários testados. Essa análise permite estimar o custo computacional de inferência dos modelos em contextos distintos.
 
-O padrão observado foi consistente: o Random Forest manteve tempos de inferência menores em todos os casos, enquanto a DNN apresentou maior tempo de classificação, principalmente no cenário sem PortScan no treinamento.
+O padrão observado foi consistente: o \textit{Random Forest} manteve tempos de inferência menores em todos os casos, enquanto a \textit{DNN} apresentou maior tempo de classificação, principalmente no cenário sem \textit{PortScan} no treinamento.
 
 \begin{table}[htb]
 \centering
@@ -189,6 +189,6 @@ Sem XSS no treino & 16,8805 & 3,0954 & 848.822 \\
 
 \section{Síntese dos Achados do Laboratório}
 
-Os resultados apontam que os dois modelos são eficazes em cenário fechado, porém respondem de maneira distinta quando há ausência de classes no treinamento. O cenário sem PortScan foi o mais desafiador e destacou limitações de generalização, especialmente para a DNN. Já os cenários com XSS mantiveram desempenho global elevado, indicando menor impacto dessa remoção na configuração testada.
+Os resultados apontam que os dois modelos são eficazes em cenário fechado, porém respondem de maneira distinta quando há ausência de classes no treinamento. O cenário sem \textit{PortScan} foi o mais desafiador e destacou limitações de generalização, especialmente para a \textit{DNN}. Já os cenários com \textit{XSS} mantiveram desempenho global elevado, indicando menor impacto dessa remoção na configuração testada.
 
-Embora a DNN seja frequentemente descrita como mais capaz de generalizar para padrões complexos e ataques não vistos, esse comportamento não foi observado de forma consistente nos experimentos deste trabalho. Nos cenários com classe ausente no treinamento, o Random Forest manteve desempenho mais estável e apresentou melhores resultados agregados.
+Embora a \textit{DNN} seja frequentemente descrita como mais capaz de generalizar para padrões complexos e ataques não vistos, esse comportamento não foi observado de forma consistente nos experimentos deste trabalho. Nos cenários com classe ausente no treinamento, o \textit{Random Forest} manteve desempenho mais estável e apresentou melhores resultados agregados.
