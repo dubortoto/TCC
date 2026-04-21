@@ -1,0 +1,31 @@
+    \begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{lrrrr}
+        \hline
+        Classe                     & Precisão & Revocação & F1-score & Suporte \\
+        \hline
+        BENIGN                     & 0.81     & 1.00      & 0.90     & 681014  \\
+        Bot                        & 0.87     & 0.55      & 0.68     & 564     \\
+        DDoS                       & 1.00     & 1.00      & 1.00     & 38307   \\
+        DoS GoldenEye              & 1.00     & 1.00      & 1.00     & 3163    \\
+        DoS Hulk                   & 1.00     & 1.00      & 1.00     & 69267   \\
+        DoS Slowhttptest           & 0.99     & 0.99      & 0.99     & 1658    \\
+        DoS slowloris              & 1.00     & 1.00      & 1.00     & 1757    \\
+        FTP-Patator                & 1.00     & 1.00      & 1.00     & 2326    \\
+        Heartbleed                 & 1.00     & 0.83      & 0.91     & 6       \\
+        Infiltration               & 1.00     & 0.80      & 0.89     & 10      \\
+        PortScan                   & 0.00     & 0.00      & 0.00     & 158804  \\
+        SSH-Patator                & 1.00     & 1.00      & 1.00     & 1821    \\
+        Web Attack - Brute Force   & 0.75     & 0.82      & 0.78     & 435     \\
+        Web Attack - Sql Injection & 1.00     & 0.17      & 0.29     & 6       \\
+        Web Attack - XSS           & 0.48     & 0.36      & 0.41     & 193     \\
+        \hline
+        \textbf{Acurácia}          & -        & 0.83      & -        & 959331  \\
+        \textbf{Média Macro}       & 0.86     & 0.77      & 0.79     & 959331  \\
+        \textbf{Média Ponderada}   & 0.70     & 0.83      & 0.76     & 959331  \\
+        \hline
+    \end{tabular}
+    \caption{Relatório de Métricas do Modelo}
+    \label{table:rf_sem_portscan_metricas}
+\end{table}

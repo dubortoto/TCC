@@ -1,0 +1,29 @@
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|rrrrrrrrrrrrrrr}
+            \hline
+                            & BENIGN       & Bot      & DDoS       & DoS GE    & Hulk       & Slowhttp  & Slowloris & FTP       & Heart & Infil & PortScan  & SSH       & Brute    & SQL     & XSS      \\
+            \hline
+            Real\_BENIGN    & \ok{680411}  & \err{48} & \err{5}    & \err{1}   & \err{247}  & \err{11}  & 0         & 0         & 0     & 0     & \err{289} & 0         & \err{2}  & 0       & 0        \\
+            Real\_Bot       & \err{248}    & \ok{316} & 0          & 0         & 0          & 0         & 0         & 0         & 0     & 0     & 0         & 0         & 0        & 0       & 0        \\
+            Real\_DDoS      & \err{19}     & 0        & \ok{38288} & 0         & 0          & 0         & 0         & 0         & 0     & 0     & 0         & 0         & 0        & 0       & 0        \\
+            Real\_DoS GE    & \err{5}      & 0        & 0          & \ok{3151} & \err{4}    & \err{3}   & 0         & 0         & 0     & 0     & 0         & 0         & 0        & 0       & 0        \\
+            Real\_DoS Hulk  & \err{187}    & 0        & 0          & \err{6}   & \ok{69070} & 0         & 0         & 0         & 0     & 0     & \err{4}   & 0         & 0        & 0       & 0        \\
+            Real\_Slowhttp  & \err{6}      & 0        & 0          & 0         & 0          & \ok{1644} & \err{8}   & 0         & 0     & 0     & 0         & 0         & 0        & 0       & 0        \\
+            Real\_Slowloris & \err{3}      & 0        & 0          & \err{1}   & 0          & \err{4}   & \ok{1749} & 0         & 0     & 0     & 0         & 0         & 0        & 0       & 0        \\
+            Real\_FTP       & 0            & 0        & 0          & 0         & 0          & 0         & 0         & \ok{2326} & 0     & 0     & 0         & 0         & 0        & 0       & 0        \\
+            Real\_Heart     & \err{2}      & 0        & 0          & 0         & 0          & 0         & 0         & 0         & \ok{4} & 0    & 0         & 0         & 0        & 0       & 0        \\
+            Real\_Infil     & \err{1}      & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0     & \ok{9} & 0        & 0         & 0        & 0       & 0        \\
+            Real\_PortScan  & \err{9}      & 0        & 0          & 0         & \err{8}    & 0         & 0         & 0         & 0     & 0     & \ok{47818}& 0         & \err{1}  & 0       & 0        \\
+            Real\_SSH       & \err{2}      & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0     & 0     & 0         & \ok{1819} & 0        & 0       & 0        \\
+            Real\_Brute     & \err{9}      & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0     & 0     & 0         & 0         & \ok{426} & 0       & 0        \\
+            Real\_SQL       & \err{4}      & 0        & 0          & \err{1}   & 0          & 0         & 0         & 0         & 0     & 0     & 0         & 0         & 0        & \ok{1}  & 0        \\
+            Real\_XSS       & \err{49}     & 0        & 0          & 0         & 0          & \err{1}   & 0         & 0         & 0     & 0     & \err{5}   & 0         & \err{597}& 0       & \ok{0}   \\
+            \hline
+        \end{tabular}
+    }
+    \caption{Matriz de Confusão do Modelo}
+    \label{table:rf_Sem_XSS_mc}
+\end{table}
