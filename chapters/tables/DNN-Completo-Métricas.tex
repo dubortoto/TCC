@@ -1,0 +1,31 @@
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{lrrrr}
+        \hline
+        Classe                     & Precisão & Revocação & F1-score & Suporte \\
+        \hline
+        BENIGN                     & 0.99     & 0.99      & 0.99     & 681014  \\
+        Bot                        & 0.94     & 0.37      & 0.53     & 564     \\
+        DDoS                       & 1.00     & 0.99      & 0.99     & 38307   \\
+        DoS GoldenEye              & 0.99     & 0.97      & 0.98     & 3163    \\
+        DoS Hulk                   & 0.95     & 1.00      & 0.97     & 69267   \\
+        DoS Slowhttptest           & 0.96     & 0.98      & 0.97     & 1658    \\
+        DoS slowloris              & 0.98     & 0.97      & 0.98     & 1757    \\
+        FTP-Patator                & 1.00     & 1.00      & 1.00     & 2326    \\
+        Heartbleed                 & 1.00     & 0.50      & 0.67     & 6       \\
+        Infiltration               & 0.00     & 0.00      & 0.00     & 10      \\
+        PortScan                   & 0.90     & 0.94      & 0.92     & 47836   \\
+        SSH-Patator                & 0.96     & 0.89      & 0.92     & 1821    \\
+        Web Attack - Brute Force   & 0.93     & 0.03      & 0.06     & 435     \\
+        Web Attack - Sql Injection & 0.00     & 0.00      & 0.00     & 6       \\
+        Web Attack - XSS           & 0.80     & 0.02      & 0.04     & 193     \\
+        \hline
+        \textbf{Acurácia}          & -        & 0.98      & -        & 848363  \\
+        \textbf{Média Macro}       & 0.83     & 0.64      & 0.67     & 848363  \\
+        \textbf{Média Ponderada}   & 0.98     & 0.98      & 0.98     & 848363  \\
+        \hline
+    \end{tabular}
+    \caption{Relatório de Métricas do Modelo DNN}
+    \label{table:dnn_completo_metricas}
+\end{table}

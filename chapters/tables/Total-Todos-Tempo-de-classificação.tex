@@ -1,0 +1,14 @@
+\begin{table}[htb]
+    \centering
+    \begin{tabular}{lccc}
+        \hline
+        \textbf{Cenário}       & \textbf{DNN (s)} & \textbf{Random Forest (s)} & \textbf{Amostras no teste} \\
+        \hline
+        Completo               & 17,3258          & 3,3474                     & 848.363                    \\
+        Sem PortScan no treino & 19,5003          & 3,4952                     & 959.331                    \\
+        Sem XSS no treino      & 16,8805          & 3,0954                     & 848.822                    \\
+        \hline
+    \end{tabular}
+    \caption{Tempo de classificação por cenário (proxy de custo computacional)}
+    \label{tab:total_todos_tempo_de_classificacao}
+\end{table}

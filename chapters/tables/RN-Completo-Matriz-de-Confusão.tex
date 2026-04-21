@@ -1,0 +1,29 @@
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|rrrrrrrrrrrrrrr}
+            \hline
+                            & BENIGN      & Bot      & DDoS       & DoS GE    & Hulk       & Slowhttp  & Slowloris & FTP       & Heart  & Infil  & PortScan   & SSH       & Brute     & SQL    & XSS      \\
+            \hline
+            Real\_BENIGN    & \ok{680465} & \err{49} & \err{5}    & \err{1}   & \err{193}  & \err{11}  & 0         & 0         & 0      & 0      & \err{288}  & 0         & \err{2}   & 0      & 0        \\
+            Real\_Bot       & \err{285}   & \ok{279} & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0         & 0         & 0      & 0        \\
+            Real\_DDoS      & \err{18}    & 0        & \ok{38289} & 0         & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0         & 0         & 0      & 0        \\
+            Real\_DoS GE    & \err{5}     & 0        & 0          & \ok{3151} & \err{4}    & \err{3}   & 0         & 0         & 0      & 0      & 0          & 0         & 0         & 0      & 0        \\
+            Real\_DoS Hulk  & \err{184}   & 0        & 0          & \err{6}   & \ok{69073} & 0         & 0         & 0         & 0      & 0      & \err{4}    & 0         & 0         & 0      & 0        \\
+            Real\_Slowhttp  & \err{6}     & 0        & 0          & 0         & 0          & \ok{1644} & \err{8}   & 0         & 0      & 0      & 0          & 0         & 0         & 0      & 0        \\
+            Real\_Slowloris & \err{4}     & 0        & 0          & 0         & 0          & \err{3}   & \ok{1750} & 0         & 0      & 0      & 0          & 0         & 0         & 0      & 0        \\
+            Real\_FTP       & 0           & 0        & 0          & 0         & 0          & 0         & 0         & \ok{2326} & 0      & 0      & 0          & 0         & 0         & 0      & 0        \\
+            Real\_Heart     & \err{1}     & 0        & 0          & 0         & 0          & 0         & 0         & 0         & \ok{5} & 0      & 0          & 0         & 0         & 0      & 0        \\
+            Real\_Infil     & \err{2}     & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & \ok{8} & 0          & 0         & 0         & 0      & 0        \\
+            Real\_PortScan  & \err{9}     & 0        & 0          & 0         & \err{8}    & 0         & 0         & 0         & 0      & 0      & \ok{47818} & 0         & \err{1}   & 0      & 0        \\
+            Real\_SSH       & \err{2}     & 0        & 0          & 0         & \err{1}    & 0         & 0         & 0         & 0      & 0      & 0          & \ok{1818} & 0         & 0      & 0        \\
+            Real\_Brute     & \err{9}     & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0         & \ok{352}  & 0      & \err{74} \\
+            Real\_SQL       & \err{4}     & 0        & 0          & \err{1}   & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0         & 0         & \ok{1} & 0        \\
+            Real\_XSS       & \err{13}    & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0      & \err{1}    & 0         & \err{107} & 0      & \ok{72}  \\
+            \hline
+        \end{tabular}
+    }
+    \caption{Matriz de Confusão - Random Forest}
+    \label{table:rf_completo_mc}
+\end{table}

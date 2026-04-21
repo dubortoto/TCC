@@ -1,15 +1,15 @@
 \chapter{RESULTADOS DO LABORATÓRIO}
 
-Este capítulo apresenta os resultados obtidos na etapa prática do laboratório de detecção de intrusão, com foco na comparação entre os modelos \textit{DNN} e \textit{Random Forest} em três cenários experimentais. 
+Este capítulo apresenta os resultados obtidos na etapa prática do laboratório de detecção de intrusão, com foco na comparação entre os modelos \textit{DNN} e \textit{Random Forest} em três cenários experimentais.
 
 \section{Execução do Laboratório Experimental}
 
 O laboratório foi estruturado em duas fases principais: tratamento dos dados e treinamento/avaliação dos modelos. Na primeira fase, os arquivos do \textit{CICIDS2017} foram consolidados em apenas 1 \textit{CSV}, tratados e normalizados. Na segunda fase, os modelos foram treinados e avaliados em três cenários:
 
 \begin{itemize}
-\item Cenário completo: todas as classes presentes no \textit{dataset} de teste, estavam presentes também no \textit{dataset} de treinamento.
-\item Cenário sem \textit{PortScan} no treino: classe \textit{PortScan} foi removida do \textit{dataset} de treinamento e mantida apenas no \textit{dataset} de teste para simular um ataque não visto durante o treinamento.
-\item Cenário sem \textit{XSS} no treino: classe \textit{XSS} removida do \textit{dataset} de treinamento e mantida no apenas \textit{dataset} de teste para novamente simular um ataque não visto durante o treinamento.
+    \item Cenário completo: todas as classes presentes no \textit{dataset} de teste, estavam presentes também no \textit{dataset} de treinamento.
+    \item Cenário sem \textit{PortScan} no treino: classe \textit{PortScan} foi removida do \textit{dataset} de treinamento e mantida apenas no \textit{dataset} de teste para simular um ataque não visto durante o treinamento.
+    \item Cenário sem \textit{XSS} no treino: classe \textit{XSS} removida do \textit{dataset} de treinamento e mantida no apenas \textit{dataset} de teste para novamente simular um ataque não visto durante o treinamento.
 \end{itemize}
 
 No pré-processamento, o dataset unificado atingiu dimensão de 2.830.743 registros e 79 colunas. Após a divisão principal, foram gerados conjuntos com 1.979.513 amostras para treino e 848.363 para teste no cenário completo. No cenário sem PortScan, 110.968 registros dessa classe foram movidos do treino para o teste, resultando em 1.868.545 amostras para treino e 959.331 para teste. Já no cenário sem XSS, a divisão manteve-se similar ao cenário completo, com 1.979.513 amostras para treino e 848.822 para teste.
@@ -22,111 +22,21 @@ Apesar da vantagem numérica do Random Forest em acurácia global, essa métrica
 
 Além das métricas de classificação, foi realizada a comparação do tempo de inferência no \textit{dataset} de teste como proxy de custo computacional em produção. No cenário completo (848.363 amostras), a \textit{DNN} levou 17,3258 segundos para classificar o conjunto de teste, enquanto o \textit{Random Forest} levou 3,3474 segundos. Em termos práticos, o \textit{Random Forest} foi aproximadamente 5,18 vezes mais rápido nesse cenário.
 
-\input{chapters/tables/Comparação-Desempenho-Cenario-Completo.tex}
+\input{chapters/tables/Total-Completo-Tempo-de-classificação.tex}
 
-Para ampliar a comparação do cenário completo, também foram consolidadas as métricas de precisão, \textit{recall} e \textit{F1-score} com base no relatório de classificação de cada modelo. A Tabela \ref{tab:metricas_completo} apresenta os resultados para as médias macro e ponderada (\textit{weighted}), permitindo comparar o equilíbrio de desempenho entre classes e o desempenho global ponderado pelo suporte.
+Para ampliar a comparação do cenário completo, também foram consolidadas as métricas de precisão, \textit{recall} e \textit{F1-score} com base no relatório de classificação de cada modelo. A Tabela \ref{tab:total_completo_tempo_de_classificacao} apresenta os resultados para as médias macro e ponderada (\textit{weighted}), permitindo comparar o equilíbrio de desempenho entre classes e o desempenho global ponderado pelo suporte.
 
-\input{chapters/tables/Metricas-Agregadas-Cenario-Completo.tex}
+\input{chapters/tables/Total-Completo-Metricas.tex}
 
-Em relação à matriz de confusão do cenário completo, os dois modelos apresentaram concentração de acertos na diagonal principal. Para tornar a análise objetiva no corpo do texto, a Tabela \ref{table:mc_dnn_completa} apresenta a matriz de confusão completa da \textit{DNN} (15x15), e a Tabela \ref{table:mc_rf_completa} do \textit{Random Forest}.
+Em relação à matriz de confusão do cenário completo, os dois modelos apresentaram concentração de acertos na diagonal principal. Para tornar a análise objetiva no corpo do texto, a Tabela \ref{table:dnn_completo_mc} apresenta a matriz de confusão completa da \textit{DNN} (15x15), e a Tabela \ref{table:rf_completo_mc} do \textit{Random Forest}.
 
-\input{chapters/tables/Matriz-de-Confusão-DNN-Completa.tex}
+\input{chapters/tables/DNN-Completo-Matriz-de-Confusão.tex}
 
-% \begin{table}[H]
-% \centering
-% \small
-% \begin{tabular}{lrrrr}
-% \toprule
-% Classe & Precisão & Revocação & F1-score & Suporte \\
-% \midrule
-% BENIGN & 0.99 & 0.99 & 0.99 & 681014 \\
-% Bot & 0.94 & 0.37 & 0.53 & 564 \\
-% DDoS & 1.00 & 0.99 & 0.99 & 38307 \\
-% DoS GoldenEye & 0.99 & 0.97 & 0.98 & 3163 \\
-% DoS Hulk & 0.95 & 1.00 & 0.97 & 69267 \\
-% DoS Slowhttptest & 0.96 & 0.98 & 0.97 & 1658 \\
-% DoS slowloris & 0.98 & 0.97 & 0.98 & 1757 \\
-% FTP-Patator & 1.00 & 1.00 & 1.00 & 2326 \\
-% Heartbleed & 1.00 & 0.50 & 0.67 & 6 \\
-% Infiltration & 0.00 & 0.00 & 0.00 & 10 \\
-% PortScan & 0.90 & 0.94 & 0.92 & 47836 \\
-% SSH-Patator & 0.96 & 0.89 & 0.92 & 1821 \\
-% Web Attack - Brute Force & 0.93 & 0.03 & 0.06 & 435 \\
-% Web Attack - Sql Injection & 0.00 & 0.00 & 0.00 & 6 \\
-% Web Attack - XSS & 0.80 & 0.02 & 0.04 & 193 \\
-% \midrule
-% \textbf{Acurácia} & - & 0.98 & -  & 848363 \\
-% \textbf{Média Macro} & 0.83 & 0.64 & 0.67 & 848363 \\
-% \textbf{Média Ponderada} & 0.98 & 0.98 & 0.98 & 848363 \\
-% \bottomrule
-% \end{tabular}
-% \caption{Relatório de Métricas do Modelo DNN}
-% \label{table:rel_metr_DNN}
-% \end{table}
+\input{chapters/tables/DNN-Completo-Métricas.tex}
 
-% % \begin{landscape}
-% \begin{table}[H]
-% \centering
-% \scriptsize
-% \resizebox{\linewidth}{!}{
-% \begin{tabular}{l|rrrrrrrrrrrrrrr}
-% \hline
-%  & BENIGN & Bot & DDoS & DoS GE & Hulk & Slowhttp & Slowloris & FTP & Heart & Infil & PortScan & SSH & Brute & SQL & XSS \\
-% \hline
-% Real\_BENIGN & \ok{680465} & \err{49} & \err{5} & \err{1} & \err{193} & \err{11} & 0 & 0 & 0 & 0 & \err{288} & 0 & \err{2} & 0 & 0 \\
-% Real\_Bot & \err{285} & \ok{279} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-% Real\_DDoS & \err{18} & 0 & \ok{38289} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-% Real\_DoS GE & \err{5} & 0 & 0 & \ok{3151} & \err{4} & \err{3} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-% Real\_DoS Hulk & \err{184} & 0 & 0 & \err{6} & \ok{69073} & 0 & 0 & 0 & 0 & 0 & \err{4} & 0 & 0 & 0 & 0 \\
-% Real\_Slowhttp & \err{6} & 0 & 0 & 0 & 0 & \ok{1644} & \err{8} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-% Real\_Slowloris & \err{4} & 0 & 0 & 0 & 0 & \err{3} & \ok{1750} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-% Real\_FTP & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \ok{2326} & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-% Real\_Heart & \err{1} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \ok{5} & 0 & 0 & 0 & 0 & 0 & 0 \\
-% Real\_Infil & \err{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \ok{8} & 0 & 0 & 0 & 0 & 0 \\
-% Real\_PortScan & \err{9} & 0 & 0 & 0 & \err{8} & 0 & 0 & 0 & 0 & 0 & \ok{47818} & 0 & \err{1} & 0 & 0 \\
-% Real\_SSH & \err{2} & 0 & 0 & 0 & \err{1} & 0 & 0 & 0 & 0 & 0 & 0 & \ok{1818} & 0 & 0 & 0 \\
-% Real\_Brute & \err{9} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \ok{352} & 0 & \err{74} \\
-% Real\_SQL & \err{4} & 0 & 0 & \err{1} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \ok{1} & 0 \\
-% Real\_XSS & \err{13} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \err{1} & 0 & \err{107} & 0 & \ok{72} \\
-% \hline
-% \end{tabular}
-% }
-% \caption{Matriz de Confusão - Random Forest}
-% \label{table:mc_rf_completa}
-% \end{table}
-% \end{landscape}
+\input{chapters/tables/RN-Completo-Matriz-de-Confusão.tex}
 
-% \begin{table}[H]
-% \centering
-% \small
-% \begin{tabular}{lrrrr}
-% \toprule
-% Classe & Precisão & Revocação & F1-score & Suporte \\
-% \midrule
-% BENIGN & 1.00 & 1.00 & 1.00 & 681014 \\
-% Bot & 0.85 & 0.49 & 0.63 & 564 \\
-% DDoS & 1.00 & 1.00 & 1.00 & 38307 \\
-% DoS GoldenEye & 1.00 & 1.00 & 1.00 & 3163 \\
-% DoS Hulk & 1.00 & 1.00 & 1.00 & 69267 \\
-% DoS Slowhttptest & 0.99 & 0.99 & 0.99 & 1658 \\
-% DoS slowloris & 1.00 & 1.00 & 1.00 & 1757 \\
-% FTP-Patator & 1.00 & 1.00 & 1.00 & 2326 \\
-% Heartbleed & 1.00 & 0.83 & 0.91 & 6 \\
-% Infiltration & 1.00 & 0.80 & 0.89 & 10 \\
-% PortScan & 0.99 & 1.00 & 1.00 & 47836 \\
-% SSH-Patator & 1.00 & 1.00 & 1.00 & 1821 \\
-% Web Attack - Brute Force & 0.76 & 0.81 & 0.78 & 435 \\
-% Web Attack - Sql Injection & 1.00 & 0.17 & 0.29 & 6 \\
-% Web Attack - XSS & 0.49 & 0.37 & 0.42 & 193 \\
-% \midrule
-% \textbf{Acurácia} & - & 1.00 & - & 848363 \\
-% \textbf{Média Macro} & 0.94 & 0.83 & 0.86 & 848363 \\
-% \textbf{Média Ponderada} & 1.00 & 1.00 & 1.00 & 848363 \\
-% \bottomrule
-% \end{tabular}
-% \caption{Relatório de Métricas do Modelo random Forest}
-% \label{table:rel_metr_rf}
-% \end{table}
+\input{chapters/tables/RN-Completo-Métricas.tex}
 
 As tabelas evidenciam que o \textit{Random Forest} apresentou diagonal principal mais forte nas classes críticas do cenário completo. Em \textit{PortScan}, o \textit{Random Forest} acertou 47.818 de 47.836 registros na diagonal (aprox. 99,96\%), enquanto a \textit{DNN} acertou 44.850 de 47.836 (aprox. 93,75\%). Em \textit{Web Attack - Brute Force}, o \textit{Random Forest} registrou 352 acertos de 435 (aprox. 80,92\%), ao passo que a \textit{DNN} registrou 13 de 435 (aprox. 2,99\%). O mesmo padrão aparece em \textit{Web Attack - XSS}, com 72 acertos de 193 para \textit{Random Forest} (aprox. 37,31\%) contra 4 de 193 para \textit{DNN} (aprox. 2,07\%).
 
@@ -143,7 +53,7 @@ Os dados dos relatórios de classificação confirmam que o impacto não ficou r
 No \textit{Random Forest}, a acurácia também caiu (1,00 para 0,83), com redução das médias de 0,94/0,83/0,86 para 0,86/0,77/0,79 (macro) e de 1,00/1,00/1,00 para 0,70/0,83/0,76 (ponderada). Mesmo mantendo bom desempenho em algumas classes, houve perda relevante em \textit{BENIGN} (precisão de 1,00 para 0,81), indicando aumento de confusão após a retirada de \textit{PortScan} do treino. Esses valores sustentam que a remoção de \textit{PortScan} piora o resultado geral e também afeta classes correlatas.
 
 \begin{center}
-\textit{[Inserir tabela de resultados do cenário sem PortScan]} 
+    \textit{[Inserir tabela de resultados do cenário sem PortScan]}
 \end{center}
 
 \subsection{Análise do cenário sem XSS no treinamento}
@@ -159,7 +69,7 @@ Esse comportamento é compatível com o desbalanceamento do \textit{dataset}. No
 Assim, a resposta para este cenário é: não houve o mesmo padrão de piora generalizada observado na retirada de \textit{PortScan}. A remoção de \textit{XSS} provocou piora localizada, principalmente no próprio \textit{XSS} e em classes web correlatas, sem colapso amplo da detecção nas demais classes.
 
 \begin{center}
-\textit{[Inserir tabela de resultados do cenário sem XSS]}
+    \textit{[Inserir tabela de resultados do cenário sem XSS]}
 \end{center}
 
 Comparando os dois casos, conclui-se que a retirada de classes do treinamento pode sim piorar o resultado no geral, porém com intensidade diferente conforme a classe omitida. A remoção de \textit{PortScan} gerou impacto mais amplo e mais forte no desempenho global e entre classes, enquanto a remoção de \textit{XSS} produziu efeito predominantemente pontual.
@@ -170,22 +80,7 @@ De forma complementar aos resultados de acurácia, foi consolidada a comparaçã
 
 O padrão observado foi consistente: o \textit{Random Forest} manteve tempos de inferência menores em todos os casos, enquanto a \textit{DNN} apresentou maior tempo de classificação, principalmente no cenário sem \textit{PortScan} no treinamento.
 
-\begin{table}[htb]
-\centering
-\caption{Tempo de classificação por cenário (proxy de custo computacional)}
-\label{tab:tempos_cenarios}
-\begin{tabular}{|l|c|c|c|}
-\hline
-\textbf{Cenário} & \textbf{DNN (s)} & \textbf{Random Forest (s)} & \textbf{Amostras no teste} \\
-\hline
-Completo & 17,3258 & 3,3474 & 848.363 \\
-\hline
-Sem PortScan no treino & 19,5003 & 3,4952 & 959.331 \\
-\hline
-Sem XSS no treino & 16,8805 & 3,0954 & 848.822 \\
-\hline
-\end{tabular}
-\end{table}
+\input{chapters/tables/Total-Todos-Tempo-de-classificação.tex}
 
 \section{Síntese dos Achados do Laboratório}
 
