@@ -95,3 +95,122 @@ O padrão observado foi consistente: o \textit{Random Forest} manteve tempos de 
 Os resultados apontam que os dois modelos são eficazes em cenário fechado, porém respondem de maneira distinta quando há ausência de classes no treinamento. O cenário sem \textit{PortScan} foi o mais desafiador e destacou limitações de generalização, especialmente para a \textit{DNN}. Já os cenários com \textit{XSS} mantiveram desempenho global elevado, indicando menor impacto dessa remoção na configuração testada.
 
 Embora a \textit{DNN} seja frequentemente descrita como mais capaz de generalizar para padrões complexos e ataques não vistos, esse comportamento não foi observado de forma consistente nos experimentos deste trabalho. Nos cenários com classe ausente no treinamento, o \textit{Random Forest} manteve desempenho mais estável e apresentou melhores resultados agregados.
+
+% ──────────────────────────────────────────────────────────────────────────────
+\chapter{MELHORIAS PROPOSTAS — RESULTADOS}
+
+Este capítulo apresenta os resultados das melhorias implementadas sobre o Baseline, incluindo a substituição do dataset por LycoS-IDS2017, a aplicação de redução de dimensionalidade via MDI do \textit{Random Forest} e o uso de um \textit{Autoencoder} como detector não supervisionado.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Melhoria A — LycoS-IDS2017 sem Redução de Dimensionalidade}
+
+\subsection{Cenário Completo}
+
+\input{chapters/tables/MelhoriaA-LycoS/DNN-Completo-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaA-LycoS/DNN-Completo-Métricas.tex}
+
+\input{chapters/tables/MelhoriaA-LycoS/RF-Completo-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaA-LycoS/RF-Completo-Métricas.tex}
+
+\subsection{Cenário sem PortScan no Treinamento}
+
+\input{chapters/tables/MelhoriaA-LycoS/DNN-Sem-PortScan-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaA-LycoS/DNN-Sem-PortScan-Métricas.tex}
+
+\input{chapters/tables/MelhoriaA-LycoS/RF-Sem-PortScan-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaA-LycoS/RF-Sem-PortScan-Métricas.tex}
+
+\subsection{Cenário sem XSS no Treinamento}
+
+\input{chapters/tables/MelhoriaA-LycoS/DNN-Sem-XSS-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaA-LycoS/DNN-Sem-XSS-Métricas.tex}
+
+\input{chapters/tables/MelhoriaA-LycoS/RF-Sem-XSS-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaA-LycoS/RF-Sem-XSS-Métricas.tex}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Melhoria B — CICIDS2017 com Redução de Dimensionalidade (MDI)}
+
+\subsection{Cenário Completo}
+
+\input{chapters/tables/MelhoriaB-CICIDS2017-MDI/DNN-Completo-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaB-CICIDS2017-MDI/DNN-Completo-Métricas.tex}
+
+\subsection{Cenário sem PortScan no Treinamento}
+
+\input{chapters/tables/MelhoriaB-CICIDS2017-MDI/DNN-Sem-PortScan-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaB-CICIDS2017-MDI/DNN-Sem-PortScan-Métricas.tex}
+
+\subsection{Cenário sem XSS no Treinamento}
+
+\input{chapters/tables/MelhoriaB-CICIDS2017-MDI/DNN-Sem-XSS-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaB-CICIDS2017-MDI/DNN-Sem-XSS-Métricas.tex}
+
+\subsection{Cenário Completo com Classes Balanceadas}
+
+\input{chapters/tables/MelhoriaB-CICIDS2017-MDI/DNN-Balanced-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaB-CICIDS2017-MDI/DNN-Balanced-Métricas.tex}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Melhoria C — LycoS-IDS2017 com Redução de Dimensionalidade (MDI)}
+
+\subsection{Cenário Completo}
+
+\input{chapters/tables/MelhoriaC-LycoS-MDI/DNN-Completo-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaC-LycoS-MDI/DNN-Completo-Métricas.tex}
+
+\subsection{Cenário sem PortScan no Treinamento}
+
+\input{chapters/tables/MelhoriaC-LycoS-MDI/DNN-Sem-PortScan-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaC-LycoS-MDI/DNN-Sem-PortScan-Métricas.tex}
+
+\subsection{Cenário sem XSS no Treinamento}
+
+\input{chapters/tables/MelhoriaC-LycoS-MDI/DNN-Sem-XSS-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaC-LycoS-MDI/DNN-Sem-XSS-Métricas.tex}
+
+\subsection{Cenário Completo com Classes Balanceadas}
+
+\input{chapters/tables/MelhoriaC-LycoS-MDI/DNN-Balanced-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaC-LycoS-MDI/DNN-Balanced-Métricas.tex}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Melhorias D–G — Autoencoder (Detecção Não Supervisionada)}
+
+\subsection{Melhoria D — CICIDS2017 sem Redução de Dimensionalidade}
+
+\input{chapters/tables/MelhoriaD-G-Autoencoder/AE-CICIDS2017-Completo-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaD-G-Autoencoder/AE-CICIDS2017-Completo-Métricas.tex}
+
+\subsection{Melhoria E — LycoS-IDS2017 sem Redução de Dimensionalidade}
+
+\input{chapters/tables/MelhoriaD-G-Autoencoder/AE-LycoS-Completo-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaD-G-Autoencoder/AE-LycoS-Completo-Métricas.tex}
+
+\subsection{Melhoria F — CICIDS2017 com Redução de Dimensionalidade (MDI)}
+
+\input{chapters/tables/MelhoriaD-G-Autoencoder/AE-CICIDS2017-MDI-Completo-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaD-G-Autoencoder/AE-CICIDS2017-MDI-Completo-Métricas.tex}
+
+\subsection{Melhoria G — LycoS-IDS2017 com Redução de Dimensionalidade (MDI)}
+
+\input{chapters/tables/MelhoriaD-G-Autoencoder/AE-LycoS-MDI-Completo-Matriz-de-Confusão.tex}
+
+\input{chapters/tables/MelhoriaD-G-Autoencoder/AE-LycoS-MDI-Completo-Métricas.tex}
