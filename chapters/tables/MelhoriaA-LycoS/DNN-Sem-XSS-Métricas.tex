@@ -1,0 +1,30 @@
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{lrrrr}
+        \hline
+        Classe                    & Precisão & Revocação & F1-score & Suporte \\
+        \hline
+        benign                    & 1.00     & 1.00      & 1.00     & 418639  \\
+        bot                       & 1.00     & 1.00      & 1.00     & 219     \\
+        ddos                      & 1.00     & 1.00      & 1.00     & 28596   \\
+        dos\_goldeneye            & 0.91     & 0.97      & 0.94     & 2096    \\
+        dos\_hulk                 & 1.00     & 1.00      & 1.00     & 47942   \\
+        dos\_slowhttptest         & 0.93     & 0.99      & 0.96     & 1423    \\
+        dos\_slowloris            & 0.99     & 0.99      & 0.99     & 1775    \\
+        ftp\_patator              & 1.00     & 1.00      & 1.00     & 1181    \\
+        heartbleed                & 1.00     & 0.75      & 0.86     & 4       \\
+        portscan                  & 1.00     & 1.00      & 1.00     & 47907   \\
+        ssh\_patator              & 1.00     & 0.99      & 0.99     & 875     \\
+        webattack\_bruteforce     & 0.34     & 0.97      & 0.50     & 397     \\
+        webattack\_sql\_injection & 0.00     & 0.00      & 0.00     & 3       \\
+        webattack\_xss            & 0.00     & 0.00      & 0.00     & 661     \\
+        \hline
+        \textbf{Acurácia}         & -        & 1.00      & -        & 551718  \\
+        \textbf{Média Macro}      & 0.80     & 0.83      & 0.80     & 551718  \\
+        \textbf{Média Ponderada}  & 1.00     & 1.00      & 1.00     & 551718  \\
+        \hline
+    \end{tabular}
+    \caption{Relatório de Métricas — DNN (LycoS-IDS2017, Sem XSS no treino)}
+    \label{table:dnn_lycos_sem_xss_metricas}
+\end{table}

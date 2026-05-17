@@ -1,0 +1,31 @@
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{lrrrr}
+        \hline
+        Classe                     & Precisão & Revocação & F1-score & Suporte \\
+        \hline
+        BENIGN                     & 0.99     & 0.99      & 0.99     & 681014  \\
+        Bot                        & 0.89     & 0.34      & 0.49     & 564     \\
+        DDoS                       & 1.00     & 1.00      & 1.00     & 38307   \\
+        DoS GoldenEye              & 0.98     & 0.98      & 0.98     & 3163    \\
+        DoS Hulk                   & 0.98     & 0.97      & 0.98     & 69267   \\
+        DoS Slowhttptest           & 0.88     & 0.99      & 0.93     & 1658    \\
+        DoS slowloris              & 0.97     & 0.95      & 0.96     & 1757    \\
+        FTP-Patator                & 0.99     & 0.98      & 0.99     & 2326    \\
+        Heartbleed                 & 1.00     & 0.50      & 0.67     & 6       \\
+        Infiltration               & 0.00     & 0.00      & 0.00     & 10      \\
+        PortScan                   & 0.91     & 0.93      & 0.92     & 47836   \\
+        SSH-Patator                & 1.00     & 0.49      & 0.66     & 1821    \\
+        Web Attack – Brute Force   & 1.00     & 0.05      & 0.09     & 435     \\
+        Web Attack – Sql Injection & 0.00     & 0.00      & 0.00     & 6       \\
+        Web Attack – XSS           & 0.00     & 0.00      & 0.00     & 193     \\
+        \hline
+        \textbf{Acurácia}          & -        & 0.98      & -        & 848363  \\
+        \textbf{Média Macro}       & 0.77     & 0.61      & 0.64     & 848363  \\
+        \textbf{Média Ponderada}   & 0.98     & 0.98      & 0.98     & 848363  \\
+        \hline
+    \end{tabular}
+    \caption{Relatório de Métricas — DNN com Redução de Dimensionalidade Balanceada (CICIDS2017)}
+    \label{table:dnn_cicids_reducao_balanced_metricas}
+\end{table}

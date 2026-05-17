@@ -1,0 +1,30 @@
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{lrrrr}
+        \hline
+        Classe                    & Precisão & Revocação & F1-score & Suporte \\
+        \hline
+        benign                    & 0.72     & 1.00      & 0.84     & 418639  \\
+        bot                       & 0.97     & 1.00      & 0.99     & 219     \\
+        ddos                      & 1.00     & 1.00      & 1.00     & 28596   \\
+        dos\_goldeneye            & 0.89     & 0.99      & 0.94     & 2096    \\
+        dos\_hulk                 & 1.00     & 1.00      & 1.00     & 47942   \\
+        dos\_slowhttptest         & 0.96     & 0.99      & 0.97     & 1423    \\
+        dos\_slowloris            & 0.88     & 0.99      & 0.93     & 1775    \\
+        ftp\_patator              & 1.00     & 1.00      & 1.00     & 1181    \\
+        heartbleed                & 1.00     & 0.75      & 0.86     & 4       \\
+        portscan                  & 0.00     & 0.00      & 0.00     & 160106  \\
+        ssh\_patator              & 1.00     & 0.98      & 0.99     & 875     \\
+        webattack\_bruteforce     & 0.96     & 0.06      & 0.10     & 397     \\
+        webattack\_sql\_injection & 0.00     & 0.00      & 0.00     & 3       \\
+        webattack\_xss            & 0.00     & 0.00      & 0.00     & 193     \\
+        \hline
+        \textbf{Acurácia}         & -        & 0.76      & -        & 663449  \\
+        \textbf{Média Macro}      & 0.74     & 0.70      & 0.69     & 663449  \\
+        \textbf{Média Ponderada}  & 0.58     & 0.76      & 0.66     & 663449  \\
+        \hline
+    \end{tabular}
+    \caption{Relatório de Métricas — DNN com Redução de Dimensionalidade (LycoS-IDS2017, Sem PortScan no treino)}
+    \label{table:dnn_lycos_reducao_sem_portscan_metricas}
+\end{table}

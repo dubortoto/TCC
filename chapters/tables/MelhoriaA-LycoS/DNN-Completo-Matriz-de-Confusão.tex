@@ -1,0 +1,28 @@
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|rrrrrrrrrrrrrr}
+            \hline
+                            & BENIGN      & Bot      & DDoS       & DoS GE    & Hulk       & Slowhttp  & Slowloris & FTP       & Heart  & PortScan   & SSH      & Brute    & SQL    & XSS      \\
+            \hline
+            Real\_BENIGN    & \ok{418189} & \err{3}  & \err{1}    & \err{244} & \err{1}    & \err{33}  & \err{7}   & 0         & 0      & \err{33}   & \err{2}  & \err{90} & 0      & \err{36} \\
+            Real\_Bot       & 0           & \ok{219} & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0          & 0        & 0        & 0      & 0        \\
+            Real\_DDoS      & 0           & 0        & \ok{28588} & 0         & 0          & 0         & 0         & 0         & 0      & \err{8}    & 0        & 0        & 0      & 0        \\
+            Real\_DoS GE    & \err{4}     & 0        & 0          & \ok{2090} & \err{1}    & \err{1}   & 0         & 0         & 0      & 0          & 0        & 0        & 0      & 0        \\
+            Real\_Hulk      & \err{3}     & 0        & 0          & 0         & \ok{47933} & \err{3}   & \err{3}   & 0         & 0      & 0          & 0        & 0        & 0      & 0        \\
+            Real\_Slowhttp  & \err{32}    & 0        & 0          & \err{1}   & 0          & \ok{1383} & \err{7}   & 0         & 0      & 0          & 0        & 0        & 0      & 0        \\
+            Real\_Slowloris & \err{4}     & 0        & 0          & 0         & 0          & \err{11}  & \ok{1760} & 0         & 0      & 0          & 0        & 0        & 0      & 0        \\
+            Real\_FTP       & \err{3}     & 0        & 0          & 0         & 0          & 0         & 0         & \ok{1178} & 0      & 0          & 0        & 0        & 0      & 0        \\
+            Real\_Heart     & 0           & 0        & 0          & 0         & 0          & 0         & 0         & 0         & \ok{4} & 0          & 0        & 0        & 0      & 0        \\
+            Real\_PortScan  & \err{9}     & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & \ok{47898} & 0        & 0        & 0      & 0        \\
+            Real\_SSH       & \err{13}    & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0          & \ok{862} & 0        & 0      & 0        \\
+            Real\_Brute     & \err{6}     & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0          & 0        & \ok{340} & 0      & \err{51} \\
+            Real\_SQL       & \err{3}     & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0          & 0        & 0        & \ok{0} & 0        \\
+            Real\_XSS       & \err{1}     & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0          & 0        & \err{96} & 0      & \ok{96}  \\
+            \hline
+        \end{tabular}
+    }
+    \caption{Matriz de Confusão — DNN (LycoS-IDS2017, Completo)}
+    \label{table:dnn_lycos_completo_mc}
+\end{table}

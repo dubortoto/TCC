@@ -1,0 +1,30 @@
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{lrrrr}
+        \hline
+        Classe                    & Precisão & Revocação & F1-score & Suporte \\
+        \hline
+        benign                    & 1.00     & 1.00      & 1.00     & 418639  \\
+        bot                       & 1.00     & 1.00      & 1.00     & 219     \\
+        ddos                      & 1.00     & 1.00      & 1.00     & 28596   \\
+        dos\_goldeneye            & 1.00     & 1.00      & 1.00     & 2096    \\
+        dos\_hulk                 & 1.00     & 1.00      & 1.00     & 47942   \\
+        dos\_slowhttptest         & 1.00     & 1.00      & 1.00     & 1423    \\
+        dos\_slowloris            & 1.00     & 1.00      & 1.00     & 1775    \\
+        ftp\_patator              & 1.00     & 1.00      & 1.00     & 1181    \\
+        heartbleed                & 1.00     & 0.75      & 0.86     & 4       \\
+        portscan                  & 1.00     & 1.00      & 1.00     & 47907   \\
+        ssh\_patator              & 1.00     & 1.00      & 1.00     & 875     \\
+        webattack\_bruteforce     & 0.99     & 0.98      & 0.99     & 397     \\
+        webattack\_sql\_injection & 1.00     & 0.67      & 0.80     & 3       \\
+        webattack\_xss            & 0.98     & 0.99      & 0.99     & 193     \\
+        \hline
+        \textbf{Acurácia}         & -        & 1.00      & -        & 551250  \\
+        \textbf{Média Macro}      & 1.00     & 0.96      & 0.97     & 551250  \\
+        \textbf{Média Ponderada}  & 1.00     & 1.00      & 1.00     & 551250  \\
+        \hline
+    \end{tabular}
+    \caption{Relatório de Métricas — Random Forest (LycoS-IDS2017, Completo)}
+    \label{table:rf_lycos_completo_metricas}
+\end{table}

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(latexmk --version)",
+      "Bash(mkdir -p \"/mnt/c/Users/e/Desktop/Faculdade/TCC/build\")",
+      "Bash(latexmk \"TCC - Laboratorio de Intrusão.tex\")",
+      "Bash(python3 -c ' *)",
+      "Bash(python3)"
+    ]
+  }
+}
