@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(cd \"c:\\\\Users\\\\e\\\\Desktop\\\\Faculdade\\\\TCC\"; Get-ChildItem -Recurse -Force | Select-Object FullName | ForEach-Object { $_.FullName -replace [regex]::Escape\\(\"c:\\\\Users\\\\e\\\\Desktop\\\\Faculdade\\\\TCC\"\\), \".\" } | Sort-Object)",
+      "PowerShell(cd \"c:\\\\Users\\\\e\\\\Desktop\\\\Faculdade\\\\TCC\"; Get-ChildItem -Path \".\\\\chapters\" -File | ForEach-Object { $_.Name })",
+      "PowerShell(cd \"c:\\\\Users\\\\e\\\\Desktop\\\\Faculdade\\\\TCC\\\\Laboratório\"; Get-ChildItem -Recurse | Where-Object { -not $_.FullName -match \"\\\\.venv\" -and -not $_.FullName -match \"ipynb_checkpoints\" } | Select-Object FullName)",
+      "Bash(ls -la \"c:/Users/e/AppData/Roaming/Code/User/\" 2>&1 | head -20)",
+      "Read(//c/Users/e/AppData/Roaming/Code/User/**)"
+    ]
+  }
+}

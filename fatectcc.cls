@@ -39,7 +39,7 @@
 \newcommand{\preambulo}[1]{\renewcommand{\@preambulo}{#1}}
 
 % Comandos em português para bibliografia
-\newcommand{\adicbibliografia}[1]{\addbibresource{#1}}
+\newcommand{\adicionarbibliografia}[1]{\addbibresource{#1}}
 \newcommand{\bibliografia}{\printbibliography}
 
 % Fonte principal
