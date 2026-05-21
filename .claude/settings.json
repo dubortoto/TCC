@@ -5,7 +5,17 @@
       "Bash(mkdir -p \"/mnt/c/Users/e/Desktop/Faculdade/TCC/build\")",
       "Bash(latexmk \"TCC - Laboratorio de Intrusão.tex\")",
       "Bash(python3 -c ' *)",
-      "Bash(python3)"
+      "Bash(python3)",
+      "Bash(python3 -m venv \"/mnt/c/Users/e/Desktop/Faculdade/TCC/Laboratório/scripts/Gráficos/.venv\")",
+      "Bash(sudo apt install -y python3.12-venv)",
+      "Bash(python3 -c \"import matplotlib, seaborn, pandas, numpy; print\\('All packages available'\\)\")",
+      "Bash(pip3 install *)",
+      "Bash(python3 -m pip install --user matplotlib seaborn pandas numpy)",
+      "Bash(python3 -m venv --without-pip \"/mnt/c/Users/e/Desktop/Faculdade/TCC/Laboratório/scripts/Gráficos/.venv\")",
+      "Bash(curl -sS https://bootstrap.pypa.io/get-pip.py)",
+      "Bash(\"/mnt/c/Users/e/Desktop/Faculdade/TCC/Laboratório/scripts/Gráficos/.venv/bin/python3\")",
+      "Bash(\"/mnt/c/Users/e/Desktop/Faculdade/TCC/Laboratório/scripts/Gráficos/.venv/bin/pip\" install *)",
+      "Bash(.venv/bin/python gerar_graficos.py)"
     ]
   }
 }

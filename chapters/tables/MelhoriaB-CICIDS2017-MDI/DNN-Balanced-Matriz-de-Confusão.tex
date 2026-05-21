@@ -4,23 +4,23 @@
     \resizebox{\linewidth}{!}{
         \begin{tabular}{l|rrrrrrrrrrrrrrr}
             \hline
-                                             & BENIGN      & Bot      & DDoS       & DoS GE    & Hulk       & Slowhttp  & Slowloris & FTP       & Heart  & Infil  & PortScan   & SSH      & Web Attack – Brute Force & Web Attack – Sql Injection & Web Attack – XSS \\
+                            & BENIGN      & Bot      & DDoS       & DoS GE    & Hulk       & Slowhttp  & Slowloris & FTP       & Heart  & Infil  & PortScan   & SSH      & Brute   & SQL    & XSS    \\
             \hline
-            Real\_BENIGN                     & \ok{675095} & \err{23} & \err{102}  & \err{45}  & \err{1135} & \err{189} & \err{34}  & \err{17}  & 0      & 0      & \err{4374} & 0        & 0                        & 0                          & 0                \\
-            Real\_Bot                        & \err{372}   & \ok{192} & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0        & 0                        & 0                          & 0                \\
-            Real\_DDoS                       & \err{136}   & 0        & \ok{38163} & \err{5}   & \err{2}    & 0         & 0         & 0         & 0      & 0      & \err{1}    & 0        & 0                        & 0                          & 0                \\
-            Real\_DoS GE                     & \err{56}    & 0        & 0          & \ok{3103} & 0          & \err{4}   & 0         & 0         & 0      & 0      & 0          & 0        & 0                        & 0                          & 0                \\
-            Real\_Hulk                       & \err{2032}  & 0        & \err{2}    & 0         & \ok{67233} & 0         & 0         & 0         & 0      & 0      & 0          & 0        & 0                        & 0                          & 0                \\
-            Real\_Slowhttp                   & \err{12}    & 0        & \err{1}    & 0         & 0          & \ok{1637} & \err{8}   & 0         & 0      & 0      & 0          & 0        & 0                        & 0                          & 0                \\
-            Real\_Slowloris                  & \err{63}    & 0        & 0          & \err{1}   & 0          & \err{27}  & \ok{1666} & 0         & 0      & 0      & 0          & 0        & 0                        & 0                          & 0                \\
-            Real\_FTP                        & \err{38}    & 0        & 0          & 0         & 0          & 0         & \err{4}   & \ok{2284} & 0      & 0      & 0          & 0        & 0                        & 0                          & 0                \\
-            Real\_Heart                      & \err{3}     & 0        & 0          & 0         & 0          & 0         & 0         & 0         & \ok{3} & 0      & 0          & 0        & 0                        & 0                          & 0                \\
-            Real\_Infil                      & \err{10}    & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & \ok{0} & 0          & 0        & 0                        & 0                          & 0                \\
-            Real\_PortScan                   & \err{3343}  & 0        & \err{10}   & 0         & \err{6}    & 0         & 0         & 0         & 0      & 0      & \ok{44477} & 0        & 0                        & 0                          & 0                \\
-            Real\_SSH                        & \err{933}   & 0        & 0          & 0         & \err{1}    & 0         & 0         & 0         & 0      & 0      & 0          & \ok{887} & 0                        & 0                          & 0                \\
-            Real\_Web Attack – Brute Force   & \err{414}   & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0        & \ok{21}                  & 0                          & 0                \\
-            Real\_Web Attack – Sql Injection & \err{4}     & 0        & 0          & \err{2}   & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0        & 0                        & \ok{0}                     & 0                \\
-            Real\_Web Attack – XSS           & \err{192}   & 0        & 0          & \err{1}   & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0        & 0                        & 0                          & \ok{0}           \\
+            Real\_BENIGN    & \ok{675095} & \err{23} & \err{102}  & \err{45}  & \err{1135} & \err{189} & \err{34}  & \err{17}  & 0      & 0      & \err{4374} & 0        & 0       & 0      & 0      \\
+            Real\_Bot       & \err{372}   & \ok{192} & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0        & 0       & 0      & 0      \\
+            Real\_DDoS      & \err{136}   & 0        & \ok{38163} & \err{5}   & \err{2}    & 0         & 0         & 0         & 0      & 0      & \err{1}    & 0        & 0       & 0      & 0      \\
+            Real\_DoS GE    & \err{56}    & 0        & 0          & \ok{3103} & 0          & \err{4}   & 0         & 0         & 0      & 0      & 0          & 0        & 0       & 0      & 0      \\
+            Real\_Hulk      & \err{2032}  & 0        & \err{2}    & 0         & \ok{67233} & 0         & 0         & 0         & 0      & 0      & 0          & 0        & 0       & 0      & 0      \\
+            Real\_Slowhttp  & \err{12}    & 0        & \err{1}    & 0         & 0          & \ok{1637} & \err{8}   & 0         & 0      & 0      & 0          & 0        & 0       & 0      & 0      \\
+            Real\_Slowloris & \err{63}    & 0        & 0          & \err{1}   & 0          & \err{27}  & \ok{1666} & 0         & 0      & 0      & 0          & 0        & 0       & 0      & 0      \\
+            Real\_FTP       & \err{38}    & 0        & 0          & 0         & 0          & 0         & \err{4}   & \ok{2284} & 0      & 0      & 0          & 0        & 0       & 0      & 0      \\
+            Real\_Heart     & \err{3}     & 0        & 0          & 0         & 0          & 0         & 0         & 0         & \ok{3} & 0      & 0          & 0        & 0       & 0      & 0      \\
+            Real\_Infil     & \err{10}    & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & \ok{0} & 0          & 0        & 0       & 0      & 0      \\
+            Real\_PortScan  & \err{3343}  & 0        & \err{10}   & 0         & \err{6}    & 0         & 0         & 0         & 0      & 0      & \ok{44477} & 0        & 0       & 0      & 0      \\
+            Real\_SSH       & \err{933}   & 0        & 0          & 0         & \err{1}    & 0         & 0         & 0         & 0      & 0      & 0          & \ok{887} & 0       & 0      & 0      \\
+            Real\_Brute     & \err{414}   & 0        & 0          & 0         & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0        & \ok{21} & 0      & 0      \\
+            Real\_Sql       & \err{4}     & 0        & 0          & \err{2}   & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0        & 0       & \ok{0} & 0      \\
+            Real\_XSS       & \err{192}   & 0        & 0          & \err{1}   & 0          & 0         & 0         & 0         & 0      & 0      & 0          & 0        & 0       & 0      & \ok{0} \\
             \hline
         \end{tabular}
     }
