@@ -15,7 +15,20 @@
       "Bash(curl -sS https://bootstrap.pypa.io/get-pip.py)",
       "Bash(\"/mnt/c/Users/e/Desktop/Faculdade/TCC/Laboratório/scripts/Gráficos/.venv/bin/python3\")",
       "Bash(\"/mnt/c/Users/e/Desktop/Faculdade/TCC/Laboratório/scripts/Gráficos/.venv/bin/pip\" install *)",
-      "Bash(.venv/bin/python gerar_graficos.py)"
+      "Bash(.venv/bin/python gerar_graficos.py)",
+      "Bash(pdftotext \"/mnt/c/Users/e/Desktop/Faculdade/TCC/Fontes/Artigos para ler/20152S_LIBORIOJoaoHenriqueMonteiro_CD2497.pdf\" -)",
+      "Bash(pdftotext --version)",
+      "Read(//usr/**)",
+      "Read(//usr/bin/**)",
+      "Bash(pip install *)",
+      "Bash(python3 -m pip install pdfplumber --quiet)",
+      "Bash(which python3.11 python3.12 python3 2>/dev/null; ls /usr/lib/python3*/dist-packages/ 2>/dev/null | head -20; find /home /opt -name \"pip*\" 2>/dev/null | head -5)",
+      "Read(//home/**)",
+      "Bash(find /home/e -name \"activate\" 2>/dev/null | head -5; find /mnt/c/Users/e -name \"python.exe\" 2>/dev/null | head -3)",
+      "Read(//mnt/c/Users/e/**)",
+      "Bash(/mnt/c/Users/e/miniconda3/python.exe -c ' *)",
+      "Bash(/mnt/c/Users/e/miniconda3/python.exe -m pip install pdfplumber --quiet)",
+      "WebFetch(domain:www.gta.ufrj.br)"
     ]
   }
 }
