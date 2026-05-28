@@ -93,7 +93,7 @@ Aumentar rigor científico e reprodutibilidade.
 
 ---
 
-## TODO 4 — Fortalecer conclusão prática do trabalho
+## TODO 4 — Fortalecer conclusão prática do trabalho [em análise]
 
 ### Problema
 

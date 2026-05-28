@@ -24,13 +24,15 @@
 
 \section{Considerações Práticas}
 
-% Discutir qual abordagem é mais adequada para cada cenário de uso real.
-% Sugestões de tópicos (ver TODO 4 no arquivo de melhorias):
-% - estabilidade do RF vs. custo e fragilidade da DNN
-% - impacto da qualidade do dataset (LycoS vs. CICIDS2017)
-% - quando usar o Autoencoder (ataques zero-day, sem rótulos)
-% - trade-off entre granularidade (supervisionado) e generalização (não supervisionado)
-% - viabilidade de cada abordagem em ambientes com recursos limitados
+Os resultados dos dez experimentos permitem formular recomendações concretas sobre o uso de cada abordagem em cenários de produção.
+
+O \textit{Random Forest} demonstrou ser a abordagem mais equilibrada entre as supervisionadas. Superou a DNN em macro F1 em todos os cenários avaliados — 0,86 contra 0,67 no Baseline e 0,97 contra 0,87 com o \textit{LycoS-IDS2017} — e realizou a inferência de 848.363 amostras em 3,35 segundos, contra 17,33 segundos da DNN, uma diferença de 5 vezes. Sua degradação em cenários de generalização foi mais contida e localizada: ao enfrentar o \textit{PortScan} desconhecido, manteve acurácia de 0,83 com impacto concentrado apenas na classe ausente, enquanto a DNN sofreu falhas em múltiplas classes não relacionadas. Para ambientes com dados rotulados disponíveis, restrições de hardware ou requisitos de baixa latência, o \textit{Random Forest} é a escolha mais segura.
+
+A DNN, na configuração investigada, não se mostrou competitiva frente ao \textit{Random Forest} em nenhum dos cenários. No entanto, o dado mais relevante é a assimetria de ganho com a melhoria dos dados: o \textit{LycoS-IDS2017} elevou a macro F1 da DNN em 0,20 pontos, contra 0,11 do \textit{Random Forest}, indicando que a rede neural é mais sensível à qualidade do \textit{dataset} e tem potencial mais alto quando treinada sobre dados confiáveis. A redução de dimensionalidade por MDI não ajudou a DNN em nenhum cenário, pois a seleção de \textit{features} por impureza de Gini favorece as classes majoritárias e descarta atributos críticos para a discriminação de ataques raros. Portanto, o uso de MDI como pré-processamento para DNN em \textit{datasets} desbalanceados deve ser evitado.
+
+O \textit{Autoencoder} ocupa um nicho distinto: é a única abordagem que não depende de rótulos de ataque para o treinamento, tornando-se adequada para ambientes onde novas variantes de ataque surgem continuamente ou onde a anotação de dados é inviável. Em contrapartida, produz apenas classificação binária, sem distinção entre tipos de ataque, e obteve macro F1 máximo de 0,89 na Melhoria E, inferior ao \textit{Random Forest} no \textit{LycoS-IDS2017} (0,97) classificando 14 classes. O MDI também prejudicou os autoencoders, pelo mesmo motivo que prejudicou a DNN. A qualidade do \textit{dataset} é ainda mais determinante para o \textit{Autoencoder} do que para os modelos supervisionados: a troca do \textit{CICIDS2017} pelo \textit{LycoS-IDS2017} elevou o \textit{recall} de ataque de 0,48 para 0,82, o maior ganho relativo observado em toda a série de experimentos.
+
+Em síntese, a decisão entre as abordagens depende do contexto operacional. Ambientes com dados rotulados e tipos de ataque conhecidos devem preferir o \textit{Random Forest} pela estabilidade, velocidade e granularidade. Ambientes expostos a ataques inéditos ou sem capacidade de rotulagem encontrarão no \textit{Autoencoder} uma alternativa viável, especialmente quando combinado com dados de alta qualidade. A DNN, nas arquiteturas investigadas, só deve ser preferida ao \textit{Random Forest} quando a disponibilidade de dados curados e o custo computacional adicional forem aceitáveis.
 
 \section{Limitações do Trabalho}
 
