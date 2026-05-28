@@ -176,7 +176,7 @@ Maior rigor conceitual.
 
 ---
 
-## TODO 7 — Simplificar períodos excessivamente longos
+## TODO 7 — Simplificar períodos excessivamente longos [em análise]
 
 ### Problema
 
@@ -208,7 +208,7 @@ Texto mais agradável e profissional.
 
 # PRIORIDADE BAIXA
 
-## TODO 8 — Adicionar limitações explícitas do trabalho
+## TODO 8 — Adicionar limitações explícitas do trabalho [em análise]
 
 ### Sugestões de limitações
 
