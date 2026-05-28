@@ -228,7 +228,7 @@ Maior maturidade científica.
 
 ---
 
-## TODO 9 — Melhorar transições entre capítulos
+## TODO 9 — Melhorar transições entre capítulos [em análise]
 
 ### Problema
 
