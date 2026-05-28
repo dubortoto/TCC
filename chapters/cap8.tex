@@ -40,11 +40,14 @@ Os experimentos utilizam datasets públicos gerados em ambiente controlado, o qu
 
 \section{Trabalhos Futuros}
 
-% Sugestões para extensão do trabalho (ver TODO Opcional no arquivo de melhorias):
-% - Explainable AI (SHAP/LIME) para interpretar as decisões da DNN
-% - IDS híbrido: assinatura + anomalia em dois estágios (ver seção 5.2)
-% - Avaliação em fluxo contínuo / detecção em tempo real
-% - Avaliação com tráfego criptografado (TLS/HTTPS)
-% - Generalização cross-dataset (treinar em CICIDS2017, testar em outro dataset)
-% - Federated learning para treinar sem centralizar dados sensíveis
-% - Modelos lightweight para deploy em dispositivos de borda (edge)
+Os resultados e as delimitações de escopo deste trabalho apontam para diversas direções que podem ampliar e aprofundar os experimentos realizados.
+
+A interpretabilidade dos modelos constitui uma extensão imediata. Os modelos de DNN e Autoencoder investigados operam como caixas-pretas, sem explicar quais atributos motivaram cada decisão. A integração de mecanismos de \textit{Explainable AI} (XAI), como SHAP (\textit{SHapley Additive exPlanations}) ou LIME, permitiria identificar as \textit{features} mais discriminativas para cada tipo de ataque e auxiliar os analistas na interpretação dos alertas gerados \cite{ravindran2025}.
+
+A avaliação em tempo real representa outro caminho natural. Os experimentos foram realizados em modo \textit{batch} sobre datasets fixos; a extensão para fluxo contínuo introduziria requisitos de latência e adaptação a mudanças na distribuição do tráfego. A arquitetura de dois estágios baseada em Filtro de Bloom proposta por Rego e Nunes \cite{rego_nunes} é um exemplo de abordagem que concilia baixa latência com o poder discriminativo de redes neurais. Nessa mesma direção, a pesquisa de modelos \textit{lightweight} adequados para implantação em dispositivos de borda (\textit{edge computing}), com restrições severas de memória e processamento, representa um problema prático relevante.
+
+A generalização entre datasets é uma das questões mais abertas na área. Cantone et al. \cite{cantone2024} demonstraram que modelos treinados em um dataset tendem a fracassar ao serem avaliados em outros. A avaliação \textit{cross-dataset}, com modelos treinados em \textit{CICIDS2017} ou \textit{LycoS-IDS2017} e avaliados em conjuntos distintos como o \textit{CIC-IDS-2018} ou o \textit{UNSW-NB15}, permitiria medir o grau de generalização real dos modelos desenvolvidos.
+
+Cenários com tráfego criptografado constituem uma direção independente. Os datasets utilizados não segmentam os fluxos por protocolo de criptografia, e a análise de redes com alto volume de tráfego TLS/HTTPS, onde os atributos de \textit{payload} são inacessíveis, exigiria \textit{features} derivadas exclusivamente de metadados e estatísticas de fluxo.
+
+Por fim, a aprendizagem federada (\textit{federated learning}) representa uma alternativa promissora para cenários onde a centralização de dados de tráfego de rede é inviável por razões de privacidade ou regulatórias. Nesse paradigma, cada organização treina um modelo local com seus próprios dados e compartilha apenas as atualizações de pesos, preservando a confidencialidade das informações de rede.

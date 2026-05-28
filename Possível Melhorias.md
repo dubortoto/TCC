@@ -123,7 +123,7 @@ Conclusão mais forte e madura academicamente.
 
 # PRIORIDADE MÉDIA
 
-## TODO 5 — Reduzir redundâncias nos Trabalhos Relacionados
+## TODO 5 — Reduzir redundâncias nos Trabalhos Relacionados [em análise]
 
 ### Problema
 
