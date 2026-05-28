@@ -114,7 +114,7 @@ Em robustez à generalização, o \textit{Random Forest} demonstrou maior estabi
 
 Em custo computacional, o \textit{Random Forest} é consistentemente 5 a 6 vezes mais rápido na fase de inferência, tornando-o mais adequado para ambientes com alto volume de tráfego e requisitos de baixa latência.
 
-Em conjunto, os resultados indicam que, na configuração atual e com o \textit{CICIDS2017}, o \textit{Random Forest} apresentou desempenho mais equilibrado e comportamento mais previsível em todos os cenários avaliados. O comportamento da \textit{DNN} evidencia limitações que motivam as melhorias investigadas nos experimentos subsequentes, tais como a curadoria mais rigorosa do \textit{dataset}, a redução de dimensionalidade e a adoção de abordagens não supervisionadas.
+Em conjunto, os resultados indicam que, na configuração atual e com o \textit{CICIDS2017}, o \textit{Random Forest} apresentou desempenho mais equilibrado e comportamento mais previsível em todos os cenários avaliados. A queda sistêmica da \textit{DNN} no cenário Sem \textit{PortScan}, com degradação em classes não correlatas, está alinhada com a análise de Cantone et al. \cite{cantone2024}, que associaram esse tipo de falha em cascata aos ruídos e inconsistências de rótulo presentes no \textit{CICIDS2017} original. A vantagem de velocidade do \textit{Random Forest} corrobora empiricamente a premissa de Ravindran et al. \cite{ravindran2025} de que modelos de menor complexidade tendem a ser mais viáveis em ambientes com alto volume de tráfego. O comportamento da \textit{DNN} evidencia limitações que motivam as melhorias investigadas nos experimentos subsequentes, tais como a curadoria mais rigorosa do \textit{dataset}, a redução de dimensionalidade e a adoção de abordagens não supervisionadas.
 
 \section{Melhoria A — LycoS-IDS2017}
 
@@ -132,7 +132,7 @@ As Tabelas~\ref{table:rf_lycos_completo_mc} a \ref{table:dnn_lycos_completo_metr
 
 \input{chapters/tables/MelhoriaA-LycoS/DNN-Completo-Métricas.tex}
 
-O efeito da qualidade do \textit{dataset} foi expressivo, especialmente na \textit{DNN}. O \textit{Random Forest} atingiu macro F1 de 0,97 e acurácia de 1,00, contra 0,86 de macro F1 no Baseline. A \textit{DNN} obteve macro F1 de 0,87 e acurácia de 1,00, contra 0,67 no Baseline. O ganho da \textit{DNN} foi de 0,20 pontos na média macro, contra 0,11 pontos do \textit{Random Forest}, o que aponta para maior sensibilidade da rede ao desbalanceamento e aos ruídos de rótulo do \textit{CICIDS2017}.
+O efeito da qualidade do \textit{dataset} foi expressivo, especialmente na \textit{DNN}. O \textit{Random Forest} atingiu macro F1 de 0,97 e acurácia de 1,00, contra 0,86 de macro F1 no Baseline. A \textit{DNN} obteve macro F1 de 0,87 e acurácia de 1,00, contra 0,67 no Baseline. O ganho da \textit{DNN} foi de 0,20 pontos na média macro, contra 0,11 pontos do \textit{Random Forest}, o que aponta para maior sensibilidade da rede ao desbalanceamento e aos ruídos de rótulo do \textit{CICIDS2017}. Esse ganho assimétrico confirma empiricamente a hipótese de Cantone et al. \cite{cantone2024} de que versões corrigidas do \textit{CICIDS2017} beneficiam modelos neurais de forma desproporcional, uma vez que redes profundas tendem a memorizar as inconsistências presentes nos dados de treinamento.
 
 As classes de ataques raros, principal ponto fraco da \textit{DNN} no \textit{CICIDS2017}, apresentaram melhora expressiva. O \textit{recall} de \textit{webattack\_bruteforce} subiu de $\approx$ 0,03 para 0,86, e o de \textit{webattack\_xss} de $\approx$ 0,02 para 0,50. No \textit{Random Forest}, o desempenho já era alto no Baseline e se manteve próximo do teto no \textit{LycoS-IDS2017}, com \textit{webattack\_xss} alcançando F1 = 0,99.
 
@@ -283,7 +283,7 @@ Combinando \textit{LycoS-IDS2017} e MDI, a Melhoria G atingiu macro F1 de 0,85 e
 
 \subsection{Comparação Geral das Melhorias D–G}
 
-Os quatro autoencoders mostram um padrão claro: o \textit{LycoS-IDS2017} melhora o desempenho e o MDI piora. A Melhoria E obteve macro F1 de 0,89 e \textit{recall} de ataque de 0,82, o melhor resultado entre os autoencoders. Ainda assim, o \textit{Random Forest} no \textit{LycoS-IDS2017} chegou a macro F1 de 0,97 discriminando 14 classes, enquanto o melhor autoencoder atingiu 0,89 na classificação binária. A vantagem do autoencoder está na capacidade de detectar ataques desconhecidos sem rótulos; nos experimentos realizados, essa característica não compensou a perda de granularidade na classificação.
+Os quatro autoencoders mostram um padrão claro: o \textit{LycoS-IDS2017} melhora o desempenho e o MDI piora. A Melhoria E obteve macro F1 de 0,89 e \textit{recall} de ataque de 0,82, o melhor resultado entre os autoencoders. Ainda assim, o \textit{Random Forest} no \textit{LycoS-IDS2017} chegou a macro F1 de 0,97 discriminando 14 classes, enquanto o melhor autoencoder atingiu 0,89 na classificação binária. A vantagem do autoencoder está na capacidade de detectar ataques desconhecidos sem rótulos; nos experimentos realizados, essa característica não compensou a perda de granularidade na classificação. Esse resultado é consistente com a análise de Silva et al. \cite{silva_hsae}: a abordagem não supervisionada é mais adequada para ambientes onde a ausência de rótulos é uma restrição real e a detecção de qualquer comportamento anômalo tem prioridade sobre a identificação do tipo específico de ataque.
 
 A Figura~\ref{fig:sv_vs_ae} resume essa comparação por \textit{dataset} e paradigma.
 
@@ -293,6 +293,10 @@ A Figura~\ref{fig:sv_vs_ae} resume essa comparação por \textit{dataset} e para
     \caption{Macro-F1 por paradigma e dataset — RF, DNN, Autoencoder e Autoencoder+MDI (cenário completo)}
     \label{fig:sv_vs_ae}
 \end{figure}
+
+\section{Respostas às Hipóteses}
+
+Os resultados acumulados nos dez experimentos permitem responder diretamente às hipóteses formuladas no Capítulo~1. A hipótese de que a DNN apresentaria desempenho superior em ataques complexos e classes de baixo suporte não se confirmou: o \textit{Random Forest} superou a DNN em macro F1 em todos os cenários avaliados, incluindo as classes de baixo suporte onde a DNN registrou \textit{recall} próximo a zero mesmo com treinamento completo. A hipótese de que o \textit{Random Forest} seria computacionalmente mais eficiente foi confirmada em todos os experimentos, com tempo de inferência 5 a 6 vezes menor em todos os cenários. Uma discussão aprofundada dessas conclusões e suas implicações práticas é apresentada no Capítulo~8.
 
 \section{Visão Geral dos Experimentos}
 

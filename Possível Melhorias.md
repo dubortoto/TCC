@@ -250,7 +250,7 @@ Melhor fluidez narrativa.
 
 # TODO ESPECÍFICO PARA O CAPÍTULO 7
 
-## TODO 10 — Garantir análise crítica e não apenas exposição de métricas
+## TODO 10 — Garantir análise crítica e não apenas exposição de métricas [em análise]
 
 ### Verificar se:
 
