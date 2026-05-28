@@ -18,7 +18,7 @@ O \textit{CICIDS2017} é distribuído em arquivos CSV separados por dia de captu
 
 A divisão treino-teste foi realizada de forma estratificada na proporção 70/30. A estratificação garante que a distribuição de classes no subconjunto de treino reproduza a distribuição original do \textit{dataset}, evitando que classes com baixo suporte fiquem ausentes ou sub-representadas na avaliação. Essa precaução é especialmente importante dado o severo desbalanceamento do \textit{CICIDS2017}, no qual a classe \textit{BENIGN} concentra mais de 80\% das amostras, enquanto classes como \textit{Heartbleed} e \textit{Web Attack -- Sql Injection} possuem apenas algumas dezenas de registros.
 
-Para os experimentos com \textit{Deep Neural Network}, os atributos foram normalizados via \textit{StandardScaler}, que transforma cada coluna subtraindo sua média e dividindo pelo desvio padrão. Redes neurais são sensíveis à escala dos atributos: gradientes associados a atributos com maior amplitude tendem a dominar as atualizações de pesos durante a retropropagação, dificultando a convergência e o aprendizado de padrões em atributos de menor escala \cite{bochie2020sbrc}. O \textit{Random Forest}, por ser baseado em particionamentos recursivos por limiar, não é afetado pela escala dos valores e recebeu os dados na escala original.
+Para os experimentos com \textit{Deep Neural Network}, os atributos foram normalizados via \textit{MinMaxScaler}, que transforma cada atributo para o intervalo $[0, 1]$ dividindo cada valor pelo intervalo da coluna correspondente. Redes neurais são sensíveis à escala dos atributos: gradientes associados a atributos com maior amplitude tendem a dominar as atualizações de pesos durante a retropropagação, dificultando a convergência e o aprendizado de padrões em atributos de menor escala \cite{bochie2020sbrc}. O \textit{Random Forest}, por ser baseado em particionamentos recursivos por limiar, não é afetado pela escala dos valores e recebeu os dados na escala original.
 
 Para os experimentos com redução de dimensionalidade (Melhorias B, C, F e G), foi aplicada a técnica \textit{Mean Decrease in Impurity} (MDI). O MDI quantifica a importância de cada atributo pela sua contribuição média para a redução da impureza de Gini nas árvores de um \textit{Random Forest} previamente treinado no conjunto completo. Os atributos com menor contribuição média são descartados, e os modelos subsequentes são treinados e avaliados exclusivamente no espaço de \textit{features} reduzido, mantendo os mesmos conjuntos de treino e teste dos experimentos sem redução.
 
@@ -33,6 +33,40 @@ O Cenário Sem \textit{PortScan} remove a classe \textit{PortScan} do treinament
 O Cenário Sem \textit{XSS} remove a classe \textit{Web Attack -- XSS} do treinamento, mantendo-a no teste com 652 amostras (0,08\% do total de avaliação). Diferentemente do \textit{PortScan}, o \textit{XSS} é raro e seus padrões de tráfego se sobrepõem com os de outros ataques Web, em especial o \textit{Brute Force}. Esse cenário avalia a generalização em condições de baixíssimo suporte e alta ambiguidade de fronteira entre classes, permitindo observar como cada modelo distribui amostras desconhecidas entre as classes mais próximas.
 
 A combinação dos dois cenários de generalização permite caracterizar o comportamento dos modelos em dois extremos complementares: um ataque ausente no treino com alta presença estatística no teste (\textit{PortScan}) e um ataque ausente no treino que é raro e semanticamente ambíguo (\textit{XSS}).
+
+\section{Configuração dos modelos e ambiente computacional}
+
+Os três modelos foram implementados em Python em ambiente local, utilizando \textit{Scikit-learn} para o \textit{Random Forest} e \textit{TensorFlow}/\textit{Keras} para a DNN e o \textit{Autoencoder}.
+
+O \textit{Random Forest} foi configurado com 100 árvores de decisão (\texttt{n\_estimators=100}), semente aleatória fixada em 42 (\texttt{random\_state=42}) e paralelização total dos núcleos disponíveis (\texttt{n\_jobs=-1}). Os demais parâmetros seguiram os valores padrão da biblioteca.
+
+A DNN foi construída com duas camadas ocultas: a primeira com 128 neurônios e a segunda com 64, ambas com ativação ReLU e \textit{dropout} de 0,2. A camada de saída possui um neurônio por classe com ativação \textit{softmax}. O modelo foi compilado com otimizador Adam e função de perda \textit{sparse categorical crossentropy}, treinado por 10 épocas com \textit{batch size} de 256 amostras e 10\% do conjunto de treino reservado para validação interna.
+
+O \textit{Autoencoder} adota arquitetura simétrica: o codificador reduz a entrada de 78 atributos para 64, 32 e 16 dimensões; o decodificador reconstrói o caminho inverso (16 $\to$ 32 $\to$ 64 $\to$ 78). As camadas ocultas utilizam ativação ReLU e a camada de saída utiliza sigmoide. O modelo foi compilado com otimizador Adam e perda MSE, treinado por até 50 épocas com \textit{batch size} de 256, fração de validação de 10\% e \textit{EarlyStopping} com paciência de 3 épocas, restaurando os melhores pesos ao término.
+
+As especificações completas do ambiente computacional utilizado nos experimentos são apresentadas na Tabela~\ref{tab:ambiente}.
+
+\begin{table}[H]
+\centering
+\caption{Especificações do ambiente computacional}
+\label{tab:ambiente}
+\begin{tabular}{ll}
+\hline
+Componente & Especificação \\
+\hline
+CPU             & AMD Ryzen 5 5600 6-Core (3,50 GHz) \\
+GPU             & NVIDIA GeForce RTX 3060 (12 GB) \\
+RAM             & 32 GB \\
+Sistema Operacional & Microsoft Windows (64-bit) \\
+Python          & 3.12.10 \\
+TensorFlow      & 2.21.0 \\
+Keras           & 3.13.2 \\
+Scikit-learn    & 1.8.0 \\
+Pandas          & 3.0.1 \\
+NumPy           & 2.4.3 \\
+\hline
+\end{tabular}
+\end{table}
 
 \section{Métricas e critérios de avaliação}
 

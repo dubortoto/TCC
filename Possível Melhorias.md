@@ -61,7 +61,7 @@ Evitar expectativa incorreta de um IDS fully operational.
 
 ---
 
-## TODO 3 — Adicionar detalhes de reprodutibilidade experimental
+## TODO 3 — Adicionar detalhes de reprodutibilidade experimental [em análise]
 
 ### Problema
 
