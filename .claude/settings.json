@@ -28,7 +28,12 @@
       "Read(//mnt/c/Users/e/**)",
       "Bash(/mnt/c/Users/e/miniconda3/python.exe -c ' *)",
       "Bash(/mnt/c/Users/e/miniconda3/python.exe -m pip install pdfplumber --quiet)",
-      "WebFetch(domain:www.gta.ufrj.br)"
+      "WebFetch(domain:www.gta.ufrj.br)",
+      "Bash(mkdir -p /mnt/c/Users/e/Desktop/Faculdade/TCC/.claude/commands)",
+      "Bash(grep -v \"^$\")"
+    ],
+    "additionalDirectories": [
+      "/mnt/c/Users/e/Desktop/Faculdade/TCC/.claude"
     ]
   }
 }

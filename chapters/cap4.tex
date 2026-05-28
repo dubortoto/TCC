@@ -1,13 +1,36 @@
 \chapter{REDES NEURAIS PROFUNDAS (\textit{DNN})}
 
+Este capítulo apresenta a base teórica das redes neurais profundas utilizadas nos experimentos. São discutidos os fundamentos do aprendizado profundo, incluindo a arquitetura do Perceptron Multicamadas, as funções de ativação e o algoritmo de retropropagação, a arquitetura de \textit{Autoencoder} aplicada à detecção de anomalias não supervisionada, e as particularidades da aplicação de DNNs ao problema de classificação de tráfego de rede.
+
 \section{Fundamentos de \textit{Deep Learning}}
 
-[Introduzir perceptron multicamadas, camadas ocultas, funções de ativação e retropropagação.]
+O aprendizado profundo (\textit{Deep Learning} - DL) é uma área do aprendizado de máquina que utiliza redes neurais com múltiplas camadas para extrair representações hierárquicas a partir dos dados brutos \cite{bochie2020sbrc}. Enquanto nos algoritmos tradicionais de ML a engenharia de características (\textit{feature engineering}) depende do conhecimento prévio do especialista, o aprendizado profundo é capaz de descobrir automaticamente as representações mais discriminativas ao longo das camadas da rede. Esse aprendizado enquadra-se na definição de Mitchell \cite{mitchell1997}: o modelo melhora seu desempenho em uma tarefa à medida que acumula experiência a partir dos dados de treinamento.
 
-\section{Arquitetura \textit{DNN} aplicada ao problema}
+A unidade fundamental de uma rede neural artificial é o neurônio artificial, inspirado no neurônio biológico. Cada neurônio recebe um vetor de entradas, aplica uma transformação linear ponderada e passa o resultado por uma função de ativação não linear. Formalmente, a saída do neurônio $i$ na camada $l$ é dada por:
+\[
+  h_i = \varphi\!\left(W_i^\top h_{i-1} + b_i\right)
+\]
+onde $W_i$ é o vetor de pesos, $h_{i-1}$ é o vetor de ativações da camada anterior, $b_i$ é o viés e $\varphi$ é a função de ativação \cite{bochie2020sbrc}. Funções de ativação clássicas incluem a sigmoide e a tangente hiperbólica; a \textit{Rectified Linear Unit} (ReLU), definida como $\varphi(x) = \max(0, x)$, tornou-se a escolha padrão em redes profundas por atenuar o problema do gradiente que se dissipa nas camadas mais profundas.
 
-[Descrever escolhas de arquitetura, função de perda, otimizador e regularização.]
+O Perceptron Multicamadas (\textit{Multilayer Perceptron} - MLP) é a arquitetura de referência utilizada neste trabalho. É composto por uma camada de entrada, uma ou mais camadas ocultas e uma camada de saída. O treinamento é realizado pelo algoritmo de retropropagação (\textit{backpropagation}), que calcula o gradiente da função de perda em relação a cada parâmetro da rede por meio da regra da cadeia e atualiza os pesos iterativamente por descida de gradiente estocástica \cite{bochie2020sbrc}.
 
-\section{Vantagens e limitações para \textit{IDS}}
+O sobreajuste (\textit{overfitting}) é um risco especialmente elevado em redes profundas, que possuem grande capacidade expressiva. Uma das técnicas de regularização mais eficazes para mitigá-lo é o \textit{dropout}: durante o treinamento, cada neurônio de uma camada é desativado aleatoriamente com uma probabilidade $p$, forçando a rede a aprender representações redundantes e menos dependentes de neurônios individuais \cite{bochie2020sbrc}. O \textit{dropout} é aplicado exclusivamente na fase de treinamento; na inferência, todos os neurônios são mantidos ativos e seus pesos são escalados pela probabilidade de retenção $(1 - p)$.
 
-[Discutir capacidade de modelar padrões complexos e desafios de treinamento em dados desbalanceados.]
+\section{\textit{Autoencoder}}
+
+O Autoencoder é uma arquitetura de rede neural projetada para aprender representações compactas dos dados de forma não supervisionada \cite{bochie2020sbrc}. A rede é dividida em duas partes simétricas: o codificador (\textit{encoder}) mapeia a entrada $x$ para um vetor latente $z$ de dimensão reduzida, e o decodificador (\textit{decoder}) reconstrói a entrada $\hat{x}$ a partir de $z$. O objetivo do treinamento é minimizar o erro de reconstrução entre a entrada original e a saída reconstruída, tipicamente medido pelo erro quadrático médio:
+\[
+  \mathcal{L} = \frac{1}{n}\sum_{k=1}^{n}\left\|x_k - \hat{x}_k\right\|^2
+\]
+
+Autoencoders subdimensionados possuem código de dimensão menor que a entrada, forçando o modelo a comprimir a informação e descartar ruído. Autoencoders sobredimensionados, cujo código tem dimensão maior que a entrada, precisam de restrições adicionais para que não aprendam simplesmente a função identidade \cite{bochie2020sbrc}.
+
+Em aplicações de detecção de anomalias, o Autoencoder é treinado exclusivamente com amostras benignas. Durante a inferência, amostras que pertencem a classes de ataque geram erro de reconstrução elevado, pois o modelo aprendeu apenas a representar o comportamento normal. Um limiar (\textit{threshold}) é definido sobre o erro de reconstrução para separar tráfego benigno de tráfego anômalo. Essa propriedade torna o Autoencoder especialmente adequado para a detecção de ataques inéditos (\textit{zero-day}), que não possuem exemplos rotulados no conjunto de treinamento.
+
+\section{Aplicação em Detecção de Intrusão}
+
+Em tráfego de rede representado por vetores de características numéricas, como os derivados do CICIDS2017 e do LycoS-IDS2017 utilizados neste trabalho, a MLP classifica cada fluxo a partir de dezenas de métricas (duração, contagem de pacotes, tamanho médio, \textit{flags} TCP, entre outras). O pipeline de treinamento envolve a coleta e rotulagem dos fluxos, o pré-processamento (normalização, tratamento de valores ausentes e balanceamento de classes), o treinamento com validação e a avaliação em um conjunto de teste retido \cite{medeiros2019sbrc}.
+
+Duas arquiteturas são investigadas experimentalmente neste trabalho. Nos experimentos supervisionados (Baseline e Melhorias A–C), uma MLP é treinada com rótulos de classe para classificar o tráfego entre benigno e os diferentes tipos de ataque presentes nos datasets. Nos experimentos não supervisionados (Melhorias D–G), um Autoencoder é treinado apenas com tráfego benigno e utiliza o erro de reconstrução como pontuação de anomalia em tempo de inferência.
+
+Uma vantagem das DNNs sobre algoritmos mais simples é a capacidade de modelar padrões complexos e não lineares no tráfego. A contrapartida é a maior demanda computacional e a menor interpretabilidade em relação ao Random Forest. Além disso, conjuntos de dados com classes altamente desbalanceadas exigem cuidados adicionais, como reamostragem ou pesos de classe na função de perda, para que a DNN não ignore as classes de ataque minoritárias \cite{medeiros2019sbrc}. Esses aspectos são investigados nos experimentos descritos no Capítulo~7.

@@ -10,16 +10,16 @@ TCC de Eduardo de Mattos Bortoto para a FATEC-SP. Laboratório de detecção de 
 TCC/
 ├── TCC - Laboratorio de Intrusão.tex   # documento principal
 ├── fatectcc.cls                         # classe LaTeX da FATEC
-├── referencias.bib
+├── referencias.bib                      # 16 entradas (inclui sharafaldin2018 e engelen2021)
 ├── RESULTADOS.md                        # inventário completo de todas as tabelas dos notebooks
 ├── chapters/
 │   ├── cap1.tex – cap7.tex
 │   └── tables/
-│       ├── Baseline-CICIDS2017/         # 15 tabelas já inseridas no LaTeX (cap7.tex)
-│       ├── MelhoriaA-LycoS/             # vazio — tabelas ainda não extraídas
-│       ├── MelhoriaB-CICIDS2017-MDI/    # vazio
-│       ├── MelhoriaC-LycoS-MDI/         # vazio
-│       └── MelhoriaD-G-Autoencoder/     # vazio
+│       ├── Baseline-CICIDS2017/         # 15 tabelas inseridas no LaTeX
+│       ├── MelhoriaA-LycoS/             # tabelas inseridas no LaTeX
+│       ├── MelhoriaB-CICIDS2017-MDI/    # tabelas inseridas no LaTeX
+│       ├── MelhoriaC-LycoS-MDI/         # tabelas inseridas no LaTeX
+│       └── MelhoriaD-G-Autoencoder/     # tabelas inseridas no LaTeX
 └── Laboratório/
     ├── tarefas.md                       # checklist de experimentos (todos ✅)
     └── scripts/
@@ -31,24 +31,29 @@ TCC/
 
 ## O que os capítulos fazem
 
-- **cap5.tex** — Trabalhos relacionados + seção de melhorias propostas
-- **cap6.tex** — Base teórica do laboratório (em construção, tem placeholders)
-- **cap7.tex** — Resultados: todas as seções Baseline + Melhorias A–G completas (52 páginas de PDF). Usa `\input{chapters/tables/...}` para todas as 51 tabelas.
+Todos os capítulos têm um parágrafo introdutório logo após o `\chapter{}` que orienta o leitor sobre o conteúdo da seção.
 
-## Estado atual (atualizado em 2026-05-20)
+- **cap1.tex** — Introdução: contextualização + seções Contextualização, Hipóteses, Objetivos, Metodologia
+- **cap2.tex** — Sistemas de Detecção de Intrusão: conceitos, abordagens (assinatura/anomalia), desafios
+- **cap3.tex** — Aprendizado de Máquina: supervisionado, Random Forest + MDI, métricas de avaliação
+- **cap4.tex** — Redes Neurais Profundas: fundamentos de DL, Autoencoder, aplicação em IDS
+- **cap5.tex** — Trabalhos relacionados + seção de melhorias propostas (Melhorias A–G)
+- **cap6.tex** — Base teórica do laboratório: escolha do dataset, pipeline de dados, cenários, métricas
+- **cap7.tex** — Resultados: todas as seções Baseline + Melhorias A–G completas. Usa `\input{chapters/tables/...}` para todas as 51 tabelas.
+
+## Estado atual (atualizado em 2026-05-28)
 
 ### O que já foi feito
-- **cap7.tex** completo com análise aprofundada de todos os experimentos:
-  - Baseline (Completo, Sem PortScan, Sem XSS) — RF e DNN no CICIDS2017
-  - Melhoria A — RF e DNN no LycoS-IDS2017
-  - Melhoria B — DNN no CICIDS2017 + MDI (+ variante balanceada)
-  - Melhoria C — DNN no LycoS-IDS2017 + MDI (+ variante balanceada)
-  - Melhorias D–G — Autoencoders (CICIDS2017, LycoS, CICIDS2017+MDI, LycoS+MDI)
+- **Todos os 7 capítulos completos**, sem placeholders
+- **cap6.tex** escrito do zero com base no cap7: justificativa do CICIDS2017 e LycoS-IDS2017, pipeline de preparação (consolidação de CSVs, limpeza, split estratificado 70/30, normalização via StandardScaler, MDI), definição dos 3 cenários com números exatos, explicação de todas as métricas
+- **Parágrafos introdutórios** adicionados em todos os capítulos que não tinham (cap1–cap4, cap6)
+- **cap1.tex** ganhou seção `Contextualização` para estruturar os parágrafos de contexto antes das seções Hipóteses/Objetivos/Metodologia
+- **referencias.bib** com 16 entradas, incluindo `sharafaldin2018` (paper original do CICIDS2017) e `engelen2021` (LycoS-IDS2017 / crítica do CICIDS2017)
 - **Todas as 51 tabelas** extraídas para `chapters/tables/` nas subpastas corretas
-- **LaTeX compila** sem erros, sem warnings — PDF de 52 páginas em `build/`
+- **LaTeX compila** sem erros — PDF de 64 páginas em `build/`
 
 ### O que falta
-1. **Escrever cap6.tex** — tem placeholders em todas as seções
+- Nenhuma tarefa pendente identificada — documento completo
 
 ## Experimentos realizados (todos completos e inseridos)
 

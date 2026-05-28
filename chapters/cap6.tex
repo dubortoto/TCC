@@ -1,17 +1,55 @@
 \chapter{BASE TEÓRICA PARA A MONTAGEM DO LABORATÓRIO}
 
+Este capítulo descreve as decisões metodológicas que estruturam o laboratório experimental. São justificados a escolha e as características do \textit{CICIDS2017} e do \textit{LycoS-IDS2017}, detalhado o \textit{pipeline} de preparação dos dados, definidos os três cenários de avaliação utilizados nos experimentos e apresentadas as métricas adotadas para comparar os modelos.
+
 \section{Escolha do \textit{dataset} e critérios de seleção}
 
-[Justificar a escolha do \textit{CICIDS2017} e descrever composição, classes e limitações.]
+A validade de um laboratório de detecção de intrusão depende diretamente da qualidade e da representatividade do conjunto de dados utilizado. Para que os resultados sejam comparáveis com a literatura e cubram uma variedade suficiente de comportamentos maliciosos, o \textit{dataset} deve conter tráfego de rede real, com rótulos confiáveis e diversidade de tipos de ataque \cite{neto_gomes}.
+
+O \textit{CICIDS2017} (\textit{Canadian Institute for Cybersecurity Intrusion Detection System 2017}) foi escolhido como base para este laboratório \cite{sharafaldin2018}. O conjunto foi gerado em ambiente controlado ao longo de cinco dias, com fluxos de rede capturados via \textit{CICFlowMeter}, uma ferramenta que extrai automaticamente atributos estatísticos de fluxos bidirecionais, como duração, volume de pacotes, tamanho médio de \textit{payload} e \textit{flags} TCP. Após consolidação dos arquivos diários, o conjunto totaliza 2.830.743 registros com 79 atributos por fluxo.
+
+O \textit{dataset} cobre 15 classes: \textit{BENIGN} e 14 categorias de ataque, entre elas \textit{DDoS}, variantes de \textit{DoS} (\textit{Hulk}, \textit{GoldenEye}, \textit{slowloris}, \textit{Slowhttptest}), \textit{FTP-Patator}, \textit{SSH-Patator}, \textit{Heartbleed}, \textit{Infiltration}, \textit{PortScan} e três variantes de \textit{Web Attack} (\textit{Brute Force}, \textit{XSS} e \textit{Sql Injection}). Essa heterogeneidade intencional, com ataques volumétricos e raros representados no mesmo conjunto, é relevante para investigar a sensibilidade dos modelos ao desbalanceamento de classes, um problema central em IDS baseados em aprendizado de máquina \cite{cantone2024}.
+
+A limitação mais documentada do \textit{CICIDS2017} são os erros de rótulo, as duplicatas e as inconsistências presentes nos arquivos originais, identificados por pesquisadores que analisaram criticamente o conjunto após sua publicação \cite{engelen2021}. Para isolar o efeito dessas inconsistências sobre o desempenho dos modelos, o laboratório inclui experimentos paralelos com o \textit{LycoS-IDS2017} \cite{engelen2021}, uma versão curada do mesmo conjunto obtida por correção de rótulos errôneos, normalização mais rigorosa e remoção de registros duplicados. O \textit{LycoS-IDS2017} contém 14 classes, sem a classe \textit{Infiltration}, e permite comparar os resultados em condições de dados mais confiáveis com o mesmo protocolo experimental, isolando a contribuição da qualidade do \textit{dataset} sobre o desempenho de cada modelo.
 
 \section{\textit{Pipeline} de preparação de dados}
 
-[Descrever consolidacão dos arquivos, limpeza, tratamento de nulos/infinitos e normalização.]
+O \textit{CICIDS2017} é distribuído em arquivos CSV separados por dia de captura (segunda a sexta-feira). A primeira etapa do \textit{pipeline} foi a consolidação desses arquivos em um único conjunto de dados, seguida da remoção de registros com valores nulos ou infinitos, produzidos por divisões por zero durante a extração de atributos de fluxo pelo \textit{CICFlowMeter}. Após a limpeza, o conjunto resultou em 2.830.743 registros válidos.
+
+A divisão treino-teste foi realizada de forma estratificada na proporção 70/30. A estratificação garante que a distribuição de classes no subconjunto de treino reproduza a distribuição original do \textit{dataset}, evitando que classes com baixo suporte fiquem ausentes ou sub-representadas na avaliação. Essa precaução é especialmente importante dado o severo desbalanceamento do \textit{CICIDS2017}, no qual a classe \textit{BENIGN} concentra mais de 80\% das amostras, enquanto classes como \textit{Heartbleed} e \textit{Web Attack -- Sql Injection} possuem apenas algumas dezenas de registros.
+
+Para os experimentos com \textit{Deep Neural Network}, os atributos foram normalizados via \textit{StandardScaler}, que transforma cada coluna subtraindo sua média e dividindo pelo desvio padrão. Redes neurais são sensíveis à escala dos atributos: gradientes associados a atributos com maior amplitude tendem a dominar as atualizações de pesos durante a retropropagação, dificultando a convergência e o aprendizado de padrões em atributos de menor escala \cite{bochie2020sbrc}. O \textit{Random Forest}, por ser baseado em particionamentos recursivos por limiar, não é afetado pela escala dos valores e recebeu os dados na escala original.
+
+Para os experimentos com redução de dimensionalidade (Melhorias B, C, F e G), foi aplicada a técnica \textit{Mean Decrease in Impurity} (MDI). O MDI quantifica a importância de cada atributo pela sua contribuição média para a redução da impureza de Gini nas árvores de um \textit{Random Forest} previamente treinado no conjunto completo. Os atributos com menor contribuição média são descartados, e os modelos subsequentes são treinados e avaliados exclusivamente no espaço de \textit{features} reduzido, mantendo os mesmos conjuntos de treino e teste dos experimentos sem redução.
 
 \section{Definição dos cenários experimentais}
 
-[Definir cenário completo, sem \textit{PortScan} e sem \textit{XSS}, com justificativa metodológica.]
+Os três cenários foram construídos para separar dois objetivos distintos de avaliação: mensurar o desempenho dos modelos em ambiente fechado, onde todos os tipos de ataque estão representados no treinamento, e verificar a capacidade de generalização diante de ataques completamente ausentes no treinamento.
+
+O Cenário Completo inclui todas as 15 classes tanto no treinamento quanto no teste, resultando em 1.979.513 amostras para treino e 848.363 para teste. Ele serve como linha de base do desempenho máximo esperado de cada modelo e permite identificar fragilidades estruturais, em particular, a dificuldade de aprender classes com baixíssimo suporte mesmo quando todos os tipos de ataque estão representados.
+
+O Cenário Sem \textit{PortScan} remove a classe \textit{PortScan} do treinamento e a mantém exclusivamente no conjunto de teste, com 158.804 amostras (16,6\% do total de avaliação). O \textit{PortScan} é um ataque volumétrico de alta frequência: sua presença dominante no teste cria o cenário mais severo de generalização, no qual os modelos precisam lidar com um tipo de ataque numericamente relevante para o qual não possuem nenhum exemplo de treinamento. O conjunto de treino nesse cenário contém 1.868.545 amostras e o de teste 959.331.
+
+O Cenário Sem \textit{XSS} remove a classe \textit{Web Attack -- XSS} do treinamento, mantendo-a no teste com 652 amostras (0,08\% do total de avaliação). Diferentemente do \textit{PortScan}, o \textit{XSS} é raro e seus padrões de tráfego se sobrepõem com os de outros ataques Web, em especial o \textit{Brute Force}. Esse cenário avalia a generalização em condições de baixíssimo suporte e alta ambiguidade de fronteira entre classes, permitindo observar como cada modelo distribui amostras desconhecidas entre as classes mais próximas.
+
+A combinação dos dois cenários de generalização permite caracterizar o comportamento dos modelos em dois extremos complementares: um ataque ausente no treino com alta presença estatística no teste (\textit{PortScan}) e um ataque ausente no treino que é raro e semanticamente ambíguo (\textit{XSS}).
 
 \section{Métricas e critérios de avaliação}
 
-[Justificar uso de acurácia, precisão, revocação, \textit{F1-score}, médias macro/ponderada e matriz de confusão.]
+A avaliação dos modelos utilizou métricas por classe e métricas agregadas, complementadas pelo tempo de inferência como estimativa do custo computacional em produção.
+
+Precisão mede a fração de predições de uma classe que correspondem efetivamente a amostras dessa classe: $P = VP\,/\,(VP + FP)$, onde $VP$ são os verdadeiros positivos e $FP$ os falsos positivos. Uma precisão baixa em uma classe de ataque indica que o modelo está gerando muitos falsos alarmes para aquele tipo de ameaça.
+
+Revocação mede a fração de amostras de uma classe que foram corretamente identificadas pelo modelo: $R = VP\,/\,(VP + FN)$, onde $FN$ são os falsos negativos. Para um IDS, revocação baixa em uma classe de ataque significa que o modelo está deixando passar ataques reais, o erro mais crítico do ponto de vista operacional \cite{santos2023ercemapi}.
+
+O \textit{F1-score} é a média harmônica entre precisão e revocação: $F1 = 2 \cdot P \cdot R\,/\,(P + R)$. A média harmônica penaliza desequilíbrios acentuados entre as duas métricas, de modo que um F1 elevado exige desempenho satisfatório em ambas.
+
+A média macro calcula a média aritmética do F1 de todas as classes, atribuindo peso igual a classes raras e majoritárias. Em \textit{datasets} com desbalanceamento severo como o \textit{CICIDS2017}, a média macro é a principal métrica de comparação entre modelos, pois expõe dificuldades em classes de baixo suporte que as métricas ponderadas tendem a mascarar.
+
+A média ponderada calcula a média do F1 ponderada pelo número de amostras de cada classe. Ela reflete o desempenho sobre o volume total do tráfego e é dominada pela classe \textit{BENIGN} dada sua representatividade, sendo interpretada como complemento, e não substituto, da média macro.
+
+A acurácia global é a fração total de amostras classificadas corretamente. Em cenários desbalanceados, pode permanecer elevada mesmo quando o modelo falha sistematicamente em classes minoritárias, razão pela qual é sempre analisada em conjunto com as métricas por classe.
+
+A matriz de confusão detalha, para cada classe real, a distribuição das predições entre todas as classes possíveis. Ela permite identificar padrões específicos de erro, como ataques de uma classe sendo absorvidos pela classe \textit{BENIGN} ou classes confundidas entre si, que métricas escalares não capturam.
+
+O tempo de inferência foi medido sobre o conjunto de teste integral e adotado como estimativa do custo computacional em ambiente de produção. Modelos com menor tempo de inferência são mais adequados para redes com alto volume de tráfego onde a latência de detecção é um requisito operacional \cite{sbrc_minicursos}.
