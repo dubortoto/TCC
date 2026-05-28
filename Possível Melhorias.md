@@ -16,7 +16,7 @@ Revisar o TCC "Desenvolvimento de um Laboratório de Detecção de Intrusão: Co
 
 # PRIORIDADE ALTA
 
-## TODO 1 — Corrigir inconsistência da hipótese sobre tráfego criptografado
+## TODO 1 — Corrigir inconsistência da hipótese sobre tráfego criptografado [em análise]
 
 ### Problema
 
@@ -40,7 +40,7 @@ Hipótese alinhada com os experimentos efetivamente realizados.
 
 ---
 
-## TODO 2 — Esclarecer o significado de "Laboratório"
+## TODO 2 — Esclarecer o significado de "Laboratório" [em análise]
 
 ### Problema
 
