@@ -149,7 +149,7 @@ Texto mais fluido e menos repetitivo.
 
 ---
 
-## TODO 6 — Melhorar separação conceitual entre:
+## TODO 6 — Melhorar separação conceitual entre: [em análise]
 
 * classificação supervisionada;
 * detecção por anomalia;
