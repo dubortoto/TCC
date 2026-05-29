@@ -1,321 +1,44 @@
-# TODO — Revisão e Refinamento do TCC
 
-## Objetivo Geral
+# Melhorias apontadas pela orientadora (reunião 29/05/2026)
 
-Revisar o TCC "Desenvolvimento de um Laboratório de Detecção de Intrusão: Comparando Machine Learning e Deep Learning na Identificação de Ameaças em Redes" visando:
+- [x] **Cap 1, seção 1.1 (Contextualização), último parágrafo** — Substituir "provou-se" por "tem se mostrado eficaz" para suavizar a afirmação e não soar definitivo. ✅ Já feito.
 
-* corrigir inconsistências metodológicas;
-* melhorar clareza e objetividade;
-* reduzir redundâncias;
-* fortalecer rigor científico;
-* aumentar reprodutibilidade experimental;
-* alinhar hipóteses, metodologia e conclusões;
-* manter o tom acadêmico e técnico original.
+- [ ] **Cap 1, seção 1.1 (Contextualização), último parágrafo** — Adicionar parágrafo de transição ao final da seção explicitando que RF e DNN foram escolhidos para o comparativo deste trabalho. Texto sugerido: *"Dessa forma, escolhemos essas duas tecnologias para fazer um comparativo ao longo desse trabalho para esse laboratório."*
 
----
+- [ ] **Cap 1, seção Hipóteses, primeiro parágrafo** — (a) Substituir "apresentarão" por "é esperado que apresentem" para que a hipótese não soe como afirmação definitiva; (b) remover o trecho `, com maior acurácia e menor incidência de falsos negativos, especialmente frente a ataques complexos e tráfego criptografado.` — a versão atual já trocou "tráfego criptografado" por outra expressão, mas o verbo "apresentarão" e os detalhes subsequentes ainda precisam ser ajustados.
 
-# PRIORIDADE ALTA
+- [ ] **Cap 2, parágrafo de introdução** — Corrigir o erro tipográfico: "embasas" → "embasa".
 
-## TODO 1 — Corrigir inconsistência da hipótese sobre tráfego criptografado [em análise]
+- [ ] **Cap 3, parágrafo de introdução** — Remover os m-dashes (—) ao redor de "com destaque para a técnica MDI de seleção de características", substituindo-os por vírgulas ou parênteses.
 
-### Problema
+- [ ] **Cap 1, primeira menção a IDS (página ~3)** — Ao usar "IDS" pela primeira vez na seção Contextualização, expandir para "Sistemas de Detecção de Intrusão (*Intrusion Detection System* - IDS)" para que o leitor seja apresentado à sigla antes de ela ser usada livremente.
 
-A hipótese afirma que Deep Learning terá desempenho superior especialmente em "tráfego criptografado", porém o trabalho não possui:
+- [ ] **Cap 1 (Introdução) — palavras em inglês** — Revisar todo o capítulo e garantir que todas as palavras em inglês estejam formatadas em itálico (`\textit{}`).
 
-* experimentos específicos com TLS/HTTPS;
-* análise de tráfego criptografado;
-* datasets separados por criptografia;
-* métricas relacionadas a encrypted traffic.
+- [ ] **Cap 1, seção Hipóteses, primeiro parágrafo** — Trocar "apresentarão" por "é esperado que apresentem" para que a hipótese não soe como certeza. *(Sobrepõe-se à tarefa 3 — resolver junto.)*
 
-### Ação
+- [ ] **Cap 1, seção Hipóteses** — Tirar tantos detalhes para manter apenas o que se espera ter, com menos detalhes do que se espera obter.
 
-Modificar a hipótese removendo a referência explícita a tráfego criptografado OU adicionar uma limitação metodológica afirmando que:
+- [ ] **Cap 5, seção final (5.6)** — No corpo do texto, remover referências diretas ao próprio trabalho (ex.: "neste laboratório", "neste TCC", "os experimentos deste trabalho"). Deixar menções ao próprio trabalho apenas no último parágrafo da seção, onde cabe comentar o que foi implementado e o que foi relevante. Separar em parágrafos distintos para facilitar a leitura.
 
-* o dataset utilizado não diferencia explicitamente tráfego criptografado;
-* o trabalho não avalia IDS em cenários TLS/HTTPS específicos.
+- [ ] **Página ~22 — palavras em inglês** — Localizar e colocar em itálico (`\textit{}`) as palavras em inglês que aparecem sem formatação nessa página.
 
-### Resultado esperado
+- [ ] **Cap 5, seção 5.6 — narrativa de variações** — Em vez de apresentar as variações como "melhorias feitas depois do baseline", reescrevê-las como **variações planejadas desde o início**. Renomear a seção de "Melhorias investigadas no laboratório" para algo como "Variações do Experimento" e ajustar o texto para refletir esse enquadramento.
 
-Hipótese alinhada com os experimentos efetivamente realizados.
+- [ ] **Cap 6 — apresentação do plano experimental** — Adicionar, na introdução do capítulo ou na seção de cenários, uma explicação deixando claro que o laboratório começa com um experimento-base mais simples e que as variações do experimento foram planejadas desde o início.
 
----
+- [ ] **Cap 5 — tabela resumo das variações** — Inserir uma tabela resumo após as seções 5.1–5.5, listando todas as variações experimentais previstas com suas combinações (dataset × redução de dimensionalidade × modelo).
 
-## TODO 2 — Esclarecer o significado de "Laboratório" [em análise]
+- [ ] **Cap 5, seção 5.6 — tempo verbal e perspectiva** — A seção 5.6 não deve relatar o que já foi feito; deve apresentar as variações como planejamento, usando tempo futuro ou condicional (ex.: "pretende-se avaliar", "será implementado"). As seções 5.1–5.5 são onde o próprio trabalho aparece em relação à literatura; a seção 5.6, após a tabela resumo, descreve o que se planeja fazer.
 
-### Problema
+- [ ] **Cap 5, estrutura geral** — Garantir que: (a) nas seções 5.1–5.5 estejam presentes as referências ao próprio trabalho e às escolhas metodológicas; (b) a tabela resumo marque a transição; (c) a seção 5.6 use perspectiva de planejamento, não de relato de algo já concluído. *(Detalha a execução das tarefas 13, 15 e 16.)*
 
-O título e o texto sugerem um laboratório IDS operacional, porém os experimentos são majoritariamente offline e baseados em datasets.
+- [ ] **Cap 5 — tabela resumo** *(duplicata da tarefa 15)* — Adicionar tabela que visualize as variações/melhorias previstas.
 
-### Ação
+- [ ] **Cap 7, figura 7.5 — rótulos** — Adicionar rótulos em cada barra/linha da figura identificando a variação correspondente (Baseline, Variação A, B, C, D, E, F, G) para facilitar a leitura sem depender da legenda.
 
-Adicionar explicação explícita na introdução e/ou metodologia de que:
+- [ ] **Cap 7, figura 7.5 — tabela de dados** — Adicionar uma tabela com os valores numéricos apresentados na figura 7.5 para permitir comparação exata entre as variações sem depender da leitura visual do gráfico.
 
-* o laboratório é experimental;
-* os testes são offline;
-* os modelos operam sobre datasets previamente coletados;
-* não há captura em tempo real ou deploy operacional em produção.
+- [ ] **Referências bibliográficas — hyperlinks** — Adicionar suporte a hyperlinks nas referências para que sejam clicáveis no PDF. Verificar se o pacote `hyperref` já está no preâmbulo do documento; se não estiver, adicioná-lo.
 
-### Resultado esperado
-
-Evitar expectativa incorreta de um IDS fully operational.
-
----
-
-## TODO 3 — Adicionar detalhes de reprodutibilidade experimental [em análise]
-
-### Problema
-
-Faltam informações técnicas suficientes para reprodução dos experimentos.
-
-### Adicionar:
-
-* hardware utilizado;
-* CPU;
-* GPU (se houver);
-* memória RAM;
-* sistema operacional;
-* versão do Python;
-* versões das bibliotecas;
-* arquitetura detalhada da DNN;
-* quantidade de camadas;
-* neurônios por camada;
-* função de ativação;
-* optimizer;
-* learning rate;
-* batch size;
-* número de épocas;
-* dropout;
-* early stopping (se utilizado).
-
-### Resultado esperado
-
-Aumentar rigor científico e reprodutibilidade.
-
----
-
-## TODO 4 — Fortalecer conclusão prática do trabalho [em análise]
-
-### Problema
-
-O trabalho apresenta muitos resultados, mas ainda não responde claramente:
-
-* qual abordagem foi mais adequada;
-* qual seria recomendada na prática;
-* qual trade-off realmente vale a pena.
-
-### Ação
-
-Adicionar seção conclusiva mais crítica e opinativa, discutindo:
-
-* estabilidade do Random Forest;
-* custo computacional da DNN;
-* dificuldade de generalização supervisionada;
-* impacto da qualidade do dataset;
-* benefícios do Autoencoder;
-* limitações reais para produção;
-* cenários onde cada abordagem é mais adequada.
-
-### Resultado esperado
-
-Conclusão mais forte e madura academicamente.
-
----
-
-# PRIORIDADE MÉDIA
-
-## TODO 5 — Reduzir redundâncias nos Trabalhos Relacionados [em análise]
-
-### Problema
-
-Existem repetições frequentes dos temas:
-
-* alto custo computacional;
-* generalização;
-* overfitting;
-* desbalanceamento;
-* interpretabilidade do Random Forest.
-
-### Ação
-
-Revisar os capítulos 5.1 até 5.5 para:
-
-* condensar ideias repetidas;
-* evitar reformulações equivalentes;
-* destacar o diferencial específico de cada artigo.
-
-### Resultado esperado
-
-Texto mais fluido e menos repetitivo.
-
----
-
-## TODO 6 — Melhorar separação conceitual entre: [em análise]
-
-* classificação supervisionada;
-* detecção por anomalia;
-* detecção não supervisionada.
-
-### Problema
-
-Em alguns momentos o texto mistura:
-
-* DNN supervisionada;
-* detecção baseada em anomalia;
-* Autoencoders.
-
-### Ação
-
-Deixar explicitamente claro:
-
-* Random Forest e DNN baseline são classificadores supervisionados;
-* apenas os Autoencoders representam efetivamente abordagem não supervisionada/anomaly-based.
-
-### Resultado esperado
-
-Maior rigor conceitual.
-
----
-
-## TODO 7 — Simplificar períodos excessivamente longos [em análise]
-
-### Problema
-
-Alguns parágrafos possuem:
-
-* excesso de formalismo;
-* frases muito extensas;
-* excesso de orações subordinadas.
-
-### Ação
-
-Reescrever períodos muito longos preservando:
-
-* linguagem acadêmica;
-* tom técnico;
-* densidade científica.
-
-Priorizar:
-
-* clareza;
-* objetividade;
-* legibilidade.
-
-### Resultado esperado
-
-Texto mais agradável e profissional.
-
----
-
-# PRIORIDADE BAIXA
-
-## TODO 8 — Adicionar limitações explícitas do trabalho [em análise]
-
-### Sugestões de limitações
-
-Adicionar seção discutindo:
-
-* uso exclusivo de datasets públicos;
-* ausência de tráfego real corporativo;
-* ausência de deploy em produção;
-* limitações do CICIDS2017;
-* dependência de rotulagem;
-* ausência de avaliação em tempo real;
-* ausência de tráfego criptografado explicitamente tratado.
-
-### Resultado esperado
-
-Maior maturidade científica.
-
----
-
-## TODO 9 — Melhorar transições entre capítulos [em análise]
-
-### Problema
-
-Algumas transições são abruptas.
-
-### Ação
-
-Adicionar pequenos parágrafos conectando:
-
-* teoria → experimentos;
-* trabalhos relacionados → melhorias;
-* metodologia → resultados.
-
-### Resultado esperado
-
-Melhor fluidez narrativa.
-
----
-
-# TODO ESPECÍFICO PARA O CAPÍTULO 7
-
-## TODO 10 — Garantir análise crítica e não apenas exposição de métricas [em análise]
-
-### Verificar se:
-
-* os resultados explicam POR QUE os modelos falharam;
-* existe comparação crítica entre RF e DNN;
-* os erros são interpretados;
-* há ligação direta com os trabalhos relacionados;
-* as hipóteses são confirmadas ou refutadas explicitamente.
-
-### Resultado esperado
-
-Capítulo de resultados mais científico e menos descritivo.
-
----
-
-# TODO OPCIONAL — Possível melhoria avançada
-
-## Adicionar seção de Trabalhos Futuros
-
-### Sugestões
-
-* Explainable AI (SHAP/LIME);
-* IDS híbrido assinatura + anomalia;
-* avaliação online/streaming;
-* uso de tráfego criptografado;
-* federated learning;
-* avaliação cross-dataset;
-* detecção em tempo real;
-* modelos lightweight para edge devices.
-
-### Resultado esperado
-
-Encerramento mais robusto e acadêmico.
-
----
-
-# RESTRIÇÕES IMPORTANTES
-
-## NÃO alterar:
-
-* a tese principal do trabalho;
-* os resultados experimentais;
-* os datasets utilizados;
-* o tom acadêmico;
-* a estrutura geral dos capítulos.
-
-## PRESERVAR:
-
-* rigor técnico;
-* linguagem científica;
-* comparações metodológicas;
-* foco em generalização;
-* análise crítica do CICIDS2017;
-* organização das melhorias A–G.
-
----
-
-# META FINAL
-
-O TCC revisado deve:
-
-* possuir consistência metodológica;
-* ter maior clareza;
-* apresentar melhor rigor experimental;
-* reduzir redundâncias;
-* fortalecer a conclusão científica;
-* manter qualidade técnica elevada;
-* estar adequado para avaliação de banca de graduação em tecnologia/computação.
+- [ ] **Índice de tabelas e índice de figuras** — Adicionar lista de tabelas (`\listoftables`) e lista de figuras (`\listoffigures`) ao documento, nos locais apropriados conforme as normas da FATEC (geralmente após o sumário).
