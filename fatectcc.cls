@@ -149,6 +149,10 @@
 }
 \renewcommand{\cfttoctitlefont}{\hfill\large\bfseries\MakeUppercase}
 \renewcommand{\cftaftertoctitle}{\hfill\mbox{}}
+\renewcommand{\cftloftitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftafterloftitle}{\hfill\mbox{}}
+\renewcommand{\cftlottitlefont}{\hfill\large\bfseries\MakeUppercase}
+\renewcommand{\cftafterlottitle}{\hfill\mbox{}}
 
 % -------------- Capítulos -------------- 
 \titleformat{\chapter}

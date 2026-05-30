@@ -1,22 +1,22 @@
 \chapter{RESULTADOS DO LABORATÓRIO}
 
-Este capítulo apresenta e analisa os resultados obtidos nos dez experimentos do laboratório. Os classificadores supervisionados \textit{Random Forest} e \textit{Deep Neural Network} (DNN) são comparados em três cenários que avaliam desempenho em condições controladas e capacidade de generalização para ataques inéditos. Em complemento, os experimentos com \textit{Autoencoder} adotam a abordagem não supervisionada baseada em detecção por anomalia, na qual o modelo é treinado exclusivamente com tráfego benigno e sinaliza desvios como potenciais ataques, sem depender de exemplos rotulados de classes maliciosas.
+Este capítulo apresenta e analisa os resultados obtidos nos dez experimentos do laboratório. Os classificadores supervisionados \textit{Random Forest} e \textit{Deep Neural Network} (DNN) são comparados em três variantes que avaliam desempenho em condições controladas e capacidade de generalização para ataques inéditos. Em complemento, os experimentos com \textit{Autoencoder} adotam a abordagem não supervisionada baseada em detecção por anomalia, na qual o modelo é treinado exclusivamente com tráfego benigno e sinaliza desvios como potenciais ataques, sem depender de exemplos rotulados de classes maliciosas.
 
 \section{Configuração Experimental}
 
-Na etapa de pré-processamento, os arquivos do \textit{CICIDS2017} foram unificados em um único conjunto, totalizando 2.830.743 registros com 79 atributos. Três cenários de treino e teste foram derivados a partir desse conjunto:
+Na etapa de pré-processamento, os arquivos do \textit{CICIDS2017} foram unificados em um único conjunto, totalizando 2.830.743 registros com 79 atributos. Três variantes de treino e teste foram derivadas a partir desse conjunto:
 
 \begin{itemize}
-    \item \textbf{Cenário Completo:} todas as 15 classes do \textit{dataset} foram incluídas no treinamento e no teste, com 1.979.513 amostras para treino e 848.363 para teste.
-    \item \textbf{Cenário Sem \textit{PortScan} no treino:} a classe \textit{PortScan} (110.968 amostras) foi removida do treino e mantida exclusivamente no teste, simulando um ataque volumétrico completamente desconhecido para os modelos. O treino resultou em 1.868.545 amostras e o teste em 959.331.
-    \item \textbf{Cenário Sem \textit{XSS} no treino:} a classe \textit{Web Attack -- XSS} (659 amostras) foi omitida do treino e mantida no teste, com a divisão permanecendo próxima ao cenário completo (1.979.513 treino / 848.822 teste).
+    \item \textbf{Variante Completa:} todas as 15 classes do \textit{dataset} foram incluídas no treinamento e no teste, com 1.979.513 amostras para treino e 848.363 para teste.
+    \item \textbf{Variante Sem \textit{PortScan} no treino:} a classe \textit{PortScan} (110.968 amostras) foi removida do treino e mantida exclusivamente no teste, simulando um ataque volumétrico completamente desconhecido para os modelos. O treino resultou em 1.868.545 amostras e o teste em 959.331.
+    \item \textbf{Variante Sem \textit{XSS} no treino:} a classe \textit{Web Attack -- XSS} (659 amostras) foi omitida do treino e mantida no teste, com a divisão permanecendo próxima à variante completa (1.979.513 treino / 848.822 teste).
 \end{itemize}
 
 A avaliação utilizou Precisão, Revocação e \textit{F1-score} por classe, médias macro e ponderada, e acurácia global. O tempo de inferência sobre o conjunto de teste integral foi adotado como \textit{proxy} do custo computacional em produção.
 
-\section{Resultados no Cenário Completo}
+\section{Resultados na Variante Completa}
 
-No cenário fechado, ambos os modelos atingiram desempenho elevado. O \textit{Random Forest} superou a \textit{DNN} tanto em acurácia global quanto em eficiência computacional, conforme a Tabela~\ref{tab:total_completo_tempo_de_classificacao}.
+Na variante fechada, ambos os modelos atingiram desempenho elevado. O \textit{Random Forest} superou a \textit{DNN} tanto em acurácia global quanto em eficiência computacional, conforme a Tabela~\ref{tab:total_completo_tempo_de_classificacao}.
 
 \input{chapters/tables/Baseline-CICIDS2017/Total-Completo-Tempo-de-classificação.tex}
 
@@ -44,15 +44,15 @@ A diferença substancial entre os modelos emerge nas classes com baixo suporte. 
 
 \section{Generalização com Classe Ausente no Treinamento}
 
-Os cenários de generalização simulam uma condição crítica para um IDS em produção: a chegada de um tipo de ataque completamente desconhecido, ausente no \textit{dataset} de treino. Os resultados revelaram degradações com intensidades e padrões distintos entre os dois modelos.
+As variantes de generalização simulam uma condição crítica para um IDS em produção: a chegada de um tipo de ataque completamente desconhecido, ausente no \textit{dataset} de treino. Os resultados revelaram degradações com intensidades e padrões distintos entre os dois modelos.
 
 \subsection{Omissão do \textit{PortScan}}
 
-A retirada do \textit{PortScan} constituiu o cenário mais severo. Com 158.804 amostras no teste, essa classe representa 16,6\% do conjunto de avaliação. As matrizes de confusão e os relatórios de métricas são apresentados nas Tabelas~\ref{table:dnn_Sem_PortScan_mc} a \ref{table:rf_sem_portscan_metricas}.
+A retirada do \textit{PortScan} constituiu a variante mais severa. Com 158.804 amostras no teste, essa classe representa 16,6\% do conjunto de avaliação. As matrizes de confusão e os relatórios de métricas são apresentados nas Tabelas~\ref{table:dnn_Sem_PortScan_mc} a \ref{table:rf_sem_portscan_metricas}.
 
 A \textit{DNN} foi treinada com uma classe especial \textit{Desconhecido}, um mecanismo de rejeição \textit{open-set} projetado para sinalizar entradas fora do domínio aprendido. Na prática, esse recurso mostrou-se ineficaz: das 158.804 amostras de \textit{PortScan} no teste, 158.496 foram classificadas como \textit{BENIGN} e apenas 280 como \textit{Desconhecido}, resultando em precisão de 0,01 e \textit{recall} de 0,00 para esta classe. A acurácia global da \textit{DNN} caiu de 0,98 para 0,79 e a média macro de \textit{F1} de 0,67 para 0,45. Além do impacto direto na classe omitida, a remoção do \textit{PortScan} comprometeu classes não relacionadas: o \textit{recall} de \textit{DoS Slowhttptest} caiu de 0,98 para 0,25 e o de \textit{SSH-Patator} de 0,89 para 0,49. Esse efeito cascata indica que a perda de uma classe volumétrica perturbou fronteiras de decisão em regiões mais amplas do espaço de características.
 
-O \textit{Random Forest} apresentou degradação mais contida e localizada: acurácia de 0,83 e média macro de \textit{F1} de 0,79. Sem mecanismo de rejeição, as 158.804 amostras de \textit{PortScan} foram esmagadoramente classificadas como \textit{BENIGN} (158.657 ocorrências), derrubando a precisão desta classe de 1,00 para 0,81. O restante das classes, porém, manteve desempenho próximo ao cenário completo: \textit{DDoS}, \textit{DoS Hulk}, \textit{DoS slowloris}, \textit{FTP-Patator} e \textit{SSH-Patator} permaneceram com \textit{F1} acima de 0,99.
+O \textit{Random Forest} apresentou degradação mais contida e localizada: acurácia de 0,83 e média macro de \textit{F1} de 0,79. Sem mecanismo de rejeição, as 158.804 amostras de \textit{PortScan} foram esmagadoramente classificadas como \textit{BENIGN} (158.657 ocorrências), derrubando a precisão desta classe de 1,00 para 0,81. O restante das classes, porém, manteve desempenho próximo à variante completa: \textit{DDoS}, \textit{DoS Hulk}, \textit{DoS slowloris}, \textit{FTP-Patator} e \textit{SSH-Patator} permaneceram com \textit{F1} acima de 0,99.
 
 \input{chapters/tables/Baseline-CICIDS2017/DNN-Sem-PortScan-Matriz-de-Confusão.tex}
 
@@ -80,27 +80,27 @@ Os resultados detalhados são apresentados nas Tabelas~\ref{table:dnn_Sem_XSS_mc
 
 \input{chapters/tables/Baseline-CICIDS2017/RF-Sem-XSS-Métricas.tex}
 
-A Figura~\ref{fig:heatmap_baseline} reúne os F1-scores por classe dos seis experimentos do Baseline em uma única visualização, permitindo comparar simultaneamente os efeitos do modelo e do cenário sobre cada tipo de ataque.
+A Figura~\ref{fig:heatmap_baseline} reúne os F1-scores por classe dos seis experimentos do \textit{Baseline} em uma única visualização, permitindo comparar simultaneamente os efeitos do modelo e do cenário sobre cada tipo de ataque.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{chapters/figures/grafico2_heatmap_baseline.pdf}
-    \caption{Heatmap de F1-score por classe — Baseline CICIDS2017 (DNN e Random Forest nos três cenários)}
+    \caption{\textit{Heatmap} de F1-score por classe: \textit{Baseline} CICIDS2017 (DNN e \textit{Random Forest} nos três cenários)}
     \label{fig:heatmap_baseline}
 \end{figure}
 
 \section{Comparação de Custo Computacional}
 
-A Tabela~\ref{tab:total_todos_tempo_de_classificacao} consolida os tempos de inferência dos três cenários.
+A Tabela~\ref{tab:total_todos_tempo_de_classificacao} consolida os tempos de inferência das três variantes.
 
 \input{chapters/tables/Baseline-CICIDS2017/Total-Todos-Tempo-de-classificação.tex}
 
-O \textit{Random Forest} manteve vantagem expressiva em todos os cenários, com inferência entre 3,10 e 3,50 segundos contra 16,88 a 19,50 segundos da \textit{DNN}, fator de 5 a 6 vezes. O cenário Sem \textit{PortScan} possui o maior conjunto de teste, com 959.331 amostras, e o tempo da \textit{DNN} cresce nele de forma mais acentuada do que o do \textit{Random Forest}: 12,5\% de incremento relativo para a DNN contra 4,7\% para o RF em relação ao cenário completo, o que aponta para maior sensibilidade da rede ao volume de dados.
+O \textit{Random Forest} manteve vantagem expressiva em todos os cenários, com inferência entre 3,10 e 3,50 segundos contra 16,88 a 19,50 segundos da \textit{DNN}, fator de 5 a 6 vezes. A variante Sem \textit{PortScan} possui o maior conjunto de teste, com 959.331 amostras, e o tempo da \textit{DNN} cresce nele de forma mais acentuada do que o do \textit{Random Forest}: 12,5\% de incremento relativo para a DNN contra 4,7\% para o RF em relação à variante completa, o que aponta para maior sensibilidade da rede ao volume de dados.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\linewidth]{chapters/figures/grafico4_tempo_inferencia.pdf}
-    \caption{Tempo de inferência — DNN vs Random Forest nos três cenários do Baseline (CICIDS2017)}
+    \caption{Tempo de inferência: DNN vs \textit{Random Forest} nas três variantes do \textit{Baseline} (CICIDS2017)}
     \label{fig:tempo_inferencia}
 \end{figure}
 
@@ -108,7 +108,7 @@ O \textit{Random Forest} manteve vantagem expressiva em todos os cenários, com 
 
 Os experimentos permitem caracterizar comparativamente os dois modelos em três dimensões centrais para a implantação de um IDS.
 
-Em desempenho preditivo, o \textit{Random Forest} superou a \textit{DNN} tanto no cenário completo quanto nos de generalização. A diferença foi especialmente pronunciada em classes de ataques raros: mesmo com todos os tipos de ataque representados no treino, a \textit{DNN} obteve \textit{recall} próximo de zero para \textit{Web Attack -- Brute Force}, \textit{XSS}, \textit{Infiltration} e \textit{Sql Injection}, enquanto o \textit{Random Forest} os detectou com desempenho razoável. Esse resultado aponta para uma sensibilidade da arquitetura ao severo desbalanceamento de classes presente no \textit{CICIDS2017}.
+Em desempenho preditivo, o \textit{Random Forest} superou a \textit{DNN} tanto na variante completa quanto nas de generalização. A diferença foi especialmente pronunciada em classes de ataques raros: mesmo com todos os tipos de ataque representados no treino, a \textit{DNN} obteve \textit{recall} próximo de zero para \textit{Web Attack -- Brute Force}, \textit{XSS}, \textit{Infiltration} e \textit{Sql Injection}, enquanto o \textit{Random Forest} os detectou com desempenho razoável. Esse resultado aponta para uma sensibilidade da arquitetura ao severo desbalanceamento de classes presente no \textit{CICIDS2017}.
 
 Em robustez à generalização, o \textit{Random Forest} demonstrou maior estabilidade e impacto mais localizado. Na omissão do \textit{PortScan}, manteve acurácia de 0,83 com degradação concentrada na classe ausente e em \textit{BENIGN}; a \textit{DNN} sofreu queda sistêmica, com colapso de múltiplas classes não correlatas e falha completa do mecanismo \textit{open-set}. Na omissão do \textit{XSS}, ambos os modelos mantiveram acurácia global elevada, mas com perfis de erro distintos: a \textit{DNN} produziu falsos negativos silenciosos, com os ataques absorvidos em \textit{BENIGN}, ao passo que o \textit{Random Forest} produziu falsos positivos localizados, com os ataques Web confundidos entre si.
 
@@ -116,13 +116,13 @@ Em custo computacional, o \textit{Random Forest} é consistentemente 5 a 6 vezes
 
 Em conjunto, os resultados indicam que, na configuração atual e com o \textit{CICIDS2017}, o \textit{Random Forest} apresentou desempenho mais equilibrado e comportamento mais previsível em todos os cenários avaliados. A queda sistêmica da \textit{DNN} no cenário Sem \textit{PortScan}, com degradação em classes não correlatas, está alinhada com a análise de Cantone et al. \cite{cantone2024}, que associaram esse tipo de falha em cascata aos ruídos e inconsistências de rótulo presentes no \textit{CICIDS2017} original. A vantagem de velocidade do \textit{Random Forest} corrobora empiricamente a premissa de Ravindran et al. \cite{ravindran2025} de que modelos de menor complexidade tendem a ser mais viáveis em ambientes com alto volume de tráfego. O comportamento da \textit{DNN} evidencia limitações que motivam as melhorias investigadas nos experimentos subsequentes, tais como a curadoria mais rigorosa do \textit{dataset}, a redução de dimensionalidade e a adoção de abordagens não supervisionadas.
 
-\section{Melhoria A — LycoS-IDS2017}
+\section{Melhoria A: LycoS-IDS2017}
 
-O \textit{LycoS-IDS2017} é uma versão curada do \textit{CICIDS2017} obtida por correção de rótulos errôneos, normalização mais rigorosa e remoção de registros duplicados ou inconsistentes. Neste experimento, os mesmos modelos RF e DNN foram treinados e avaliados sobre o \textit{LycoS-IDS2017} nos três cenários (Completo, Sem \textit{PortScan} e Sem \textit{XSS}), para isolar o efeito da qualidade do \textit{dataset} sobre o desempenho. O conjunto de teste completo contém 551.250 amostras distribuídas em 14 classes; o \textit{LycoS-IDS2017} não inclui a classe \textit{Infiltration}, presente no \textit{CICIDS2017}.
+O \textit{LycoS-IDS2017} é uma versão curada do \textit{CICIDS2017} obtida por correção de rótulos errôneos, normalização mais rigorosa e remoção de registros duplicados ou inconsistentes. Neste experimento, os mesmos modelos RF e DNN foram treinados e avaliados sobre o \textit{LycoS-IDS2017} nas três variantes (Completa, Sem \textit{PortScan} e Sem \textit{XSS}), para isolar o efeito da qualidade do \textit{dataset} sobre o desempenho. O conjunto de teste completo contém 551.250 amostras distribuídas em 14 classes; o \textit{LycoS-IDS2017} não inclui a classe \textit{Infiltration}, presente no \textit{CICIDS2017}.
 
-\subsection{Cenário Completo}
+\subsection{Variante Completa}
 
-As Tabelas~\ref{table:rf_lycos_completo_mc} a \ref{table:dnn_lycos_completo_metricas} apresentam os resultados do cenário completo.
+As Tabelas~\ref{table:rf_lycos_completo_mc} a \ref{table:dnn_lycos_completo_metricas} apresentam os resultados da variante completa.
 
 \input{chapters/tables/MelhoriaA-LycoS/RF-Completo-Matriz-de-Confusão.tex}
 
@@ -132,9 +132,9 @@ As Tabelas~\ref{table:rf_lycos_completo_mc} a \ref{table:dnn_lycos_completo_metr
 
 \input{chapters/tables/MelhoriaA-LycoS/DNN-Completo-Métricas.tex}
 
-O efeito da qualidade do \textit{dataset} foi expressivo, especialmente na \textit{DNN}. O \textit{Random Forest} atingiu macro F1 de 0,97 e acurácia de 1,00, contra 0,86 de macro F1 no Baseline. A \textit{DNN} obteve macro F1 de 0,87 e acurácia de 1,00, contra 0,67 no Baseline. O ganho da \textit{DNN} foi de 0,20 pontos na média macro, contra 0,11 pontos do \textit{Random Forest}, o que aponta para maior sensibilidade da rede ao desbalanceamento e aos ruídos de rótulo do \textit{CICIDS2017}. Esse ganho assimétrico confirma empiricamente a hipótese de Cantone et al. \cite{cantone2024} de que versões corrigidas do \textit{CICIDS2017} beneficiam modelos neurais de forma desproporcional, uma vez que redes profundas tendem a memorizar as inconsistências presentes nos dados de treinamento.
+O efeito da qualidade do \textit{dataset} foi expressivo, especialmente na \textit{DNN}. O \textit{Random Forest} atingiu macro F1 de 0,97 e acurácia de 1,00, contra 0,86 de macro F1 no \textit{Baseline}. A \textit{DNN} obteve macro F1 de 0,87 e acurácia de 1,00, contra 0,67 no \textit{Baseline}. O ganho da \textit{DNN} foi de 0,20 pontos na média macro, contra 0,11 pontos do \textit{Random Forest}, o que aponta para maior sensibilidade da rede ao desbalanceamento e aos ruídos de rótulo do \textit{CICIDS2017}. Esse ganho assimétrico confirma empiricamente a hipótese de Cantone et al. \cite{cantone2024} de que versões corrigidas do \textit{CICIDS2017} beneficiam modelos neurais de forma desproporcional, uma vez que redes profundas tendem a memorizar as inconsistências presentes nos dados de treinamento.
 
-As classes de ataques raros, principal ponto fraco da \textit{DNN} no \textit{CICIDS2017}, apresentaram melhora expressiva. O \textit{recall} de \textit{webattack\_bruteforce} subiu de $\approx$ 0,03 para 0,86, e o de \textit{webattack\_xss} de $\approx$ 0,02 para 0,50. No \textit{Random Forest}, o desempenho já era alto no Baseline e se manteve próximo do teto no \textit{LycoS-IDS2017}, com \textit{webattack\_xss} alcançando F1 = 0,99.
+As classes de ataques raros, principal ponto fraco da \textit{DNN} no \textit{CICIDS2017}, apresentaram melhora expressiva. O \textit{recall} de \textit{webattack\_bruteforce} subiu de $\approx$ 0,03 para 0,86, e o de \textit{webattack\_xss} de $\approx$ 0,02 para 0,50. No \textit{Random Forest}, o desempenho já era alto no \textit{Baseline} e se manteve próximo do teto no \textit{LycoS-IDS2017}, com \textit{webattack\_xss} alcançando F1 = 0,99.
 
 \subsection{Generalização com Classe Ausente no Treinamento}
 
@@ -168,20 +168,20 @@ No cenário Sem \textit{XSS}, o conjunto de teste inclui 661 amostras de \textit
 
 Ambos os modelos mantiveram acurácia global de 1,00, mas com perfis de erro distintos. O \textit{Random Forest} dividiu as 661 amostras de \textit{XSS} entre \textit{BENIGN} (481) e \textit{webattack\_bruteforce} (180); a \textit{DNN} concentrou 637 delas em \textit{webattack\_bruteforce}. Em ambos, o \textit{recall} de \textit{XSS} ficou em 0,00. O comportamento do \textit{Random Forest} contrasta com o padrão observado no \textit{CICIDS2017}, onde a quase totalidade ia para \textit{Brute Force}: no \textit{LycoS-IDS2017} a divisão entre as duas classes indica maior ambiguidade de fronteira no espaço de \textit{features} curado.
 
-A Figura~\ref{fig:degradacao_cenarios} compara a queda de Macro-F1 entre os cenários para os quatro modelos supervisionados, reunindo os resultados do Baseline e da Melhoria A.
+A Figura~\ref{fig:degradacao_cenarios} compara a queda de Macro-F1 entre os cenários para os quatro modelos supervisionados, reunindo os resultados do \textit{Baseline} e da Melhoria A.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{chapters/figures/grafico3_degradacao_cenarios.pdf}
-    \caption{Degradação de Macro-F1 por cenário — CICIDS2017 e LycoS-IDS2017 (modelos supervisionados)}
+    \caption{Degradação de Macro-F1 por variante: CICIDS2017 e LycoS-IDS2017 (modelos supervisionados)}
     \label{fig:degradacao_cenarios}
 \end{figure}
 
-\section{Melhoria B — CICIDS2017 com Redução de Dimensionalidade (MDI)}
+\section{Melhoria B: CICIDS2017 com Redução de Dimensionalidade (MDI)}
 
-A Melhoria B aplicou redução de dimensionalidade ao \textit{CICIDS2017} via \textit{Mean Decrease in Impurity}, utilizando o \textit{Random Forest} para selecionar as \textit{features} mais relevantes. A \textit{DNN} foi então re-treinada no espaço reduzido. Além dos três cenários padrão, foi avaliada uma variante com pesos de classe balanceados no cenário completo.
+A Melhoria B aplicou redução de dimensionalidade ao \textit{CICIDS2017} via \textit{Mean Decrease in Impurity}, utilizando o \textit{Random Forest} para selecionar as \textit{features} mais relevantes. A \textit{DNN} foi então re-treinada no espaço reduzido. Além das três variantes padrão, foi avaliada uma variante com pesos de classe balanceados no cenário completo.
 
-\subsection{Cenário Completo}
+\subsection{Variante Completa}
 
 As Tabelas~\ref{table:dnn_cicids_reducao_mc} e \ref{table:dnn_cicids_reducao_metricas} apresentam os resultados.
 
@@ -201,9 +201,9 @@ A redução de dimensionalidade no \textit{CICIDS2017} não melhorou o desempenh
 
 \input{chapters/tables/MelhoriaB-CICIDS2017-MDI/DNN-Sem-XSS-Métricas.tex}
 
-No cenário Sem \textit{PortScan}, a macro F1 subiu de 0,45 para 0,56. As 158.804 amostras de \textit{PortScan} continuaram sendo absorvidas como \textit{BENIGN}, mas a degradação em classes não correlatas foi menor do que no Baseline. A redução de \textit{features} provavelmente simplificou o espaço de decisão, diminuindo a sobreposição de fronteiras no cenário de generalização.
+No cenário Sem \textit{PortScan}, a macro F1 subiu de 0,45 para 0,56. As 158.804 amostras de \textit{PortScan} continuaram sendo absorvidas como \textit{BENIGN}, mas a degradação em classes não correlatas foi menor do que no \textit{Baseline}. A redução de \textit{features} provavelmente simplificou o espaço de decisão, diminuindo a sobreposição de fronteiras no cenário de generalização.
 
-No cenário Sem \textit{XSS}, a macro F1 foi de 0,65, próximo ao Baseline, e as 652 amostras de \textit{XSS} foram absorvidas como \textit{BENIGN}.
+No cenário Sem \textit{XSS}, a macro F1 foi de 0,65, próximo ao \textit{Baseline}, e as 652 amostras de \textit{XSS} foram absorvidas como \textit{BENIGN}.
 
 \subsection{Variante com Pesos de Classe Balanceados}
 
@@ -213,11 +213,11 @@ No cenário Sem \textit{XSS}, a macro F1 foi de 0,65, próximo ao Baseline, e as
 
 A variante com \textit{class\_weight=balanced} resultou em macro F1 de 0,64, o mesmo valor do modelo sem balanceamento. O ajuste de pesos não produziu efeito mensurável; o limitador principal parece ser a capacidade representacional da arquitetura no espaço de \textit{features} reduzido, não a função de perda.
 
-\section{Melhoria C — LycoS-IDS2017 com Redução de Dimensionalidade (MDI)}
+\section{Melhoria C: LycoS-IDS2017 com Redução de Dimensionalidade (MDI)}
 
 A Melhoria C combinou o \textit{LycoS-IDS2017} com a redução de dimensionalidade por MDI, com o objetivo de verificar se os ganhos das melhorias anteriores se somam.
 
-\subsection{Cenário Completo}
+\subsection{Variante Completa}
 
 As Tabelas~\ref{table:dnn_lycos_reducao_mc} e \ref{table:dnn_lycos_reducao_metricas} apresentam os resultados.
 
@@ -241,56 +241,56 @@ A combinação produziu desempenho inferior ao \textit{LycoS-IDS2017} sem reduç
 
 \input{chapters/tables/MelhoriaC-LycoS-MDI/DNN-Balanced-Métricas.tex}
 
-Nos cenários de generalização, a macro F1 foi de 0,69 no Sem \textit{PortScan} e 0,77 no Sem \textit{XSS}, abaixo dos 0,76 e 0,80 da Melhoria A. O cenário Sem \textit{PortScan} reproduziu a absorção das 160.106 amostras como \textit{BENIGN} sem efeito cascata nas demais classes. A curadoria do \textit{LycoS} mantém a estabilidade das fronteiras de decisão mesmo com MDI aplicado.
+Nas variantes de generalização, a macro F1 foi de 0,69 no Sem \textit{PortScan} e 0,77 no Sem \textit{XSS}, abaixo dos 0,76 e 0,80 da Melhoria A. A variante Sem \textit{PortScan} reproduziu a absorção das 160.106 amostras como \textit{BENIGN} sem efeito cascata nas demais classes. A curadoria do \textit{LycoS} mantém a estabilidade das fronteiras de decisão mesmo com MDI aplicado.
 
 A variante balanceada atingiu macro F1 de 0,79, marginalmente acima do cenário sem balanceamento e abaixo da Melhoria A. A melhoria foi pontual: \textit{Heartbleed} subiu de F1 = 0,86 para 1,00, mas os ataques Web permaneceram com desempenho baixo.
 
-\section{Melhorias D–G — Abordagem Não Supervisionada com Autoencoder}
+\section{Melhorias D–G: Abordagem Não Supervisionada com Autoencoder}
 
-As Melhorias D a G adotam uma abordagem não supervisionada. Um autoencoder é treinado exclusivamente com tráfego \textit{BENIGN} e aprende a reconstruir o tráfego legítimo; amostras com alto erro de reconstrução são sinalizadas como ataque. O modelo produz classificação binária, sem distinção entre tipos de ataque. Os quatro experimentos combinam os dois \textit{datasets} com duas configurações de \textit{features}: todas as originais ou apenas as selecionadas por MDI.
+As Melhorias D a G adotam uma abordagem não supervisionada. Um \textit{autoencoder}é treinado exclusivamente com tráfego \textit{BENIGN} e aprende a reconstruir o tráfego legítimo; amostras com alto erro de reconstrução são sinalizadas como ataque. O modelo produz classificação binária, sem distinção entre tipos de ataque. Os quatro experimentos combinam os dois \textit{datasets} com duas configurações de \textit{features}: todas as originais ou apenas as selecionadas por MDI.
 
-\subsection{Melhoria D — Autoencoder no CICIDS2017}
+\subsection{Melhoria D: Autoencoder no CICIDS2017}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-CICIDS2017-Completo-Matriz-de-Confusão.tex}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-CICIDS2017-Completo-Métricas.tex}
 
-O autoencoder treinado no \textit{CICIDS2017} atingiu acurácia de 0,86 e macro F1 de 0,74. Dos 167.349 registros de ataque no conjunto de teste, 86.742 foram classificados como \textit{BENIGN} e apenas 80.607 foram detectados corretamente. Do lado benigno, 34.470 dos 681.014 registros foram sinalizados como ataque. O limiar de erro de reconstrução não foi suficientemente rígido para separar os ataques com padrões de fluxo próximos ao tráfego legítimo.
+O \textit{autoencoder}treinado no \textit{CICIDS2017} atingiu acurácia de 0,86 e macro F1 de 0,74. Dos 167.349 registros de ataque no conjunto de teste, 86.742 foram classificados como \textit{BENIGN} e apenas 80.607 foram detectados corretamente. Do lado benigno, 34.470 dos 681.014 registros foram sinalizados como ataque. O limiar de erro de reconstrução não foi suficientemente rígido para separar os ataques com padrões de fluxo próximos ao tráfego legítimo.
 
-\subsection{Melhoria E — Autoencoder no LycoS-IDS2017}
+\subsection{Melhoria E: Autoencoder no LycoS-IDS2017}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-LycoS-Completo-Matriz-de-Confusão.tex}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-LycoS-Completo-Métricas.tex}
 
-A troca para o \textit{LycoS-IDS2017} produziu o maior ganho entre as quatro configurações de autoencoder. A macro F1 subiu de 0,74 para 0,89 e o \textit{recall} de ataque de 0,48 para 0,82. Dos 132.611 registros de ataque, apenas 23.466 foram classificados como \textit{BENIGN}. O impacto da curadoria de dados foi ainda mais pronunciado no autoencoder do que nos modelos supervisionados. A remoção de registros ruidosos e rótulos incorretos no \textit{LycoS} tornou o conjunto de treino BENIGN mais homogêneo, o que permitiu ao autoencoder aprender uma representação mais compacta do tráfego legítimo.
+A troca para o \textit{LycoS-IDS2017} produziu o maior ganho entre as quatro configurações de autoencoder. A macro F1 subiu de 0,74 para 0,89 e o \textit{recall} de ataque de 0,48 para 0,82. Dos 132.611 registros de ataque, apenas 23.466 foram classificados como \textit{BENIGN}. O impacto da curadoria de dados foi ainda mais pronunciado no \textit{autoencoder}do que nos modelos supervisionados. A remoção de registros ruidosos e rótulos incorretos no \textit{LycoS} tornou o conjunto de treino BENIGN mais homogêneo, o que permitiu ao \textit{autoencoder}aprender uma representação mais compacta do tráfego legítimo.
 
-\subsection{Melhoria F — Autoencoder no CICIDS2017 com MDI}
+\subsection{Melhoria F: Autoencoder no CICIDS2017 com MDI}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-CICIDS2017-MDI-Completo-Matriz-de-Confusão.tex}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-CICIDS2017-MDI-Completo-Métricas.tex}
 
-A aplicação de MDI antes do treinamento do autoencoder no \textit{CICIDS2017} piorou o desempenho. A macro F1 caiu de 0,74 para 0,66 e o \textit{recall} de ataque de 0,48 para 0,33. Dos 167.349 ataques, 112.014 foram classificados como \textit{BENIGN}, contra 86.742 na Melhoria D. As \textit{features} selecionadas por MDI são otimizadas para discriminação supervisionada e não correspondem necessariamente às mais informativas para reconstrução não supervisionada. Ao descartar atributos que separam sutilmente o tráfego benigno do malicioso, o MDI enfraquece a capacidade do autoencoder de distinguir as duas distribuições.
+A aplicação de MDI antes do treinamento do \textit{autoencoder}no \textit{CICIDS2017} piorou o desempenho. A macro F1 caiu de 0,74 para 0,66 e o \textit{recall} de ataque de 0,48 para 0,33. Dos 167.349 ataques, 112.014 foram classificados como \textit{BENIGN}, contra 86.742 na Melhoria D. As \textit{features} selecionadas por MDI são otimizadas para discriminação supervisionada e não correspondem necessariamente às mais informativas para reconstrução não supervisionada. Ao descartar atributos que separam sutilmente o tráfego benigno do malicioso, o MDI enfraquece a capacidade do \textit{autoencoder}de distinguir as duas distribuições.
 
-\subsection{Melhoria G — Autoencoder no LycoS-IDS2017 com MDI}
+\subsection{Melhoria G: Autoencoder no LycoS-IDS2017 com MDI}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-LycoS-MDI-Completo-Matriz-de-Confusão.tex}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-LycoS-MDI-Completo-Métricas.tex}
 
-Combinando \textit{LycoS-IDS2017} e MDI, a Melhoria G atingiu macro F1 de 0,85 e \textit{recall} de ataque de 0,72. Ficou acima da Melhoria D, que usou o \textit{CICIDS2017} sem MDI, mas abaixo da Melhoria E, que usou o \textit{LycoS} sem MDI. O MDI também prejudicou o autoencoder no \textit{LycoS}: dos 132.611 ataques, 37.591 foram classificados como \textit{BENIGN}, contra 23.466 na Melhoria E.
+Combinando \textit{LycoS-IDS2017} e MDI, a Melhoria G atingiu macro F1 de 0,85 e \textit{recall} de ataque de 0,72. Ficou acima da Melhoria D, que usou o \textit{CICIDS2017} sem MDI, mas abaixo da Melhoria E, que usou o \textit{LycoS} sem MDI. O MDI também prejudicou o \textit{autoencoder}no \textit{LycoS}: dos 132.611 ataques, 37.591 foram classificados como \textit{BENIGN}, contra 23.466 na Melhoria E.
 
 \subsection{Comparação Geral das Melhorias D–G}
 
-Os quatro autoencoders mostram um padrão claro: o \textit{LycoS-IDS2017} melhora o desempenho e o MDI piora. A Melhoria E obteve macro F1 de 0,89 e \textit{recall} de ataque de 0,82, o melhor resultado entre os autoencoders. Ainda assim, o \textit{Random Forest} no \textit{LycoS-IDS2017} chegou a macro F1 de 0,97 discriminando 14 classes, enquanto o melhor autoencoder atingiu 0,89 na classificação binária. A vantagem do autoencoder está na capacidade de detectar ataques desconhecidos sem rótulos; nos experimentos realizados, essa característica não compensou a perda de granularidade na classificação. Esse resultado é consistente com a análise de Silva et al. \cite{silva_hsae}: a abordagem não supervisionada é mais adequada para ambientes onde a ausência de rótulos é uma restrição real e a detecção de qualquer comportamento anômalo tem prioridade sobre a identificação do tipo específico de ataque.
+Os quatro \textit{autoencoders} mostram um padrão claro: o \textit{LycoS-IDS2017} melhora o desempenho e o MDI piora. A Melhoria E obteve macro F1 de 0,89 e \textit{recall} de ataque de 0,82, o melhor resultado entre os \textit{autoencoders}. Ainda assim, o \textit{Random Forest} no \textit{LycoS-IDS2017} chegou a macro F1 de 0,97 discriminando 14 classes, enquanto o melhor \textit{autoencoder}atingiu 0,89 na classificação binária. A vantagem do \textit{autoencoder}está na capacidade de detectar ataques desconhecidos sem rótulos; nos experimentos realizados, essa característica não compensou a perda de granularidade na classificação. Esse resultado é consistente com a análise de Silva et al. \cite{silva_hsae}: a abordagem não supervisionada é mais adequada para ambientes onde a ausência de rótulos é uma restrição real e a detecção de qualquer comportamento anômalo tem prioridade sobre a identificação do tipo específico de ataque.
 
 A Figura~\ref{fig:sv_vs_ae} resume essa comparação por \textit{dataset} e paradigma.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{chapters/figures/grafico5_supervisionado_vs_autoencoder.pdf}
-    \caption{Macro-F1 por paradigma e dataset — RF, DNN, Autoencoder e Autoencoder+MDI (cenário completo)}
+    \caption{Macro-F1 por paradigma e \textit{dataset}: RF, DNN, \textit{Autoencoder} e \textit{Autoencoder}+MDI (variante completa)}
     \label{fig:sv_vs_ae}
 \end{figure}
 
@@ -300,12 +300,14 @@ Os resultados acumulados nos dez experimentos permitem responder diretamente às
 
 \section{Visão Geral dos Experimentos}
 
-A Figura~\ref{fig:comparacao_geral} consolida os resultados de todos os dez experimentos realizados, comparando Acurácia, Macro-F1 e F1 Ponderado no cenário completo. A linha pontilhada separa os modelos supervisionados dos autoencoders.
+A Figura~\ref{fig:comparacao_geral} consolida os resultados de todos os dez experimentos realizados, comparando Acurácia, Macro-F1 e F1 Ponderado na variante completa. A linha pontilhada separa os modelos supervisionados dos \textit{autoencoders}. A Tabela~\ref{tab:comparacao_geral} apresenta os valores numéricos correspondentes.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{chapters/figures/grafico1_comparacao_geral.pdf}
-    \caption{Comparação geral de métricas no cenário completo — todos os experimentos}
+    \caption{Comparação geral de métricas na variante completa: todos os experimentos}
     \label{fig:comparacao_geral}
 \end{figure}
+
+\input{chapters/tables/Comparacao-Geral-Metricas.tex}
 

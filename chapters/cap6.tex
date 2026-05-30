@@ -1,6 +1,8 @@
 \chapter{BASE TEÓRICA PARA A MONTAGEM DO LABORATÓRIO}
 
-Este capítulo descreve as decisões metodológicas que estruturam o laboratório experimental. São justificados a escolha e as características do \textit{CICIDS2017} e do \textit{LycoS-IDS2017}, detalhado o \textit{pipeline} de preparação dos dados, definidos os três cenários de avaliação utilizados nos experimentos e apresentadas as métricas adotadas para comparar os modelos.
+Este capítulo descreve as decisões metodológicas que estruturam o laboratório experimental. São justificados a escolha e as características do \textit{CICIDS2017} e do \textit{LycoS-IDS2017}, detalhado o \textit{pipeline} de preparação dos dados, definidas as três variantes de avaliação utilizadas nos experimentos e apresentadas as métricas adotadas para comparar os modelos.
+
+O laboratório é organizado em dois níveis planejados desde o início. O primeiro é o experimento base (\textit{Baseline}), conduzido sobre o \textit{CICIDS2017} com os modelos \textit{Random Forest} e DNN nas três variantes de avaliação, e serve como referência de desempenho. O segundo nível é composto por oito cenários adicionais, concebidos para isolar o efeito de fatores específicos (qualidade do \textit{dataset}, redução de dimensionalidade e abordagem não supervisionada) sobre os resultados. Cada cenário varia exatamente um desses fatores em relação ao \textit{Baseline} ou ao cenário anterior, o que permite interpretar cada resultado como uma contribuição isolada e diretamente comparável.
 
 \section{Escolha do \textit{dataset} e critérios de seleção}
 
@@ -22,17 +24,17 @@ Para os experimentos com \textit{Deep Neural Network}, os atributos foram normal
 
 Para os experimentos com redução de dimensionalidade (Melhorias B, C, F e G), foi aplicada a técnica \textit{Mean Decrease in Impurity} (MDI). O MDI quantifica a importância de cada atributo pela sua contribuição média para a redução da impureza de Gini nas árvores de um \textit{Random Forest} previamente treinado no conjunto completo. Os atributos com menor contribuição média são descartados, e os modelos subsequentes são treinados e avaliados exclusivamente no espaço de \textit{features} reduzido, mantendo os mesmos conjuntos de treino e teste dos experimentos sem redução.
 
-\section{Definição dos cenários experimentais}
+\section{Definição das variantes experimentais}
 
-Os três cenários foram construídos para separar dois objetivos distintos de avaliação: mensurar o desempenho dos modelos em ambiente fechado, onde todos os tipos de ataque estão representados no treinamento, e verificar a capacidade de generalização diante de ataques completamente ausentes no treinamento.
+As três variantes foram construídas para separar dois objetivos distintos de avaliação: mensurar o desempenho dos modelos em ambiente fechado, onde todos os tipos de ataque estão representados no treinamento, e verificar a capacidade de generalização diante de ataques completamente ausentes no treinamento.
 
-O Cenário Completo inclui todas as 15 classes tanto no treinamento quanto no teste, resultando em 1.979.513 amostras para treino e 848.363 para teste. Ele serve como linha de base do desempenho máximo esperado de cada modelo e permite identificar fragilidades estruturais, em particular, a dificuldade de aprender classes com baixíssimo suporte mesmo quando todos os tipos de ataque estão representados.
+A Variante Completa inclui todas as 15 classes tanto no treinamento quanto no teste, resultando em 1.979.513 amostras para treino e 848.363 para teste. Ela serve como linha de base do desempenho máximo esperado de cada modelo e permite identificar fragilidades estruturais, em particular, a dificuldade de aprender classes com baixíssimo suporte mesmo quando todos os tipos de ataque estão representados.
 
-O Cenário Sem \textit{PortScan} remove a classe \textit{PortScan} do treinamento e a mantém exclusivamente no conjunto de teste, com 158.804 amostras (16,6\% do total de avaliação). O \textit{PortScan} é um ataque volumétrico de alta frequência: sua presença dominante no teste cria o cenário mais severo de generalização, no qual os modelos precisam lidar com um tipo de ataque numericamente relevante para o qual não possuem nenhum exemplo de treinamento. O conjunto de treino nesse cenário contém 1.868.545 amostras e o de teste 959.331.
+A Variante Sem \textit{PortScan} remove a classe \textit{PortScan} do treinamento e a mantém exclusivamente no conjunto de teste, com 158.804 amostras (16,6\% do total de avaliação). O \textit{PortScan} é um ataque volumétrico de alta frequência: sua presença dominante no teste cria a variante mais severa de generalização, no qual os modelos precisam lidar com um tipo de ataque numericamente relevante para o qual não possuem nenhum exemplo de treinamento. O conjunto de treino nessa variante contém 1.868.545 amostras e o de teste 959.331.
 
-O Cenário Sem \textit{XSS} remove a classe \textit{Web Attack -- XSS} do treinamento, mantendo-a no teste com 652 amostras (0,08\% do total de avaliação). Diferentemente do \textit{PortScan}, o \textit{XSS} é raro e seus padrões de tráfego se sobrepõem com os de outros ataques Web, em especial o \textit{Brute Force}. Esse cenário avalia a generalização em condições de baixíssimo suporte e alta ambiguidade de fronteira entre classes, permitindo observar como cada modelo distribui amostras desconhecidas entre as classes mais próximas.
+A Variante Sem \textit{XSS} remove a classe \textit{Web Attack -- XSS} do treinamento, mantendo-a no teste com 652 amostras (0,08\% do total de avaliação). Diferentemente do \textit{PortScan}, o \textit{XSS} é raro e seus padrões de tráfego se sobrepõem com os de outros ataques Web, em especial o \textit{Brute Force}. Essa variante avalia a generalização em condições de baixíssimo suporte e alta ambiguidade de fronteira entre classes, permitindo observar como cada modelo distribui amostras desconhecidas entre as classes mais próximas.
 
-A combinação dos dois cenários de generalização permite caracterizar o comportamento dos modelos em dois extremos complementares: um ataque ausente no treino com alta presença estatística no teste (\textit{PortScan}) e um ataque ausente no treino que é raro e semanticamente ambíguo (\textit{XSS}).
+A combinação das duas variantes de generalização permite caracterizar o comportamento dos modelos em dois extremos complementares: um ataque ausente no treino com alta presença estatística no teste (\textit{PortScan}) e um ataque ausente no treino que é raro e semanticamente ambíguo (\textit{XSS}).
 
 \section{Configuração dos modelos e ambiente computacional}
 
@@ -40,9 +42,9 @@ Os três modelos foram implementados em Python em ambiente local, utilizando \te
 
 O \textit{Random Forest} foi configurado com 100 árvores de decisão (\texttt{n\_estimators=100}), semente aleatória fixada em 42 (\texttt{random\_state=42}) e paralelização total dos núcleos disponíveis (\texttt{n\_jobs=-1}). Os demais parâmetros seguiram os valores padrão da biblioteca.
 
-A DNN foi construída com duas camadas ocultas: a primeira com 128 neurônios e a segunda com 64, ambas com ativação ReLU e \textit{dropout} de 0,2. A camada de saída possui um neurônio por classe com ativação \textit{softmax}. O modelo foi compilado com otimizador Adam e função de perda \textit{sparse categorical crossentropy}, treinado por 10 épocas com \textit{batch size} de 256 amostras e 10\% do conjunto de treino reservado para validação interna.
+A DNN foi construída com duas camadas ocultas: a primeira com 128 neurônios e a segunda com 64, ambas com ativação ReLU e \textit{dropout} de 0,2. A camada de saída possui um neurônio por classe com ativação \textit{softmax}. O modelo foi compilado com otimizador \textit{Adam} e função de perda \textit{sparse categorical crossentropy}, treinado por 10 épocas com \textit{batch size} de 256 amostras e 10\% do conjunto de treino reservado para validação interna.
 
-O \textit{Autoencoder} adota arquitetura simétrica: o codificador reduz a entrada de 78 atributos para 64, 32 e 16 dimensões; o decodificador reconstrói o caminho inverso (16 $\to$ 32 $\to$ 64 $\to$ 78). As camadas ocultas utilizam ativação ReLU e a camada de saída utiliza sigmoide. O modelo foi compilado com otimizador Adam e perda MSE, treinado por até 50 épocas com \textit{batch size} de 256, fração de validação de 10\% e \textit{EarlyStopping} com paciência de 3 épocas, restaurando os melhores pesos ao término.
+O \textit{Autoencoder} adota arquitetura simétrica: o codificador reduz a entrada de 78 atributos para 64, 32 e 16 dimensões; o decodificador reconstrói o caminho inverso (16 $\to$ 32 $\to$ 64 $\to$ 78). As camadas ocultas utilizam ativação ReLU e a camada de saída utiliza sigmoide. O modelo foi compilado com otimizador \textit{Adam} e perda MSE, treinado por até 50 épocas com \textit{batch size} de 256, fração de validação de 10\% e \textit{EarlyStopping} com paciência de 3 épocas, restaurando os melhores pesos ao término.
 
 As especificações completas do ambiente computacional utilizado nos experimentos são apresentadas na Tabela~\ref{tab:ambiente}.
 

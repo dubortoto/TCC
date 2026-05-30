@@ -1,0 +1,27 @@
+\begin{table}[H]
+    \centering
+    \small
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}{lllccc}
+            \hline
+            \textbf{Cenário} & \textbf{Fator investigado} & \textbf{Modelo} & \textbf{Acurácia} & \textbf{F1 Macro} & \textbf{F1 Ponderado} \\
+            \hline
+            \multirow{2}{*}{\textit{Baseline}} & \multirow{2}{*}{\textit{CICIDS2017}}            & \textit{Random Forest} & 1,00 & 0,86 & 1,00 \\
+                                               &                                                 & DNN                    & 0,98 & 0,67 & 0,98 \\
+            \hline
+            \multirow{2}{*}{A}                 & \multirow{2}{*}{\textit{LycoS-IDS2017}}         & \textit{Random Forest} & 1,00 & 0,97 & 1,00 \\
+                                               &                                                 & DNN                    & 1,00 & 0,87 & 1,00 \\
+            \hline
+            B & \textit{CICIDS2017} + MDI & DNN                  & 0,98 & 0,64 & 0,98 \\
+            C & \textit{LycoS-IDS2017} + MDI & DNN                  & 1,00 & 0,77 & 1,00 \\
+            \hline
+            D & \textit{CICIDS2017}, não supervisionado  & \textit{Autoencoder} & 0,86 & 0,74 & 0,85 \\
+            E & \textit{LycoS-IDS2017}, não supervisionado & \textit{Autoencoder} & 0,92 & 0,89 & 0,92 \\
+            F & \textit{CICIDS2017} + MDI, não sup.      & \textit{Autoencoder} & 0,83 & 0,66 & 0,81 \\
+            G & \textit{LycoS-IDS2017} + MDI, não sup.  & \textit{Autoencoder} & 0,89 & 0,85 & 0,89 \\
+            \hline
+        \end{tabular}
+    }
+    \caption{Métricas na variante completa: todos os experimentos}
+    \label{tab:comparacao_geral}
+\end{table}

@@ -3,50 +3,61 @@
 
 > **Terminologia adotada:**
 > - **Cenário** = configuração experimental (Baseline, Cenário A–G — o que antes era chamado de "melhoria")
-> - **Variação** = modo de avaliação dentro de cada cenário (Variação Completa, Sem PortScan, Sem XSS — o que antes era chamado de "cenário")
+> - **Variante** = modo de avaliação dentro de cada cenário (Variante Completa, Sem PortScan, Sem XSS — o que antes era chamado de "cenário")
 
 ---
 
 - [x] **Cap 1, seção 1.1 (Contextualização), último parágrafo** — Substituir "provou-se" por "tem se mostrado eficaz" para suavizar a afirmação e não soar definitivo. ✅ Já feito.
 
-- [ ] **Cap 1, seção 1.1 (Contextualização), último parágrafo** — Adicionar parágrafo de transição ao final da seção explicitando que RF e DNN foram escolhidos para o comparativo deste trabalho. Texto sugerido: *"Dessa forma, escolhemos essas duas tecnologias para fazer um comparativo ao longo desse trabalho para esse laboratório."*
+- [x] **Cap 1, seção 1.1 (Contextualização), último parágrafo** — Adicionar parágrafo de transição ao final da seção explicitando que RF e DNN foram escolhidos para o comparativo deste trabalho. Texto sugerido: *"Dessa forma, escolhemos essas duas tecnologias para fazer um comparativo ao longo desse trabalho para esse laboratório."* ✅ Feito.
 
-- [ ] **Cap 1, seção Hipóteses, primeiro parágrafo** — (a) Substituir "apresentarão" por "é esperado que apresentem" para que a hipótese não soe como afirmação definitiva; (b) remover o trecho `, com maior acurácia e menor incidência de falsos negativos, especialmente frente a ataques complexos e tráfego criptografado.` — a versão atual já trocou "tráfego criptografado" por outra expressão, mas o verbo "apresentarão" e os detalhes subsequentes ainda precisam ser ajustados.
+- [x] **Cap 1, seção Hipóteses, primeiro parágrafo** — (a) Substituir "apresentarão" por "é esperado que apresentem" para que a hipótese não soe como afirmação definitiva; (b) remover o trecho `, com maior acurácia e menor incidência de falsos negativos, especialmente frente a ataques complexos e tráfego criptografado.` ✅ Feito.
 
-- [ ] **Cap 2, parágrafo de introdução** — Corrigir o erro tipográfico: "embasas" → "embasa".
+- [x] **Cap 2, parágrafo de introdução** — Corrigir o erro tipográfico: "embasas" → "embasa". ✅ Feito.
 
-- [ ] **Cap 3, parágrafo de introdução** — Remover os m-dashes (—) ao redor de "com destaque para a técnica MDI de seleção de características", substituindo-os por vírgulas ou parênteses.
+- [x] **Cap 3, parágrafo de introdução** — Remover os m-dashes (—) ao redor de "com destaque para a técnica MDI de seleção de características", substituindo por parênteses. ✅ Feito.
 
-- [ ] **Cap 1, primeira menção a IDS (página ~3)** — Ao usar "IDS" pela primeira vez na seção Contextualização, expandir para "Sistemas de Detecção de Intrusão (*Intrusion Detection System* - IDS)" para que o leitor seja apresentado à sigla antes de ela ser usada livremente.
+- [x] **Cap 1, primeira menção a IDS (página ~3)** — Ao usar "IDS" pela primeira vez na seção Contextualização, expandir para "Sistemas de Detecção de Intrusão (*Intrusion Detection System* - IDS)". ✅ Feito.
 
-- [ ] **Cap 1 (Introdução) — palavras em inglês** — Revisar todo o capítulo e garantir que todas as palavras em inglês estejam formatadas em itálico (`\textit{}`).
+- [x] **Itálico em palavras em inglês — revisão por capítulo** — Revisar todos os capítulos e garantir que todas as palavras em inglês estejam formatadas em itálico (`\textit{}`). Siglas consagradas em português (IDS, DNN, RF, MDI, CPU, GPU, etc.) são exceções e não precisam de itálico.
 
-- [ ] **Cap 1, seção Hipóteses, primeiro parágrafo** — Trocar "apresentarão" por "é esperado que apresentem" para que a hipótese não soe como certeza. *(Sobrepõe-se à tarefa anterior sobre Hipóteses — resolver junto.)*
+  | Capítulo | Status |
+  |---|---|
+  | Cap 1 — Introdução | ✅ Feito (`phishing`, `supply chain`, título do relatório IBM, `hardware`) |
+  | Cap 2 — IDS | ✅ Feito (`malware`, `software`, `host`, `log`, `web`, `Random Forest`, `XGBoost`, `Autoencoders`, `Datasets`, `dataset`) |
+  | Cap 3 — ML | ✅ Feito (`Random Forest` ×4, `XGBoost`, `datasets`) |
+  | Cap 4 — DNN | ✅ Feito (`Autoencoders` ×2, `Autoencoder` ×2, `pipeline`, `datasets`, `Random Forest`) |
+  | Cap 5 — Trabalhos Relacionados | ✅ Feito (`LIME`, `BLOOM-RNN`, `autoencoder`, `CICIDS2017` ×1, `Baseline` ×2, `dataset` ×2) |
+  | Cap 6 — Metodologia | ✅ Feito (`Adam` ×2) |
+  | Cap 7 — Resultados | ✅ Feito (`Baseline` ×todos, `autoencoder/autoencoders` ×todos, `dataset` ×1, `Heatmap`, `Random Forest` em legendas, `Autoencoder` em legenda) |
+  | Cap 8 — Conclusão | ✅ Feito (`Baseline` ×3, `datasets` ×3, `Autoencoder` ×1, `LIME`) |
 
-- [ ] **Cap 1, seção Hipóteses** — Reduzir o nível de detalhe: manter apenas o que se espera observar em termos gerais, sem detalhar mecanismos esperados.
+- [x] **Cap 1, seção Hipóteses, primeiro parágrafo** — Trocar "apresentarão" por "é esperado que apresentem". *(Resolvido junto com a tarefa anterior.)* ✅ Feito.
 
-- [ ] **Cap 5, seção final (5.6)** — No corpo do texto, remover referências diretas ao próprio trabalho (ex.: "neste laboratório", "neste TCC", "os experimentos deste trabalho"). Deixar menções ao próprio trabalho apenas no último parágrafo da seção, onde cabe comentar o que foi implementado e o que foi relevante. Separar em parágrafos distintos para facilitar a leitura.
+- [x] **Cap 1, seção Hipóteses** — Reduzir o nível de detalhe: manter apenas o que se espera observar em termos gerais, sem detalhar mecanismos esperados. ✅ Feito.
 
-- [ ] **Página ~22 — palavras em inglês** — Localizar e colocar em itálico (`\textit{}`) as palavras em inglês que aparecem sem formatação nessa página.
+- [x] **Cap 5, seções 5.1–5.6** — Remover todas as referências diretas ao próprio trabalho ("neste laboratório", "neste TCC", "os achados deste estudo", etc.) do corpo das seções 5.1–5.5. O último parágrafo da seção 5.6 resume o que foi implementado. ✅ Feito.
 
-- [ ] **Cap 5, seção 5.6 — narrativa de cenários** — Em vez de apresentar os cenários como "melhorias feitas depois do baseline", reescrevê-los como **cenários planejados desde o início**. Renomear a seção de "Melhorias investigadas no laboratório" para algo como "Cenários do Experimento" e ajustar o texto para refletir esse enquadramento.
+- [x] **Página ~22 — palavras em inglês** — Coberta pela revisão global de itálicos capítulo a capítulo. ✅ Feito.
 
-- [ ] **Cap 6 — apresentação do plano experimental** — Adicionar, na introdução do capítulo ou na seção de variações, uma explicação deixando claro que o laboratório começa com um experimento-base mais simples (Baseline) e que os demais cenários foram planejados desde o início.
+- [x] **Cap 5, seção 5.6 — narrativa de cenários** — Seção renomeada para "Cenários do Experimento". Último parágrafo reescrito em tempo futuro usando "Cenário A/B/C..." em vez de "Melhoria A/B/C...". ✅ Feito.
 
-- [ ] **Cap 5 — tabela resumo dos cenários** — Inserir uma tabela resumo após as seções 5.1–5.5, listando todos os cenários experimentais previstos com suas combinações (dataset × redução de dimensionalidade × modelo).
+- [x] **Cap 6 — apresentação do plano experimental** — Adicionado parágrafo na introdução do capítulo explicando a estrutura em dois níveis: Baseline como referência + oito cenários adicionais planejados desde o início para isolar fatores específicos. ✅ Feito.
 
-- [ ] **Cap 5, seção 5.6 — tempo verbal e perspectiva** — A seção 5.6 não deve relatar o que já foi feito; deve apresentar os cenários como planejamento, usando tempo futuro ou condicional (ex.: "pretende-se avaliar", "será implementado"). As seções 5.1–5.5 são onde o próprio trabalho aparece em relação à literatura; a seção 5.6, após a tabela resumo, descreve o que se planeja fazer.
+- [x] **Cap 5 — tabela resumo dos cenários** — Tabela inserida após a seção 5.5, com colunas Cenário, Dataset, MDI e Modelo(s), cobrindo Baseline e Cenários A–G. ✅ Feito.
 
-- [ ] **Cap 5, estrutura geral** — Garantir que: (a) nas seções 5.1–5.5 estejam presentes as referências ao próprio trabalho e às escolhas metodológicas; (b) a tabela resumo marque a transição; (c) a seção 5.6 use perspectiva de planejamento, não de relato de algo já concluído. *(Detalha a execução das três tarefas anteriores sobre o cap 5.)*
+- [x] **Cap 5, seção 5.6 — tempo verbal e perspectiva** — Seção 5.6 já usa tempo futuro ("são propostos", "reproduzirá", "aplicarão", "investigarão") e a tabela marca a transição. ✅ Feito.
 
-- [ ] **Cap 5 — tabela resumo** *(duplicata da tarefa anterior)* — Adicionar tabela que visualize os cenários previstos.
+- [x] **Cap 5, estrutura geral** — Seções 5.1–5.5 apresentam literatura pura, tabela faz a transição, seção 5.6 usa perspectiva de planejamento. ✅ Feito.
 
-- [ ] **Cap 7, figura 7.5 — rótulos** — Adicionar rótulos em cada barra/linha da figura identificando o cenário correspondente (Baseline, Cenário A, B, C, D, E, F, G) para facilitar a leitura sem depender da legenda.
+- [x] **Cap 5 — tabela resumo** *(duplicata)* ✅ Feito junto com a tarefa acima.
 
-- [ ] **Cap 7, figura 7.5 — tabela de dados** — Adicionar uma tabela com os valores numéricos apresentados na figura 7.5 para permitir comparação exata entre os cenários sem depender da leitura visual do gráfico.
+- [ ] **Cap 7, figura 7.5 — rótulos** — Adicionar rótulos em cada barra/linha da figura identificando o cenário correspondente (Baseline, Cenário A, B, C, D, E, F, G) para facilitar a leitura sem depender da legenda. *(Requer editar o script Python que gera o gráfico.)*
 
-- [ ] **Referências bibliográficas — hyperlinks** — Adicionar suporte a hyperlinks nas referências para que sejam clicáveis no PDF. Verificar se o pacote `hyperref` já está no preâmbulo do documento; se não estiver, adicioná-lo.
+- [x] **Cap 7, figura 7.5 — tabela de dados** — Tabela adicionada após a figura com Acurácia, F1 Macro e F1 Ponderado dos 10 experimentos na variante completa (label: `tab:comparacao_geral`). ✅ Feito.
 
-- [ ] **Terminologia global — substituição no documento** — Substituir ao longo de todo o TCC: "melhoria(s)" → "cenário(s)" quando se refere às configurações experimentais A–G; "cenário(s)" → "variação/variações" quando se refere aos modos de avaliação (Completo, Sem PortScan, Sem XSS). Atenção especial em cap 5, cap 6 e cap 7, onde os dois termos aparecem com mais frequência.
+- [x] **Referências bibliográficas — links clicáveis** — `hyperref` já ativo na classe. DOIs adicionados a 6 referências que estavam sem: `neto_gomes`, `cantone2024`, `rego_nunes`, `santos2023ercemapi`, `bochie2020sbrc`, `medeiros2019sbrc`. Sem DOI localizável: `sbrc_minicursos` (Lopez 2018), `silva_hsae`, `liborio2015`. ✅ Feito.
 
-- [ ] **Índice de tabelas e índice de figuras** — Adicionar lista de tabelas (`\listoftables`) e lista de figuras (`\listoffigures`) ao documento, nos locais apropriados conforme as normas da FATEC (geralmente após o sumário).
+- [x] **Terminologia global — substituição no documento** — "cenário(s)" → "variante(s)" para modos de avaliação (Completo, Sem PortScan, Sem XSS) em cap 5, 6, 7, 8 e legendas de tabelas. Usos gerais do português ("em cenários desbalanceados", "cenários de produção", etc.) mantidos. ✅ Feito.
+
+- [x] **Índice de tabelas e índice de figuras** — `\listoffigures` e `\listoftables` adicionados após `\sumario` no documento principal. ✅ Feito.
