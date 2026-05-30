@@ -34,7 +34,7 @@
 
 - [x] **Cap 1, seção Hipóteses, primeiro parágrafo** — Trocar "apresentarão" por "é esperado que apresentem". *(Resolvido junto com a tarefa anterior.)* ✅ Feito.
 
-- [x] **Cap 1, seção Hipóteses** — Reduzir o nível de detalhe: manter apenas o que se espera observar em termos gerais, sem detalhar mecanismos esperados. ✅ Feito.
+- [ ] **Cap 1, seção Hipóteses** — Reduzir o nível de detalhe: manter apenas o que se espera observar em termos gerais, sem detalhar mecanismos esperados. *(Revertido a pedido do usuário — texto original restaurado.)*
 
 - [x] **Cap 5, seções 5.1–5.6** — Remover todas as referências diretas ao próprio trabalho ("neste laboratório", "neste TCC", "os achados deste estudo", etc.) do corpo das seções 5.1–5.5. O último parágrafo da seção 5.6 resume o que foi implementado. ✅ Feito.
 
