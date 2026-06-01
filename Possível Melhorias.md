@@ -1,321 +1,63 @@
-# TODO — Revisão e Refinamento do TCC
 
-## Objetivo Geral
+# Melhorias apontadas pela orientadora (reunião 29/05/2026)
 
-Revisar o TCC "Desenvolvimento de um Laboratório de Detecção de Intrusão: Comparando Machine Learning e Deep Learning na Identificação de Ameaças em Redes" visando:
-
-* corrigir inconsistências metodológicas;
-* melhorar clareza e objetividade;
-* reduzir redundâncias;
-* fortalecer rigor científico;
-* aumentar reprodutibilidade experimental;
-* alinhar hipóteses, metodologia e conclusões;
-* manter o tom acadêmico e técnico original.
+> **Terminologia adotada:**
+> - **Cenário** = configuração experimental (Baseline, Cenário A–G — o que antes era chamado de "melhoria")
+> - **Variante** = modo de avaliação dentro de cada cenário (Variante Completa, Sem PortScan, Sem XSS — o que antes era chamado de "cenário")
 
 ---
 
-# PRIORIDADE ALTA
+- [x] **Cap 1, seção 1.1 (Contextualização), último parágrafo** — Substituir "provou-se" por "tem se mostrado eficaz" para suavizar a afirmação e não soar definitivo. ✅ Já feito.
 
-## TODO 1 — Corrigir inconsistência da hipótese sobre tráfego criptografado [em análise]
+- [x] **Cap 1, seção 1.1 (Contextualização), último parágrafo** — Adicionar parágrafo de transição ao final da seção explicitando que RF e DNN foram escolhidos para o comparativo deste trabalho. Texto sugerido: *"Dessa forma, escolhemos essas duas tecnologias para fazer um comparativo ao longo desse trabalho para esse laboratório."* ✅ Feito.
 
-### Problema
+- [x] **Cap 1, seção Hipóteses, primeiro parágrafo** — (a) Substituir "apresentarão" por "é esperado que apresentem" para que a hipótese não soe como afirmação definitiva; (b) remover o trecho `, com maior acurácia e menor incidência de falsos negativos, especialmente frente a ataques complexos e tráfego criptografado.` ✅ Feito.
 
-A hipótese afirma que Deep Learning terá desempenho superior especialmente em "tráfego criptografado", porém o trabalho não possui:
+- [x] **Cap 2, parágrafo de introdução** — Corrigir o erro tipográfico: "embasas" → "embasa". ✅ Feito.
 
-* experimentos específicos com TLS/HTTPS;
-* análise de tráfego criptografado;
-* datasets separados por criptografia;
-* métricas relacionadas a encrypted traffic.
+- [x] **Cap 3, parágrafo de introdução** — Remover os m-dashes (—) ao redor de "com destaque para a técnica MDI de seleção de características", substituindo por parênteses. ✅ Feito.
 
-### Ação
+- [x] **Cap 1, primeira menção a IDS (página ~3)** — Ao usar "IDS" pela primeira vez na seção Contextualização, expandir para "Sistemas de Detecção de Intrusão (*Intrusion Detection System* - IDS)". ✅ Feito.
 
-Modificar a hipótese removendo a referência explícita a tráfego criptografado OU adicionar uma limitação metodológica afirmando que:
+- [x] **Itálico em palavras em inglês — revisão por capítulo** — Revisar todos os capítulos e garantir que todas as palavras em inglês estejam formatadas em itálico (`\textit{}`). Siglas consagradas em português (IDS, DNN, RF, MDI, CPU, GPU, etc.) são exceções e não precisam de itálico.
 
-* o dataset utilizado não diferencia explicitamente tráfego criptografado;
-* o trabalho não avalia IDS em cenários TLS/HTTPS específicos.
+  | Capítulo | Status |
+  |---|---|
+  | Cap 1 — Introdução | ✅ Feito (`phishing`, `supply chain`, título do relatório IBM, `hardware`) |
+  | Cap 2 — IDS | ✅ Feito (`malware`, `software`, `host`, `log`, `web`, `Random Forest`, `XGBoost`, `Autoencoders`, `Datasets`, `dataset`) |
+  | Cap 3 — ML | ✅ Feito (`Random Forest` ×4, `XGBoost`, `datasets`) |
+  | Cap 4 — DNN | ✅ Feito (`Autoencoders` ×2, `Autoencoder` ×2, `pipeline`, `datasets`, `Random Forest`) |
+  | Cap 5 — Trabalhos Relacionados | ✅ Feito (`LIME`, `BLOOM-RNN`, `autoencoder`, `CICIDS2017` ×1, `Baseline` ×2, `dataset` ×2) |
+  | Cap 6 — Metodologia | ✅ Feito (`Adam` ×2) |
+  | Cap 7 — Resultados | ✅ Feito (`Baseline` ×todos, `autoencoder/autoencoders` ×todos, `dataset` ×1, `Heatmap`, `Random Forest` em legendas, `Autoencoder` em legenda) |
+  | Cap 8 — Conclusão | ✅ Feito (`Baseline` ×3, `datasets` ×3, `Autoencoder` ×1, `LIME`) |
 
-### Resultado esperado
+- [x] **Cap 1, seção Hipóteses, primeiro parágrafo** — Trocar "apresentarão" por "é esperado que apresentem". *(Resolvido junto com a tarefa anterior.)* ✅ Feito.
 
-Hipótese alinhada com os experimentos efetivamente realizados.
+- [ ] **Cap 1, seção Hipóteses** — Reduzir o nível de detalhe: manter apenas o que se espera observar em termos gerais, sem detalhar mecanismos esperados. *(Revertido a pedido do usuário — texto original restaurado.)*
 
----
+- [x] **Cap 5, seções 5.1–5.6** — Remover todas as referências diretas ao próprio trabalho ("neste laboratório", "neste TCC", "os achados deste estudo", etc.) do corpo das seções 5.1–5.5. O último parágrafo da seção 5.6 resume o que foi implementado. ✅ Feito.
 
-## TODO 2 — Esclarecer o significado de "Laboratório" [em análise]
+- [x] **Página ~22 — palavras em inglês** — Coberta pela revisão global de itálicos capítulo a capítulo. ✅ Feito.
 
-### Problema
+- [x] **Cap 5, seção 5.6 — narrativa de cenários** — Seção renomeada para "Cenários do Experimento". Último parágrafo reescrito em tempo futuro usando "Cenário A/B/C..." em vez de "Melhoria A/B/C...". ✅ Feito.
 
-O título e o texto sugerem um laboratório IDS operacional, porém os experimentos são majoritariamente offline e baseados em datasets.
+- [x] **Cap 6 — apresentação do plano experimental** — Adicionado parágrafo na introdução do capítulo explicando a estrutura em dois níveis: Baseline como referência + oito cenários adicionais planejados desde o início para isolar fatores específicos. ✅ Feito.
 
-### Ação
+- [x] **Cap 5 — tabela resumo dos cenários** — Tabela inserida após a seção 5.5, com colunas Cenário, Dataset, MDI e Modelo(s), cobrindo Baseline e Cenários A–G. ✅ Feito.
 
-Adicionar explicação explícita na introdução e/ou metodologia de que:
+- [x] **Cap 5, seção 5.6 — tempo verbal e perspectiva** — Seção 5.6 já usa tempo futuro ("são propostos", "reproduzirá", "aplicarão", "investigarão") e a tabela marca a transição. ✅ Feito.
 
-* o laboratório é experimental;
-* os testes são offline;
-* os modelos operam sobre datasets previamente coletados;
-* não há captura em tempo real ou deploy operacional em produção.
+- [x] **Cap 5, estrutura geral** — Seções 5.1–5.5 apresentam literatura pura, tabela faz a transição, seção 5.6 usa perspectiva de planejamento. ✅ Feito.
 
-### Resultado esperado
+- [x] **Cap 5 — tabela resumo** *(duplicata)* ✅ Feito junto com a tarefa acima.
 
-Evitar expectativa incorreta de um IDS fully operational.
+- [ ] **Cap 7, figura 7.5 — rótulos** — Adicionar rótulos em cada barra/linha da figura identificando o cenário correspondente (Baseline, Cenário A, B, C, D, E, F, G) para facilitar a leitura sem depender da legenda. *(Requer editar o script Python que gera o gráfico.)*
 
----
+- [x] **Cap 7, figura 7.5 — tabela de dados** — Tabela adicionada após a figura com Acurácia, F1 Macro e F1 Ponderado dos 10 experimentos na variante completa (label: `tab:comparacao_geral`). ✅ Feito.
 
-## TODO 3 — Adicionar detalhes de reprodutibilidade experimental [em análise]
+- [x] **Referências bibliográficas — links clicáveis** — `hyperref` já ativo na classe. DOIs adicionados a 6 referências que estavam sem: `neto_gomes`, `cantone2024`, `rego_nunes`, `santos2023ercemapi`, `bochie2020sbrc`, `medeiros2019sbrc`. Sem DOI localizável: `sbrc_minicursos` (Lopez 2018), `silva_hsae`, `liborio2015`. ✅ Feito.
 
-### Problema
+- [x] **Terminologia global — substituição no documento** — "cenário(s)" → "variante(s)" para modos de avaliação (Completo, Sem PortScan, Sem XSS) em cap 5, 6, 7, 8 e legendas de tabelas. Usos gerais do português ("em cenários desbalanceados", "cenários de produção", etc.) mantidos. ✅ Feito.
 
-Faltam informações técnicas suficientes para reprodução dos experimentos.
-
-### Adicionar:
-
-* hardware utilizado;
-* CPU;
-* GPU (se houver);
-* memória RAM;
-* sistema operacional;
-* versão do Python;
-* versões das bibliotecas;
-* arquitetura detalhada da DNN;
-* quantidade de camadas;
-* neurônios por camada;
-* função de ativação;
-* optimizer;
-* learning rate;
-* batch size;
-* número de épocas;
-* dropout;
-* early stopping (se utilizado).
-
-### Resultado esperado
-
-Aumentar rigor científico e reprodutibilidade.
-
----
-
-## TODO 4 — Fortalecer conclusão prática do trabalho [em análise]
-
-### Problema
-
-O trabalho apresenta muitos resultados, mas ainda não responde claramente:
-
-* qual abordagem foi mais adequada;
-* qual seria recomendada na prática;
-* qual trade-off realmente vale a pena.
-
-### Ação
-
-Adicionar seção conclusiva mais crítica e opinativa, discutindo:
-
-* estabilidade do Random Forest;
-* custo computacional da DNN;
-* dificuldade de generalização supervisionada;
-* impacto da qualidade do dataset;
-* benefícios do Autoencoder;
-* limitações reais para produção;
-* cenários onde cada abordagem é mais adequada.
-
-### Resultado esperado
-
-Conclusão mais forte e madura academicamente.
-
----
-
-# PRIORIDADE MÉDIA
-
-## TODO 5 — Reduzir redundâncias nos Trabalhos Relacionados [em análise]
-
-### Problema
-
-Existem repetições frequentes dos temas:
-
-* alto custo computacional;
-* generalização;
-* overfitting;
-* desbalanceamento;
-* interpretabilidade do Random Forest.
-
-### Ação
-
-Revisar os capítulos 5.1 até 5.5 para:
-
-* condensar ideias repetidas;
-* evitar reformulações equivalentes;
-* destacar o diferencial específico de cada artigo.
-
-### Resultado esperado
-
-Texto mais fluido e menos repetitivo.
-
----
-
-## TODO 6 — Melhorar separação conceitual entre: [em análise]
-
-* classificação supervisionada;
-* detecção por anomalia;
-* detecção não supervisionada.
-
-### Problema
-
-Em alguns momentos o texto mistura:
-
-* DNN supervisionada;
-* detecção baseada em anomalia;
-* Autoencoders.
-
-### Ação
-
-Deixar explicitamente claro:
-
-* Random Forest e DNN baseline são classificadores supervisionados;
-* apenas os Autoencoders representam efetivamente abordagem não supervisionada/anomaly-based.
-
-### Resultado esperado
-
-Maior rigor conceitual.
-
----
-
-## TODO 7 — Simplificar períodos excessivamente longos [em análise]
-
-### Problema
-
-Alguns parágrafos possuem:
-
-* excesso de formalismo;
-* frases muito extensas;
-* excesso de orações subordinadas.
-
-### Ação
-
-Reescrever períodos muito longos preservando:
-
-* linguagem acadêmica;
-* tom técnico;
-* densidade científica.
-
-Priorizar:
-
-* clareza;
-* objetividade;
-* legibilidade.
-
-### Resultado esperado
-
-Texto mais agradável e profissional.
-
----
-
-# PRIORIDADE BAIXA
-
-## TODO 8 — Adicionar limitações explícitas do trabalho [em análise]
-
-### Sugestões de limitações
-
-Adicionar seção discutindo:
-
-* uso exclusivo de datasets públicos;
-* ausência de tráfego real corporativo;
-* ausência de deploy em produção;
-* limitações do CICIDS2017;
-* dependência de rotulagem;
-* ausência de avaliação em tempo real;
-* ausência de tráfego criptografado explicitamente tratado.
-
-### Resultado esperado
-
-Maior maturidade científica.
-
----
-
-## TODO 9 — Melhorar transições entre capítulos [em análise]
-
-### Problema
-
-Algumas transições são abruptas.
-
-### Ação
-
-Adicionar pequenos parágrafos conectando:
-
-* teoria → experimentos;
-* trabalhos relacionados → melhorias;
-* metodologia → resultados.
-
-### Resultado esperado
-
-Melhor fluidez narrativa.
-
----
-
-# TODO ESPECÍFICO PARA O CAPÍTULO 7
-
-## TODO 10 — Garantir análise crítica e não apenas exposição de métricas [em análise]
-
-### Verificar se:
-
-* os resultados explicam POR QUE os modelos falharam;
-* existe comparação crítica entre RF e DNN;
-* os erros são interpretados;
-* há ligação direta com os trabalhos relacionados;
-* as hipóteses são confirmadas ou refutadas explicitamente.
-
-### Resultado esperado
-
-Capítulo de resultados mais científico e menos descritivo.
-
----
-
-# TODO OPCIONAL — Possível melhoria avançada
-
-## Adicionar seção de Trabalhos Futuros
-
-### Sugestões
-
-* Explainable AI (SHAP/LIME);
-* IDS híbrido assinatura + anomalia;
-* avaliação online/streaming;
-* uso de tráfego criptografado;
-* federated learning;
-* avaliação cross-dataset;
-* detecção em tempo real;
-* modelos lightweight para edge devices.
-
-### Resultado esperado
-
-Encerramento mais robusto e acadêmico.
-
----
-
-# RESTRIÇÕES IMPORTANTES
-
-## NÃO alterar:
-
-* a tese principal do trabalho;
-* os resultados experimentais;
-* os datasets utilizados;
-* o tom acadêmico;
-* a estrutura geral dos capítulos.
-
-## PRESERVAR:
-
-* rigor técnico;
-* linguagem científica;
-* comparações metodológicas;
-* foco em generalização;
-* análise crítica do CICIDS2017;
-* organização das melhorias A–G.
-
----
-
-# META FINAL
-
-O TCC revisado deve:
-
-* possuir consistência metodológica;
-* ter maior clareza;
-* apresentar melhor rigor experimental;
-* reduzir redundâncias;
-* fortalecer a conclusão científica;
-* manter qualidade técnica elevada;
-* estar adequado para avaliação de banca de graduação em tecnologia/computação.
+- [x] **Índice de tabelas e índice de figuras** — `\listoffigures` e `\listoftables` adicionados após `\sumario` no documento principal. ✅ Feito.
