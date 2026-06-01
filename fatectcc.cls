@@ -22,6 +22,7 @@
 \RequirePackage[backend=biber,style=abnt]{biblatex} % Configurações de citações ABNT
 
 \RequirePackage{hyperref}           % Configurações de hyperlinks - Deve ser carregado por último para evitar conflitos
+\RequirePackage{multirow}
 
 % -------------- Definições de variáveis --------------
 \newcommand{\@autor}{}
@@ -153,6 +154,9 @@
 \renewcommand{\cftafterloftitle}{\hfill\mbox{}}
 \renewcommand{\cftlottitlefont}{\hfill\large\bfseries\MakeUppercase}
 \renewcommand{\cftafterlottitle}{\hfill\mbox{}}
+
+\newcommand{\listadefiguras}{\listoffigures}
+\newcommand{\listadetabelas}{\listoftables}
 
 % -------------- Capítulos -------------- 
 \titleformat{\chapter}
