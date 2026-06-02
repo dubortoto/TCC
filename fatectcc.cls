@@ -47,7 +47,7 @@
 \renewcommand{\familydefault}{\sfdefault}
 
 % Margens ABNT
-\geometry{
+\geometry{            
     a4paper,
     top=3cm,
     left=3cm,
@@ -56,7 +56,7 @@
 }
 
 % Configurações de hyperlinks
-\hypersetup{
+\hypersetup{            
     colorlinks=true,
     linkcolor=black,
     urlcolor=blue,
@@ -69,7 +69,7 @@
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0pt}  % Remove a linha do cabeçalho
 
-\fancypagestyle{plain}{
+\fancypagestyle{plain}{            
     \fancyhf{}                      % Limpa os campos de cabeçalho e rodapé 
     \fancyfoot[R]{\thepage}         % Número da página no rodapé direito
 }
@@ -80,71 +80,91 @@
 
 % -------------- Páginas --------------
 % -------------- Capa -------------- 
-\newcommand{\capa}{
-    \begin{titlepage}
+\newcommand{\capa}{            
+    \begin{titlepage}            
         \centering
-
+        
         \@instituicao
-
+        
         \vspace{2cm}
-
+        
         \@autor
-
+        
         \vspace{4cm}
-
+        
         \begin{minipage}
             {0.8\textwidth}
             \centering
             \bfseries\@titulo
         \end{minipage}
-
+        
         \vfill
-
+        
         \@cidade
-
+        
         \@ano
-
+        
     \end{titlepage}
 }
 
 % -------------- Folha de rosto --------------
-\newcommand{\folhaderosto}{
-    \begin{titlepage}
+\newcommand{\folhaderosto}{            
+    \begin{titlepage}            
         \centering
-
+        
         \MakeUppercase{\@instituicao}
-
+        
         \vspace{2cm}
-
+        
         \MakeUppercase{\@autor}
-
+        
         \vspace{4cm}
-
+        
         \begin{minipage}
             {0.8\textwidth}
             \centering
             \bfseries\@titulo
         \end{minipage}
-
+        
         \vspace{2cm}
-
+        
         \hfill
         \begin{minipage}
             {0.5\textwidth}
             \@preambulo
         \end{minipage}
-
+        
         \vfill
-
+        
         \@cidade
-
+        
         \@ano
-
+        
     \end{titlepage}
 }
 
+%  -------------- Resumo --------------
+\newcommand{\resumo}[1]{
+    \begin{center}
+        \large\bfseries RESUMO
+    \end{center}
+    \input{#1}
+    \clearpage
+}
+% -------------- Resumo  --------------
+
+%  -------------- Abstract --------------
+\newcommand{\abstracts}[1]{
+    \begin{center}
+        \large\bfseries ABSTRACT
+    \end{center}
+    \input{#1}
+    \clearpage
+}
+% -------------- Abstract  --------------
+
 % -------------- Sumário --------------
-\newcommand{\sumario}{
+\newcommand{\sumario}{    
     \tableofcontents
     \thispagestyle{empty}
 }
@@ -187,6 +207,6 @@
 \onehalfspacing
 \setlength{\parskip}{12pt}
 
-\newcommand{\capitulo}[1]{
+\newcommand{\capitulo}[1]{            
     \input{#1}
 }
