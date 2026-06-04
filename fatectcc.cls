@@ -21,6 +21,7 @@
 \RequirePackage{csquotes}           % Configurações para citações
 \RequirePackage[backend=biber,style=abnt]{biblatex} % Configurações de citações ABNT
 
+\RequirePackage{longtable}          % Tabelas que se estendem por múltiplas páginas
 \RequirePackage{hyperref}           % Configurações de hyperlinks - Deve ser carregado por último para evitar conflitos
 \RequirePackage{multirow}
 
@@ -162,6 +163,17 @@
     \clearpage
 }
 % -------------- Abstract  --------------
+
+%  -------------- Lista de Siglas e Abreviaturas --------------
+\newcommand{\listadeabreviaturas}[1]{
+    \begin{center}
+        \large\bfseries LISTA DE SIGLAS E ABREVIATURAS
+    \end{center}
+    \nopagebreak
+    \input{#1}
+    \clearpage
+}
+% -------------- Lista de Siglas e Abreviaturas  --------------
 
 % -------------- Sumário --------------
 \newcommand{\sumario}{    
