@@ -48,7 +48,7 @@
 \renewcommand{\familydefault}{\sfdefault}
 
 % Margens ABNT
-\geometry{            
+\geometry{                
     a4paper,
     top=3cm,
     left=3cm,
@@ -57,11 +57,20 @@
 }
 
 % Configurações de hyperlinks
-\hypersetup{            
+\hypersetup{
     colorlinks=true,
     linkcolor=black,
     urlcolor=blue,
     citecolor=black
+}
+
+% Nomes em português para \autoref{}
+\addto\captionsbrazilian{%
+    \def\tableautorefname{Tabela}%
+    \def\figureautorefname{Figura}%
+    \def\chapterautorefname{Capítulo}%
+    \def\sectionautorefname{Seção}%
+    \def\subsectionautorefname{Subseção}%
 }
 
 % Configuração de cabeçalhos e rodapés
@@ -70,7 +79,7 @@
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0pt}  % Remove a linha do cabeçalho
 
-\fancypagestyle{plain}{            
+\fancypagestyle{plain}{                
     \fancyhf{}                      % Limpa os campos de cabeçalho e rodapé 
     \fancyfoot[R]{\thepage}         % Número da página no rodapé direito
 }
@@ -81,8 +90,8 @@
 
 % -------------- Páginas --------------
 % -------------- Capa -------------- 
-\newcommand{\capa}{            
-    \begin{titlepage}            
+\newcommand{\capa}{                
+    \begin{titlepage}                
         \centering
         
         \@instituicao
@@ -109,8 +118,8 @@
 }
 
 % -------------- Folha de rosto --------------
-\newcommand{\folhaderosto}{            
-    \begin{titlepage}            
+\newcommand{\folhaderosto}{                
+    \begin{titlepage}                
         \centering
         
         \MakeUppercase{\@instituicao}
@@ -145,8 +154,8 @@
 }
 
 %  -------------- Resumo --------------
-\newcommand{\resumo}[1]{
-    \begin{center}
+\newcommand{\resumo}[1]{    
+    \begin{center}    
         \large\bfseries RESUMO
     \end{center}
     \input{#1}
@@ -155,8 +164,8 @@
 % -------------- Resumo  --------------
 
 %  -------------- Abstract --------------
-\newcommand{\abstracts}[1]{
-    \begin{center}
+\newcommand{\abstracts}[1]{    
+    \begin{center}    
         \large\bfseries ABSTRACT
     \end{center}
     \input{#1}
@@ -165,8 +174,8 @@
 % -------------- Abstract  --------------
 
 %  -------------- Lista de Siglas e Abreviaturas --------------
-\newcommand{\listadeabreviaturas}[1]{
-    \begin{center}
+\newcommand{\listadeabreviaturas}[1]{    
+    \begin{center}    
         \large\bfseries LISTA DE SIGLAS E ABREVIATURAS
     \end{center}
     \nopagebreak
@@ -176,7 +185,7 @@
 % -------------- Lista de Siglas e Abreviaturas  --------------
 
 % -------------- Sumário --------------
-\newcommand{\sumario}{    
+\newcommand{\sumario}{        
     \tableofcontents
     \thispagestyle{empty}
 }
@@ -187,7 +196,10 @@
 \renewcommand{\cftlottitlefont}{\hfill\large\bfseries\MakeUppercase}
 \renewcommand{\cftafterlottitle}{\hfill\mbox{}}
 
-\newcommand{\listadefiguras}{\listoffigures}
+\newcommand{\listadefiguras}{
+    \clearpage
+    \listoffigures
+}
 \newcommand{\listadetabelas}{\listoftables}
 
 % -------------- Capítulos -------------- 
@@ -219,6 +231,11 @@
 \onehalfspacing
 \setlength{\parskip}{12pt}
 
-\newcommand{\capitulo}[1]{            
+% Controle de linhas orfãs e viúvas (após \onehalfspacing para não ser sobrescrito pelo setspace)
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\newcommand{\capitulo}[1]{                
     \input{#1}
 }

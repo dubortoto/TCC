@@ -18,14 +18,14 @@ O sobreajuste (\textit{overfitting}) é um risco especialmente elevado em redes 
 
 \section{\textit{Autoencoder}}
 
-O Autoencoder é uma arquitetura de rede neural projetada para aprender representações compactas dos dados de forma não supervisionada \cite{bochie2020sbrc}. A rede é dividida em duas partes simétricas: o codificador (\textit{encoder}) mapeia a entrada $x$ para um vetor latente $z$ de dimensão reduzida, e o decodificador (\textit{decoder}) reconstrói a entrada $\hat{x}$ a partir de $z$. O objetivo do treinamento é minimizar o erro de reconstrução entre a entrada original e a saída reconstruída, tipicamente medido pelo erro quadrático médio:
+O \textit{Autoencoder} é uma arquitetura de rede neural projetada para aprender representações compactas dos dados de forma não supervisionada \cite{bochie2020sbrc}. A rede é dividida em duas partes simétricas: o codificador (\textit{encoder}) mapeia a entrada $x$ para um vetor latente $z$ de dimensão reduzida, e o decodificador (\textit{decoder}) reconstrói a entrada $\hat{x}$ a partir de $z$. O objetivo do treinamento é minimizar o erro de reconstrução entre a entrada original e a saída reconstruída, tipicamente medido pelo erro quadrático médio:
 \[
   \mathcal{L} = \frac{1}{n}\sum_{k=1}^{n}\left\|x_k - \hat{x}_k\right\|^2
 \]
 
 \textit{Autoencoders} subdimensionados possuem código de dimensão menor que a entrada, forçando o modelo a comprimir a informação e descartar ruído. \textit{Autoencoders} sobredimensionados, cujo código tem dimensão maior que a entrada, precisam de restrições adicionais para que não aprendam simplesmente a função identidade \cite{bochie2020sbrc}.
 
-Em aplicações de detecção de anomalias, o \textit{Autoencoder} é treinado exclusivamente com amostras benignas. Durante a inferência, amostras que pertencem a classes de ataque geram erro de reconstrução elevado, pois o modelo aprendeu apenas a representar o comportamento normal. Um limiar (\textit{threshold}) é definido sobre o erro de reconstrução para separar tráfego benigno de tráfego anômalo. Essa propriedade torna o Autoencoder especialmente adequado para a detecção de ataques inéditos (\textit{zero-day}), que não possuem exemplos rotulados no conjunto de treinamento.
+Em aplicações de detecção de anomalias, o \textit{Autoencoder} é treinado exclusivamente com amostras benignas. Durante a inferência, amostras que pertencem a classes de ataque geram erro de reconstrução elevado, pois o modelo aprendeu apenas a representar o comportamento normal. Um limiar (\textit{threshold}) é definido sobre o erro de reconstrução para separar tráfego benigno de tráfego anômalo. Essa propriedade torna o \textit{Autoencoder} especialmente adequado para a detecção de ataques inéditos (\textit{zero-day}), que não possuem exemplos rotulados no conjunto de treinamento.
 
 \section{Aplicação em Detecção de Intrusão}
 

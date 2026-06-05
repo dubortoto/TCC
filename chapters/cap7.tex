@@ -85,7 +85,7 @@ A Figura~\ref{fig:heatmap_baseline} reúne os F1-scores por classe dos seis expe
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{chapters/figures/grafico2_heatmap_baseline.pdf}
-    \caption{\textit{Heatmap} de F1-score por classe: \textit{Baseline} CICIDS2017 (DNN e \textit{Random Forest} nos três cenários)}
+    \caption{\textit{Heatmap} de F1-\textit{score} por classe: \textit{Baseline} CICIDS2017 (DNN e \textit{Random Forest} nos três cenários)}
     \label{fig:heatmap_baseline}
 \end{figure}
 
@@ -225,7 +225,7 @@ As Tabelas~\ref{table:dnn_lycos_reducao_mc} e \ref{table:dnn_lycos_reducao_metri
 
 \input{chapters/tables/MelhoriaC-LycoS-MDI/DNN-Completo-Métricas.tex}
 
-A combinação produziu desempenho inferior ao \textit{LycoS-IDS2017} sem redução. A macro F1 caiu de 0,87 para 0,77. A degradação foi concentrada nos ataques Web: \textit{webattack\_bruteforce} passou de F1 = 0,74 para 0,15, e \textit{webattack\_xss} de F1 = 0,51 para 0,00. As \textit{features} selecionadas por MDI no \textit{LycoS-IDS2017} não preservaram a discriminação dessas classes de baixo suporte. Curadoria e redução de dimensionalidade não se somaram: o MDI anulou parte do ganho obtido pelo dataset curado.
+A combinação produziu desempenho inferior ao \textit{LycoS-IDS2017} sem redução. A macro F1 caiu de 0,87 para 0,77. A degradação foi concentrada nos ataques Web: \textit{webattack\_bruteforce} passou de F1 = 0,74 para 0,15, e \textit{webattack\_xss} de F1 = 0,51 para 0,00. As \textit{features} selecionadas por MDI no \textit{LycoS-IDS2017} não preservaram a discriminação dessas classes de baixo suporte. Curadoria e redução de dimensionalidade não se somaram: o MDI anulou parte do ganho obtido pelo \textit{dataset} curado.
 
 \subsection{Generalização e Variante Balanceada}
 
@@ -245,11 +245,11 @@ Nas variantes de generalização, a macro F1 foi de 0,69 no Sem \textit{PortScan
 
 A variante balanceada atingiu macro F1 de 0,79, marginalmente acima do cenário sem balanceamento e abaixo da Melhoria A. A melhoria foi pontual: \textit{Heartbleed} subiu de F1 = 0,86 para 1,00, mas os ataques Web permaneceram com desempenho baixo.
 
-\section{Cenários D–G: Abordagem Não Supervisionada com Autoencoder}
+\section{Cenários D–G: Abordagem Não Supervisionada com \textit{Autoencoder}}
 
 Os Cenários D a G adotam uma abordagem não supervisionada. Um \textit{autoencoder}é treinado exclusivamente com tráfego \textit{BENIGN} e aprende a reconstruir o tráfego legítimo; amostras com alto erro de reconstrução são sinalizadas como ataque. O modelo produz classificação binária, sem distinção entre tipos de ataque. Os quatro experimentos combinam os dois \textit{datasets} com duas configurações de \textit{features}: todas as originais ou apenas as selecionadas por MDI.
 
-\subsection{Cenário D: Autoencoder no CICIDS2017}
+\subsection{Cenário D: \textit{Autoencoder} no CICIDS2017}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-CICIDS2017-Completo-Matriz-de-Confusão.tex}
 
@@ -257,13 +257,13 @@ Os Cenários D a G adotam uma abordagem não supervisionada. Um \textit{autoenco
 
 O \textit{autoencoder}treinado no \textit{CICIDS2017} atingiu acurácia de 0,86 e macro F1 de 0,74. Dos 167.349 registros de ataque no conjunto de teste, 86.742 foram classificados como \textit{BENIGN} e apenas 80.607 foram detectados corretamente. Do lado benigno, 34.470 dos 681.014 registros foram sinalizados como ataque. O limiar de erro de reconstrução não foi suficientemente rígido para separar os ataques com padrões de fluxo próximos ao tráfego legítimo.
 
-\subsection{Cenário E: Autoencoder no LycoS-IDS2017}
+\subsection{Cenário E: \textit{Autoencoder} no LycoS-IDS2017}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-LycoS-Completo-Matriz-de-Confusão.tex}
 
 \input{chapters/tables/MelhoriaD-G-Autoencoder/AE-LycoS-Completo-Métricas.tex}
 
-A troca para o \textit{LycoS-IDS2017} produziu o maior ganho entre as quatro configurações de autoencoder. A macro F1 subiu de 0,74 para 0,89 e o \textit{recall} de ataque de 0,48 para 0,82. Dos 132.611 registros de ataque, apenas 23.466 foram classificados como \textit{BENIGN}. O impacto da curadoria de dados foi ainda mais pronunciado no \textit{autoencoder}do que nos modelos supervisionados. A remoção de registros ruidosos e rótulos incorretos no \textit{LycoS} tornou o conjunto de treino BENIGN mais homogêneo, o que permitiu ao \textit{autoencoder}aprender uma representação mais compacta do tráfego legítimo.
+A troca para o \textit{LycoS-IDS2017} produziu o maior ganho entre as quatro configurações de \textit{autoencoder}. A macro F1 subiu de 0,74 para 0,89 e o \textit{recall} de ataque de 0,48 para 0,82. Dos 132.611 registros de ataque, apenas 23.466 foram classificados como \textit{BENIGN}. O impacto da curadoria de dados foi ainda mais pronunciado no \textit{autoencoder}do que nos modelos supervisionados. A remoção de registros ruidosos e rótulos incorretos no \textit{LycoS} tornou o conjunto de treino BENIGN mais homogêneo, o que permitiu ao \textit{autoencoder}aprender uma representação mais compacta do tráfego legítimo.
 
 \subsection{Cenário F: Autoencoder no CICIDS2017 com MDI}
 
