@@ -4,3 +4,4 @@ dataset/
 build/
 $BuildDir/
 Termo de aceite/
+scripts/.venv/

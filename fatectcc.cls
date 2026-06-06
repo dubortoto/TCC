@@ -32,6 +32,7 @@
 \newcommand{\@cidade}{}
 \newcommand{\@ano}{}
 \newcommand{\@preambulo}{}
+\newcommand{\@orientador}{}
 
 \newcommand{\autor}[1]{\renewcommand{\@autor}{#1}}
 \newcommand{\titulo}[1]{\renewcommand{\@titulo}{#1}}
@@ -39,6 +40,8 @@
 \newcommand{\cidade}[1]{\renewcommand{\@cidade}{#1}}
 \newcommand{\ano}[1]{\renewcommand{\@ano}{#1}}
 \newcommand{\preambulo}[1]{\renewcommand{\@preambulo}{#1}}
+
+\newcommand{\orientador}[1]{\renewcommand{\@orientador}{#1}}
 
 % Comandos em português para bibliografia
 \newcommand{\adicionarbibliografia}[1]{\addbibresource{#1}}
@@ -48,7 +51,7 @@
 \renewcommand{\familydefault}{\sfdefault}
 
 % Margens ABNT
-\geometry{            
+\geometry{                    
     a4paper,
     top=3cm,
     left=3cm,
@@ -57,11 +60,20 @@
 }
 
 % Configurações de hyperlinks
-\hypersetup{            
+\hypersetup{    
     colorlinks=true,
     linkcolor=black,
     urlcolor=blue,
     citecolor=black
+}
+
+% Nomes em português para \autoref{}
+\addto\captionsbrazilian{%
+    \def\tableautorefname{Tabela}%
+    \def\figureautorefname{Figura}%
+    \def\chapterautorefname{Capítulo}%
+    \def\sectionautorefname{Seção}%
+    \def\subsectionautorefname{Subseção}%
 }
 
 % Configuração de cabeçalhos e rodapés
@@ -70,7 +82,7 @@
 \fancyfoot[R]{\thepage}
 \renewcommand{\headrulewidth}{0pt}  % Remove a linha do cabeçalho
 
-\fancypagestyle{plain}{            
+\fancypagestyle{plain}{                    
     \fancyhf{}                      % Limpa os campos de cabeçalho e rodapé 
     \fancyfoot[R]{\thepage}         % Número da página no rodapé direito
 }
@@ -81,8 +93,8 @@
 
 % -------------- Páginas --------------
 % -------------- Capa -------------- 
-\newcommand{\capa}{            
-    \begin{titlepage}            
+\newcommand{\capa}{                    
+    \begin{titlepage}                    
         \centering
         
         \@instituicao
@@ -109,8 +121,8 @@
 }
 
 % -------------- Folha de rosto --------------
-\newcommand{\folhaderosto}{            
-    \begin{titlepage}            
+\newcommand{\folhaderosto}{                    
+    \begin{titlepage}                    
         \centering
         
         \MakeUppercase{\@instituicao}
@@ -144,9 +156,60 @@
     \end{titlepage}
 }
 
+% Termo de aprovação
+\newcommand{\termoaprovacao}{
+    \begin{titlepage}
+        \centering
+
+        {\bfseries\MakeUppercase{\@instituicao}}
+
+        {\bfseries\MakeUppercase{\@autor}}
+
+        \vspace{1.5cm}
+
+        \begin{minipage}{0.8\textwidth}
+            {\@titulo}.
+            Trabalho submetido como exigência parcial para a obtenção do Grau de Tecnólogo em
+            Análise e Desenvolvimento de Sistemas. Parecer do Professor Orientador:
+            \noindent\rule{\linewidth}{0.4pt}\\
+            \noindent\rule{\linewidth}{0.4pt}\\
+            \noindent\rule{\linewidth}{0.4pt}\\
+            \noindent\rule{\linewidth}{0.4pt}
+        \end{minipage}
+
+        \vspace{0.8cm}
+
+        \begin{minipage}{0.8\textwidth}
+            Conceito/Nota Final: \underline{\hspace{2cm}}
+        \end{minipage}
+
+        \vspace{1cm}
+
+        \begin{minipage}{0.8\textwidth}
+            \textbf{Atesto o conteúdo contido na postagem do ambiente TEAMS pelo aluno e
+            assinada por mim para avaliação do TCC.}
+        \end{minipage}
+
+        \vspace{1cm}
+
+        \begin{minipage}{0.8\textwidth}
+            \hfill Orientadora: \@orientador
+        \end{minipage}
+
+        \vfill
+
+        \begin{minipage}{0.8\textwidth}
+            \hfill\@cidade, \underline{\hspace{1cm}} de Junho de \@ano.\\
+
+            \hfill Assinatura do Orientador
+        \end{minipage}
+
+    \end{titlepage}
+}
+
 %  -------------- Resumo --------------
-\newcommand{\resumo}[1]{
-    \begin{center}
+\newcommand{\resumo}[1]{        
+    \begin{center}        
         \large\bfseries RESUMO
     \end{center}
     \input{#1}
@@ -155,8 +218,8 @@
 % -------------- Resumo  --------------
 
 %  -------------- Abstract --------------
-\newcommand{\abstracts}[1]{
-    \begin{center}
+\newcommand{\abstracts}[1]{        
+    \begin{center}        
         \large\bfseries ABSTRACT
     \end{center}
     \input{#1}
@@ -165,8 +228,8 @@
 % -------------- Abstract  --------------
 
 %  -------------- Lista de Siglas e Abreviaturas --------------
-\newcommand{\listadeabreviaturas}[1]{
-    \begin{center}
+\newcommand{\listadeabreviaturas}[1]{        
+    \begin{center}        
         \large\bfseries LISTA DE SIGLAS E ABREVIATURAS
     \end{center}
     \nopagebreak
@@ -176,7 +239,7 @@
 % -------------- Lista de Siglas e Abreviaturas  --------------
 
 % -------------- Sumário --------------
-\newcommand{\sumario}{    
+\newcommand{\sumario}{            
     \tableofcontents
     \thispagestyle{empty}
 }
@@ -187,7 +250,10 @@
 \renewcommand{\cftlottitlefont}{\hfill\large\bfseries\MakeUppercase}
 \renewcommand{\cftafterlottitle}{\hfill\mbox{}}
 
-\newcommand{\listadefiguras}{\listoffigures}
+\newcommand{\listadefiguras}{    
+    \clearpage
+    \listoffigures
+}
 \newcommand{\listadetabelas}{\listoftables}
 
 % -------------- Capítulos -------------- 
@@ -219,6 +285,11 @@
 \onehalfspacing
 \setlength{\parskip}{12pt}
 
-\newcommand{\capitulo}[1]{            
+% Controle de linhas orfãs e viúvas (após \onehalfspacing para não ser sobrescrito pelo setspace)
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\newcommand{\capitulo}[1]{                    
     \input{#1}
 }
